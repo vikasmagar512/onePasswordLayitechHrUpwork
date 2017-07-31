@@ -1,5 +1,5 @@
 
-# inteliement-Assignment
+# Inteliment-Assignment
 
 React Redux Authentication System
 
