@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound should match its empty snapshot 1`] = `
+<div
+  className="container"
+>
+  <p>
+    Seems like you took the wrong way.
+  </p>
+  <a
+    onClick={[Function]}
+    style={Object {}}
+  >
+    Go to Homepage 
+  </a>
+</div>
+`;

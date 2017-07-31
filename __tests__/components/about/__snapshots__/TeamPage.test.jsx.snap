@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeamPage should match its empty snapshot 1`] = `
+<div>
+  <p>
+    Team
+  </p>
+</div>
+`;

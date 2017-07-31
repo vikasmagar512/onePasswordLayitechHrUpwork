@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutPage should match its empty snapshot 1`] = `
+<div>
+  <p>
+    Explore below section to know more about your team and also let other's know about you.
+  </p>
+  <p>
+    coming soon!
+  </p>
+  <ul
+    className="nav nav-tabs"
+  >
+    <li>
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+         Profile  
+      </a>
+    </li>
+    <li>
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+         Team
+      </a>
+    </li>
+    <li>
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+         Contact
+      </a>
+    </li>
+  </ul>
+</div>
+`;
