@@ -1,0 +1,18 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}var SessionApi = function () {function SessionApi() {_classCallCheck(this, SessionApi);}_createClass(SessionApi, null, [{ key: 'login', value: function login(
+    credentials) {
+      var request = new Request(process.env.API_HOST + '/login', {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json' }),
+
+        body: JSON.stringify({ auth: credentials }) });
+
+      return fetch(request).then(function (response) {
+        return response.json();
+      }).catch(function (error) {
+        return error;
+      });
+    } }]);return SessionApi;}();exports.default =
+
+
+SessionApi;

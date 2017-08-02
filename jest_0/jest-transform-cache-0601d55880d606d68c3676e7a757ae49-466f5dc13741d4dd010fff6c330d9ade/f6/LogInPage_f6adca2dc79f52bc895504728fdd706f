@@ -1,0 +1,174 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _createReactClass = require('create-react-class');var _createReactClass2 = _interopRequireDefault(_createReactClass);
+var _propTypes = require('prop-types');var _propTypes2 = _interopRequireDefault(_propTypes);
+var _reactRouter = require('react-router');
+
+var _TextInput = require('./common/TextInput');var _TextInput2 = _interopRequireDefault(_TextInput);
+var _redux = require('redux');
+var _reactRedux = require('react-redux');
+var _reactDom = require('react-dom');
+var _sessionActions = require('../actions/sessionActions');var sessionActions = _interopRequireWildcard(_sessionActions);function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}
+
+var email = void 0,password = void 0;var
+LogInPage = function (_Component) {_inherits(LogInPage, _Component);
+
+  function LogInPage(props) {_classCallCheck(this, LogInPage);var _this = _possibleConstructorReturn(this, (LogInPage.__proto__ || Object.getPrototypeOf(LogInPage)).call(this,
+    props));
+    _this.state = {
+      data: {
+        email: 'vikasmagar512@gmail.com',
+        password: 'pwd' },
+
+      loading: false,
+      success: false,
+      message: '',
+      errors: {
+        email: '',
+        password: '' },
+
+      valid: {
+        form: true,
+        email: true,
+        password: true } };
+
+
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onSave = _this.onSave.bind(_this);
+    _this.checkError = _this.checkError.bind(_this);return _this;
+  }_createClass(LogInPage, [{ key: 'componentWillReceiveProps', value: function componentWillReceiveProps(
+    nextProps) {
+      var loginResponse = nextProps.state.session.loginResponse;
+      console.log('here loginResponse is ', loginResponse);
+      var newState = Object.assign({}, this.state);
+      newState.loading = false;
+      newState.errors = loginResponse.errors;
+      newState.message = loginResponse.message;
+      newState.success = loginResponse.success;
+      this.setState(newState);
+
+      if (newState.success) {
+        //logged in successfully redirect to about page
+        _reactRouter.browserHistory.push('/about');
+      }
+      // setTimeout(function() {}, 5000);
+    } }, { key: 'validateField', value: function validateField(
+    fieldName, value) {
+      var fieldValidationErrors = this.state.errors;
+      var emailValid = this.state.valid.email;
+      var passwordValid = this.state.valid.password;
+
+      switch (fieldName) {
+        case 'email':
+          emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) ? true : false;
+          fieldValidationErrors.email = emailValid ? '' : 'Please enter valid email.';
+          break;
+        case 'password':
+          passwordValid = value.length > 0;
+          fieldValidationErrors.password = passwordValid ? '' : ' Please enter your password.';
+          break;
+        default:
+          break;}
+
+      var newState = Object.assign({}, this.state);
+      newState.errors = fieldValidationErrors;
+      newState.valid.email = emailValid;
+      newState.valid.password = passwordValid;
+      this.setState(newState, this.validateForm);
+    } }, { key: 'validateForm', value: function validateForm()
+    {
+      var newState = Object.assign({}, this.state);
+      newState.valid.form = newState.valid.email && newState.valid.password;
+      this.setState(newState);
+    } }, { key: 'onChange', value: function onChange(
+
+    event) {var _this2 = this;
+      var field = event.target.name;
+      var value = event.target.value;
+      var credentials = this.state.data;
+      credentials[field] = value;
+
+      var newState = Object.assign({}, this.state);
+      newState.data = credentials;
+      this.setState(newState, function () {_this2.validateField(field, value);});
+    } }, { key: 'onSave', value: function onSave(
+
+    event) {
+      event.preventDefault();
+      var newState = Object.assign({}, this.state);
+      newState.loading = true;
+      newState.errors.email = "";
+      newState.errors.password = "";
+      this.setState(newState);
+
+      this.props.actions.loginUser(this.state.data);
+    } }, { key: 'checkError', value: function checkError(
+    error) {
+      var wrapperClass = 'input-group';
+      if (error && error.length > 0) {
+        wrapperClass += " " + 'has-error';
+      }
+      return wrapperClass;
+    } }, { key: 'render', value: function render()
+
+    {
+      var errorLabelStyle = { marginLeft: '40px' };
+      var submitText = 'Login';
+      if (this.state.loading) {
+        submitText = 'Logging in';
+      }
+      console.log('here state is ', this.state);
+      return (
+
+        _react2.default.createElement('div', { className: 'container' },
+          _react2.default.createElement('div', { style: { marginTop: '50px' }, className: 'mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2' },
+            _react2.default.createElement('div', { className: 'panel panel-info' },
+              _react2.default.createElement('div', { className: 'panel-heading' },
+                _react2.default.createElement('div', { className: 'panel-title' }, 'Sign In')),
+
+              _react2.default.createElement('div', { style: { paddingTop: '30px' }, className: 'panel-body' },
+                _react2.default.createElement('div', { style: { display: 'none' }, id: 'login-alert', className: 'alert alert-danger col-sm-12' }),
+                _react2.default.createElement('form', { role: 'form', id: 'form' },
+                  _react2.default.createElement(_TextInput2.default, {
+                    name: 'email',
+                    label: 'email',
+                    type: 'email',
+                    error: this.state.errors.email,
+                    glyphicon: 'glyphicon-user',
+                    placeholder: 'username',
+                    autofocus: 'autoFocus',
+                    value: this.state.data.email,
+                    onChange: this.onChange }),
+
+                  _react2.default.createElement(_TextInput2.default, {
+                    name: 'password',
+                    label: 'password',
+                    type: 'password',
+                    error: this.state.errors.password,
+                    glyphicon: 'glyphicon-lock',
+                    placeholder: 'password',
+                    autofocus: null,
+                    value: this.state.data.password,
+                    onChange: this.onChange }),
+
+                  _react2.default.createElement('button', { type: 'submit', className: 'btn btn-default btn-primary', onClick: this.onSave, disabled: !this.state.valid.form || this.state.loading }, _react2.default.createElement('i', { className: 'fa fa-spinner fa-spin' }), submitText)))))));
+
+
+
+
+
+
+
+    } }]);return LogInPage;}(_react.Component);
+
+/*LogInPage.propTypes = {
+                                                  actions:PropTypes.func.isRequired
+                                                };*/
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: (0, _redux.bindActionCreators)(sessionActions, dispatch) };
+
+}
+function mapStateToProps(state, ownProps) {
+  return { state: state };
+}exports.default =
+(0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LogInPage);

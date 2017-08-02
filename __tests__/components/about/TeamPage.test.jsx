@@ -1,4 +1,3 @@
-
 import React,{Component} from 'react';
 import createReactClass from  'create-react-class';
 import PropTypes from 'prop-types'

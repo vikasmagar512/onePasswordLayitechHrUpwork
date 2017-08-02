@@ -1,0 +1,53 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });
+var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _propTypes = require('prop-types');var _propTypes2 = _interopRequireDefault(_propTypes);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var TextInput = function TextInput(_ref) {var name = _ref.name,label = _ref.label,glyphicon = _ref.glyphicon,onChange = _ref.onChange,placeholder = _ref.placeholder,value = _ref.value,error = _ref.error,type = _ref.type,autoFocus = _ref.autoFocus;
+  var errorLabelStyle = { marginLeft: '40px' };
+  var wrapperClass = 'input-group';
+  if (error && error.length > 0) {
+    wrapperClass += " " + 'has-error';
+  }
+  var glyphicon_class = "glyphicon " + glyphicon;
+
+  return (
+    _react2.default.createElement('div', { className: 'form-group' },
+      _react2.default.createElement('div', { className: wrapperClass },
+        _react2.default.createElement('span', { className: 'input-group-addon' }, _react2.default.createElement('i', { className: glyphicon_class })),
+        _react2.default.createElement('input', {
+          className: 'form-control',
+          type: type,
+          name: name,
+          placeholder: placeholder,
+          value: value,
+          onChange: onChange,
+          required: 'required',
+          autoFocus: autoFocus })),
+
+
+      error && _react2.default.createElement('label', { style: errorLabelStyle, className: 'help-block text-danger' }, error)));
+
+
+};
+
+TextInput.propTypes = {
+  name: _propTypes2.default.string.isRequired,
+  label: _propTypes2.default.string.isRequired,
+  glyphicon: _propTypes2.default.string.isRequired,
+  onChange: _propTypes2.default.func.isRequired,
+  placeholder: _propTypes2.default.string,
+  value: _propTypes2.default.string,
+  type: _propTypes2.default.string,
+  error: _propTypes2.default.string,
+  autoFocus: _propTypes2.default.string.isRequired };
+
+TextInput.defaultProps = {
+  name: _propTypes2.default.string,
+  label: "",
+  type: "text",
+  glyphicon: "glyphicon-user",
+  onChange: _propTypes2.default.func,
+  value: "",
+  autoFocus: "autoFocus" };exports.default =
+
+
+TextInput;

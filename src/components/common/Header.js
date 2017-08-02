@@ -27,7 +27,7 @@ class Header extends Component {
             </div>
             <ul className="nav navbar-nav">
               {this.props.logged_in.session && <li><Link to="/about"> About</Link></li>}
-              <li><Link to="info"> Info</Link></li>
+              <li><Link to="/info"> Info</Link></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               {this.props.logged_in.session 

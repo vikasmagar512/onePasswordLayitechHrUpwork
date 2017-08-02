@@ -1,0 +1,33 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();
+var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _createReactClass = require('create-react-class');var _createReactClass2 = _interopRequireDefault(_createReactClass);
+var _propTypes = require('prop-types');var _propTypes2 = _interopRequireDefault(_propTypes);
+var _reactRouter = require('react-router');
+var _reactRedux = require('react-redux');function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}var
+
+
+HomePage = function (_Component) {_inherits(HomePage, _Component);function HomePage() {_classCallCheck(this, HomePage);return _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).apply(this, arguments));}_createClass(HomePage, [{ key: 'render', value: function render()
+
+    {
+      var loginButton = null;
+      if (!this.props.logged_in.session) {
+        loginButton = _react2.default.createElement(_reactRouter.Link, { to: 'login', className: 'btn btn-primary btn-lg' }, 'log in as a test user');
+      }
+      return (
+        _react2.default.createElement('div', null,
+          _react2.default.createElement('h2', null, 'Inteliment Assignment'),
+          _react2.default.createElement('p', null, 'React Redux Authentication Application '),
+          loginButton));
+
+
+    } }]);return HomePage;}(_react.Component);
+
+
+HomePage.propTypes = {
+  logged_in: _propTypes2.default.object.isRequired };
+
+function mapStateToProps(state, ownProps) {
+  return { logged_in: state.session };
+}exports.default =
+
+(0, _reactRedux.connect)(mapStateToProps)(HomePage);

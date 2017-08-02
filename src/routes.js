@@ -24,13 +24,13 @@ import {requireAuthentication} from './requireAuthentication';
 export default(
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
-    <Route path="/login" component={handleRedirection(LogInPage)} />
-    <Route path="/about" component={requireAuthentication(AboutPage)}>
-      <Route path="/about/profile" component={ProfilePage} />
-      <Route path="/about/team" component={TeamPage} />
-      <Route path="/about/contact" component={ContactPage} />
+    <Route path="login" component={handleRedirection(LogInPage)} />
+    <Route path="about" component={requireAuthentication(AboutPage)}>
+      <Route path="profile" component={ProfilePage} />
+      <Route path="team" component={TeamPage} />
+      <Route path="contact" component={ContactPage} />
     </Route>
-    <Route path="/info" component={InfoPage} />
+    <Route path="info" component={InfoPage} />
     <Route path="*" component={NotFound}/>
   </Route>
 );

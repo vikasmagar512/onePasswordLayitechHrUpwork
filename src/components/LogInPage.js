@@ -38,11 +38,12 @@ class LogInPage extends Component {
   }
   componentWillReceiveProps(nextProps) {
     let loginResponse = nextProps.state.session.loginResponse;
+    console.log('here loginResponse is ',loginResponse)
     let newState = Object.assign({},this.state);
     newState.loading = false;
     newState.errors = loginResponse.errors;
     newState.message = loginResponse.message;
-    newState.success= loginResponse.success;
+    newState.success = loginResponse.success;
     this.setState(newState);
 
     if(newState.success){
@@ -115,6 +116,7 @@ class LogInPage extends Component {
     if(this.state.loading){
       submitText = 'Logging in';
     }
+    console.log('here state is ',this.state);
     return (
       
       <div className="container">    

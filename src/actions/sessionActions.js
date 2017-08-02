@@ -17,18 +17,17 @@ export function logOutUser() {
 export function loginUser(credentials) {
   return function(dispatch) {
     // No request to web server
-    /*let flag = sessionApi.login(credentials);
-    if (flag.success){
-      sessionStorage.setItem('jwt', true);
-      dispatch(loginSuccess(flag));
-    }else {
-      dispatch(loginFailure(flag));
-    }*/
-    
-    
+      /*let flag = login(credentials);
+      if (flag.success){
+        sessionStorage.setItem('jwt', true);
+        // dispatch(loginSuccess(flag));
+        dispatch({type: types.LOG_IN_SUCCESS,response:flag});
+      }else {
+        dispatch(loginFailure(flag));
+      }*/
+
     // Request to web server
     return sessionApi.login(credentials).then(response => {
-      // let flag = sessionApi.login(credentials);
       let flag = response;
       if (flag.success){
         sessionStorage.setItem('jwt', true);
@@ -40,5 +39,5 @@ export function loginUser(credentials) {
       throw(error);
     }); 
   };
-
 }
+

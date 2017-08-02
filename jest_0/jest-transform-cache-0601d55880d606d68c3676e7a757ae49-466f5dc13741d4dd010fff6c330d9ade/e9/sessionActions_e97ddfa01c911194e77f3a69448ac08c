@@ -1,0 +1,42 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });exports.
+
+
+
+
+loginSuccess = loginSuccess;exports.
+
+
+loginFailure = loginFailure;exports.
+
+
+
+logOutUser = logOutUser;exports.
+
+
+
+loginUser = loginUser;var _actionTypes = require('./actionTypes');var types = _interopRequireWildcard(_actionTypes);var _SessionApi = require('../api/SessionApi');var _SessionApi2 = _interopRequireDefault(_SessionApi);var _authenticator = require('../auth/authenticator');var _authenticator2 = _interopRequireDefault(_authenticator);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];}}newObj.default = obj;return newObj;}}function loginSuccess(response) {return { type: types.LOG_IN_SUCCESS, response: response };}function loginFailure(response) {return { type: types.LOG_IN_FAILURE, response: response };}function logOutUser() {_authenticator2.default.logOut();return { type: types.LOG_OUT };}function loginUser(credentials) {
+  return function (dispatch) {
+    // No request to web server
+    /*let flag = login(credentials);
+    if (flag.success){
+      sessionStorage.setItem('jwt', true);
+      // dispatch(loginSuccess(flag));
+      dispatch({type: types.LOG_IN_SUCCESS,response:flag});
+    }else {
+      dispatch(loginFailure(flag));
+    }*/
+
+    // Request to web server
+    return _SessionApi2.default.login(credentials).then(function (response) {
+      var flag = response;
+      if (flag.success) {
+        sessionStorage.setItem('jwt', true);
+        dispatch(loginSuccess(flag));
+      } else {
+        dispatch(loginFailure(flag));
+      }
+    }).catch(function (error) {
+      throw error;
+    });
+  };
+}
