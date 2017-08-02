@@ -34,12 +34,18 @@ app.post('/login', (req, res) => {
 	return res.status(200).json(ret);
 });
 
-
+/*
 app.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
     open(`http://localhost:${port}`);
   }
-});
+});*/
+
+  // Initialize the app.
+  var server = app.listen(process.env.PORT || 8080, function () {
+    var port = server.address().port;
+    console.log("App now running on port", port);
+  });
 
