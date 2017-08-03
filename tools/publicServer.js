@@ -17,17 +17,17 @@ app.use(favicon(path.join(__dirname,'assets','public','favicon.ico')));
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
-/*
+
 app.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
     open(`http://localhost:${port}`);
   }
-});*/
+});
 
   // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
+ /* var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
-  });
+  });*/
