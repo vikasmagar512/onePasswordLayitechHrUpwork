@@ -3,9 +3,13 @@
 
 React Redux Authentication System
 
-Demo login Provided
-	username = vikasmagar512@gmail.com
-	password = pwd
+Uses node server running at port 3000
+Demo login
+ * username = vikasmagar512@gmail.com
+ * passsword = pwd
+ 
+Improvements
+ * JWT Authentication
 
 ### Technology
 * React
@@ -20,22 +24,11 @@ sudo npm install
 sudo npm start 
 ```
 
-### Technology
- * React
- * Redux
- * React Router
- * Redux Thunk middleware
-
 ### Tests
+ Tests are written for few components using Jest
 ``` 
 sudo npm test 
 ```
-
-### Uses:
-* React
-* Redux
-* React Router
-* Redux Thunk middleware
 
 ### Production
  ```sudo npm prebuild```
