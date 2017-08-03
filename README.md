@@ -3,7 +3,7 @@
 
 React Redux Authentication System
 
-Uses node server running at port:3000
+Uses node server running at port:5000
  * username = vikasmagar512@gmail.com
  * passsword = pwd
  
