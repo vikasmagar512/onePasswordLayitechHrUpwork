@@ -33,7 +33,7 @@ sudo npm test
 
 ### Production
  ```
-sudo npm prebuild
-sudo npm build
+sudo npm run prebuild
+sudo npm run build
  ```
 
