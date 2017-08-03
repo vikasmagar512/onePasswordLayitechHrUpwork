@@ -3,7 +3,7 @@
 
 React Redux Authentication System
 
-Live on https://inteliment-assignment.herokuapp.com/login
+Live on https://inteliment-assignment.herokuapp.com
 
 Uses node server running at port:3000
  * username = vikasmagar512@gmail.com
