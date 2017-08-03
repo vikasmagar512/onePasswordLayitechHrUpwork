@@ -7,7 +7,7 @@ import favicon from 'serve-favicon';
 import {login} from './helperFunctions';
 
 /* eslint-disable no-console */
-const port = 3000;
+const port = process.env.PORT || 5000;
 const app = express();
 const compiler = webpack(config);
 const bodyParser = require('body-parser');
@@ -39,6 +39,7 @@ app.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
+    console.log("App now running on port", port);
     open(`http://localhost:${port}`);
   }
 });
