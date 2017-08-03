@@ -7,7 +7,7 @@ import favicon from 'serve-favicon';
 
 /*eslint-disable no-console */
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(compression());
@@ -22,6 +22,7 @@ app.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
+    console.log("App now running on port", port);
     open(`http://localhost:${port}`);
   }
 });
