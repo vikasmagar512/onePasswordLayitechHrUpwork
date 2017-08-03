@@ -3,8 +3,7 @@
 
 React Redux Authentication System
 
-Uses node server running at port 3000
-Demo login
+Uses node server running at port:3000
  * username = vikasmagar512@gmail.com
  * passsword = pwd
  
@@ -31,5 +30,8 @@ sudo npm test
 ```
 
 ### Production
- ```sudo npm prebuild```
+ ```
+sudo npm prebuild
+sudo npm build
+ ```
 
