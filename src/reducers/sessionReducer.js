@@ -6,7 +6,6 @@ export default function sessionReducer(state = initialState, action) {
   
   switch(action.type) {
     case types.LOG_IN_SUCCESS:{
-      console.log('came here login success ',action.response);
       return Object.assign({}, state, {
         loginResponse: action.response,
         session : !!sessionStorage.jwt
