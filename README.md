@@ -1,5 +1,5 @@
 
-# Inteliment-Assignment
+# React-Redux Thunk Middleware Authentication System
 
 React Redux Authentication System
 A simple responsive app using React, Redux, CSS3 which has a login screen.
