@@ -1,65 +1,65 @@
 import React,{Component} from 'react';
-import createReactClass from  'create-react-class';
-
+import Login from '../Login'
+import Logout from '../Logout'
 import PropTypes from 'prop-types';
 import {Link, IndexLink } from 'react-router';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as sessionActions from '../../actions/sessionActions';
-
+import {logoutUser,loginUser} from "../../actions/sessionActions";
 
 class Header extends Component {
-  constructor(props) {
-    super();
-    this.logOut = this.logOut.bind(this);
-  }
+    render(){
+        const { isAuthenticated, errorMessage, loginUser, logoutUser} = this.props
+        return (
+              <div className="row">
+                  <div className="navbar-header">
+                      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                          <span className="sr-only">Toggle navigation</span>
+                          <span className="icon-bar"/>
+                          <span className="icon-bar"/>
+                          <span className="icon-bar"/>
+                      </button>
+                      {/*<a className="navbar-brand" href="#">Web Application Vulnerability Testing</a>*/}
+                      <IndexLink className="navbar-brand" to="/">Web Application Vulnerability Testing</IndexLink>
+                  </div>
+                  <div className="navbar-header navbar-right">
+                      {isAuthenticated
+                        ?
+                            <Logout onLogoutClick={logoutUser}/>
+                        :
+                            <Login onLoginClick={loginUser} errorMessage={errorMessage}/>
+                      }
+                  </div>
+              </div>
+        )
+    }
+}
 
-  logOut(event) {
-    event.preventDefault();
-    this.props.actions.logOutUser();
-  }
-  render() {
-      return (
-        <nav className="navbar navbar-inverse">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <IndexLink className="navbar-brand" to="/">Assignment</IndexLink>
-            </div>
-            <ul className="nav navbar-nav">
-              {this.props.logged_in.session && <li><Link to="/about"> About</Link></li>}
-              <li><Link to="/info"> Info</Link></li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              {this.props.logged_in.session 
-                ?  
-                  <li><a href="Logout" onClick={this.logOut}><span className="glyphicon glyphicon-log-out"></span> Logout</a></li> 
-                :
-                 <li><Link to="/login"><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>}
-            </ul>
-          </div>
-        </nav> 
-    );
-  }
+const mapDispatchToProps = (dispatch,getState) => {
+    return {
+
+        loginUser:(creds)=>{
+            dispatch(loginUser(creds))
+        },
+        logoutUser:()=>{
+            dispatch(logoutUser())
+        }
+    }
 }
 
 Header.propTypes = {
-  actions: PropTypes.object.isRequired,
-  logged_in:PropTypes.object.isRequired
-};
-Header.defaultProps = {
-  logged_in:{
-    session:false
-  }
-};
-
-function mapStateToProps(state, ownProps) {
-  return {logged_in: state.session};
+    isAuthenticated: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired,
+    loginUser:PropTypes.func.isRequired,
+    logoutUser:PropTypes.func.isRequired
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(sessionActions, dispatch)
-  };
+function mapStateToProps(state) {
+    const { auth } = state
+    const { isAuthenticated, errorMessage } = auth
+    return {
+        isAuthenticated,
+        errorMessage
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

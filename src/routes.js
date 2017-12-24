@@ -16,6 +16,7 @@ import ContactPage from './components/about/ContactPage';
 import ProfilePage from './components/about/ProfilePage';
 
 import LogInPage from './components/LogInPage';
+import Root from './components/scriptsMultipurpose';
 import auth from './auth/authenticator';
 
 import {handleRedirection} from './handleRedirection';
@@ -31,6 +32,7 @@ export default(
       <Route path="contact" component={ContactPage} />
     </Route>
     <Route path="info" component={InfoPage} />
+    <Route path="/scan/cross_site_req_forgery" component={Root} />
     <Route path="*" component={NotFound}/>
   </Route>
 );

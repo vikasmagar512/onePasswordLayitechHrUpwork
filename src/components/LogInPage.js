@@ -126,7 +126,7 @@ class LogInPage extends Component {
               <div className="panel-title">Sign In</div>
             </div>     
             <div style={{paddingTop:'30px'}} className="panel-body" >
-              <div style={{display:'none'}} id="login-alert" className="alert alert-danger col-sm-12"></div>
+              <div style={{display:'none'}} id="login-alert" className="alert alert-danger col-sm-12"/>
               <form role="form" id="form">
                 <TextInput
                   name="email"

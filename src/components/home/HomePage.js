@@ -10,7 +10,7 @@ class HomePage extends Component {
 
   render() {
     let loginButton =null; 
-    if (!this.props.logged_in.session ) {
+    if (!this.props.isAuthenticated) {
       loginButton = <Link to="login" className="btn btn-primary btn-lg">log in as a test user</Link>;
     }
     return (
@@ -24,10 +24,10 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  logged_in:PropTypes.object.isRequired
+    isAuthenticated:PropTypes.bool.isRequired
 };
 function mapStateToProps(state, ownProps) {
-  return {logged_in: state.session};
+  return {isAuthenticated: state.auth.isAuthenticated};
 }
 
 export default connect(mapStateToProps)(HomePage);
