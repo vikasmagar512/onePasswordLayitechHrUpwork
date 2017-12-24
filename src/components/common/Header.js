@@ -36,7 +36,6 @@ class Header extends Component {
 
 const mapDispatchToProps = (dispatch,getState) => {
     return {
-
         loginUser:(creds)=>{
             dispatch(loginUser(creds))
         },

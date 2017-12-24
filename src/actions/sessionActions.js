@@ -1,7 +1,10 @@
 import sessionApi from '../api/SessionApi';
 import auth from '../auth/authenticator';
 const BASE_URL ='http://35.167.23.92'
-import {LOG_IN_FAILURE,LOG_IN_SUCCESS,LOGIN_SUCCESS,LOGIN_FAILURE,LOGIN_REQUEST,LOGOUT_SUCCESS,LOGOUT_REQUEST} from "./actionTypes";
+import {
+    LOG_IN_FAILURE, LOG_IN_SUCCESS, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
+    OPEN_MODAL, CLOSE_MODAL, MODAL_INPUT_CHANGE, INPUT_CHANGE, BACK_BUTTON, ADD_MORE_PARAMS, EDIT_LOGIN_CREDENTIALS
+} from "./actionTypes";
 
 export function loginSuccess(response) {
   return {type: LOG_IN_SUCCESS,response:response}
@@ -56,6 +59,51 @@ function requestLogin(creds) {
     }
 }
 
+export function openModal() {
+    return {
+        type: OPEN_MODAL
+    }
+}
+
+export function closeModal() {
+    return {
+        type: CLOSE_MODAL
+    }
+}
+
+export function onModalInputChange(data) {
+    return {
+        type: MODAL_INPUT_CHANGE,
+        data
+    }
+}
+
+export function editLoginCredentials(data) {
+    return {
+        type: EDIT_LOGIN_CREDENTIALS,
+        data
+    }
+}
+export function inputChange(data) {
+    return {
+        type: INPUT_CHANGE,
+        data
+    }
+}
+
+export function backButtonHandle(data) {
+    return {
+        type: BACK_BUTTON,
+        data
+    }
+}
+
+export function addMoreParams(data) {
+    return {
+        type: ADD_MORE_PARAMS,
+        data
+    }
+}
 function receiveLogin(user) {
     return {
         type: LOGIN_SUCCESS,
@@ -64,7 +112,6 @@ function receiveLogin(user) {
         id_token: user.id_token
     }
 }
-
 function loginError(message) {
     return {
         type: LOGIN_FAILURE,

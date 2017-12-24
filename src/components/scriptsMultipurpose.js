@@ -1,36 +1,11 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Modal} from 'react-bootstrap';
-
+import React from 'react'
+import {connect} from 'react-redux'
+import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange,backButtonHandle,addMoreParams
+} from '../actions/sessionActions'
 const Cookie = {cookie_name: '', cookie_path: '', cookie_domain: '', cookie_value: ''};
 const Credentials = {param: '', value: ''};
 const Selenium = {sel_cmd: ''};
-
-/*const CookiesComponent = React.createClass({
-    render: function(){
-        let {cookiesArray,onModalInputChange} = this.props
-        return(
-            <div id="cookie-param-div">
-                <ul id="cookie-param-list" className="list-unstyled">
-                    {cookiesArray.map((cookie,index)=>{
-                        return (
-                            <li key={index}>
-                                <label htmlFor={!index ? "cookie_name" : "cookie_name" + (index + 1) + 1} className="control-label">{!index ? "Cookie" : "Cookie " + (index +1) }</label>
-                                <input type="text" size="10" name={"cookie_name" + (index + 1)} value={cookie[`cookie_name${(index+1)}`]} className="form-control" id={!index ? "admin-cookie-name-" : "cookie-name-" + (index + 1) } onChange={onModalInputChange}/>
-                                <label htmlFor={!index ? "admin_cookie_value" : "cookie_value" + (index + 1) + 1 } className="control-label">{!index ? "Value" : "Value " + (index+1) }</label>
-                                <input type="text" size="10" name={"cookie_value"+(index + 1)} value={cookie[`cookie_value${(index+1)}`]} className="form-control" id={!index ? "admin-cookie-value-" : "cookie-value-" + (index + 1) } onChange={onModalInputChange}/>
-                                <label htmlFor={!index ? "admin_cookie_domain" : "cookie_domain" + (index + 1) + 1 } className="control-label">{!index ? "Domain" : "Domain " + (index+1) }</label>
-                                <input type="text" size="10" name={"cookie_domain"+(index + 1)} value={cookie[`cookie_domain${(index+1)}`]} className="form-control" id={!index ? "admin-cookie-domain-" : "cookie-domain-" + (index + 1) } onChange={onModalInputChange}/>
-                                <label htmlFor={!index ? "admin_cookie_path" : "cookie_path" + (index + 1) + 1 } className="control-label">{!index ? "Path" : "Path " + (index+1) }</label>
-                                <input type="text" size="10" name={"cookie_path"+(index + 1)} value={cookie[`cookie_path${(index+1)}`]} className="form-control" id={!index ? "admin-cookie-path-" : "cookie-path-" + (index + 1) } onChange={onModalInputChange}/>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>
-        )
-    }
-})*/
 
 const CookiesComponent = ({cookiesArray,onModalInputChange})=>(
     <div id="cookie-param-div">
@@ -78,29 +53,30 @@ const LoginDetailsComponent=({login_type,data,addMoreParams,onModalInputChange,s
             <Button className = {"btn btn-primary"} name={"Add More Param"} id={"add-param"} handleClick={addMoreParams}/>
             <Button className = {"btn btn-primary"} name={"Save"} id={"add-param-save"} handleClick={save}/>
             <button className="btn btn-primary" id="add-another-login" style={{display:"none"}}>Add Another Login Credentials</button>
-        </div>)
+        </div>
+    )
 }
 const LoginTypeComponent=({login_type,onModalInputChange})=>{
-        const loginTypeNames =['Password','Cookie','Xpath'];
-        const loginTypeValues =["Credentials","Cookie","Selenium"];
-        return(
-            <div className="step 2 step1">
-                Login Type
-                {login_type==='' && (
-                    <div className="alert alert-danger fade in" id="loginTypeError">Please select login type</div>)}
-                {loginTypeValues.map((item,index)=>{
-                    return (
-                        <div className="radio" key={index}>
-                            <label>
-                                <input type="radio" name="login_type" value={item}
-                                       checked={login_type===item}
-                                       onChange={onModalInputChange}/>{loginTypeNames[index]}</label>
-                        </div>
-                    )
-                })}
-            </div>
-        )
-    }
+    const loginTypeNames =['Password','Cookie','Xpath'];
+    const loginTypeValues =["Credentials","Cookie","Selenium"];
+    return(
+        <div className="step 2 step1">
+            Login Type
+            {login_type==='' && (
+                <div className="alert alert-danger fade in" id="loginTypeError">Please select login type</div>)}
+            {loginTypeValues.map((item,index)=>{
+                return (
+                    <div className="radio" key={index}>
+                        <label>
+                            <input type="radio" name="login_type" value={item}
+                               checked={login_type===item}
+                               onChange={onModalInputChange}/>{loginTypeNames[index]}</label>
+                    </div>
+                )
+            })}
+        </div>
+    )
+}
 const SuccessURLComponent=({success_url,onModalInputChange})=>(
     <div className="step 3 step3">
         {success_url==='' && (<div className="alert alert-danger fade in" id="successURLError" >Please enter valid success URL</div>)}
@@ -111,50 +87,50 @@ const SuccessURLComponent=({success_url,onModalInputChange})=>(
     </div>
 )
 const UserRoleComponent= ({activeRole,userRoleValues,onModalInputChange})=>(
-            <div className="step 1 step1">
-                Role for which you are adding Login Credentials
-                {activeRole==='' && (
-                    <div className="alert alert-danger fade in" id="loginTypeError">Please select a role</div>)}
-                {Object.keys(userRoleValues).map((item,index)=>{
-                    return (
-                        <div className="radio" key={index}>
-                            <label>
-                                <input type="radio" name="userrole" value={item}
-                                       checked={activeRole===item}
-                                       onChange={onModalInputChange}/>{userRoleValues[item]}</label>
-                        </div>
-                    )
-                })}
-            </div>
+    <div className="step 1 step1">
+        Role for which you are adding Login Credentials
+        {activeRole==='' && (
+            <div className="alert alert-danger fade in" id="loginTypeError">Please select a role</div>)}
+        {Object.keys(userRoleValues).map((item,index)=>{
+            return (
+                <div className="radio" key={index}>
+                    <label>
+                        <input type="radio" name="userrole" value={item}
+                               checked={activeRole===item}
+                               onChange={onModalInputChange}/>{userRoleValues[item]}</label>
+                </div>
+            )
+        })}
+    </div>
 )
 const CredentialsComponent= ({credentialsArray,onModalInputChange} )=>(
-            <div id="login-param-div">
-                <p>Add Login Parameters: ie the username and password to login to the site. </p>
-                <p>Enter the name of the parameter in login form in the param field, Enter the value
-                    of the parameter in value field). For example if the username parameter is named
-                    username in login form, enter username in param field, and actual username value
-                    in value field.</p>
-                <ul id="login-param-list" className="list-unstyled">
-                    {credentialsArray.map((cookie, index) => {
-                        return (
-                            <li key={index}>
-                                <label htmlFor={"param" + (index + 1)} className="control-label">{"Param " + (index + 1)}</label>
-                                <input type="text" size="10" name={"param" + (index + 1)} value={cookie['param']}
-                                       className="form-control" onChange={onModalInputChange}
-                                       id={"param-" + (index + 1)}/>
-                                <label htmlFor={"value" + (index + 1)} className="control-label">{"Value " + (index + 1)}</label>
-                                <input type="text" size="10" name={"value" + (index + 1)} value={cookie['value']}
-                                       className="form-control" onChange={onModalInputChange}
-                                       id={"value-" + (index + 1)}/>
-                            </li>)
-                        })
-                    }
-                </ul>
-            </div>
-        )
+    <div id="login-param-div">
+        <p>Add Login Parameters: ie the username and password to login to the site. </p>
+        <p>Enter the name of the parameter in login form in the param field, Enter the value
+            of the parameter in value field). For example if the username parameter is named
+            username in login form, enter username in param field, and actual username value
+            in value field.</p>
+        <ul id="login-param-list" className="list-unstyled">
+            {credentialsArray.map((cookie, index) => {
+                return (
+                    <li key={index}>
+                        <label htmlFor={"param" + (index + 1)} className="control-label">{"Param " + (index + 1)}</label>
+                        <input type="text" size="10" name={"param" + (index + 1)} value={cookie['param']}
+                               className="form-control" onChange={onModalInputChange}
+                               id={"param-" + (index + 1)}/>
+                        <label htmlFor={"value" + (index + 1)} className="control-label">{"Value " + (index + 1)}</label>
+                        <input type="text" size="10" name={"value" + (index + 1)} value={cookie['value']}
+                               className="form-control" onChange={onModalInputChange}
+                               id={"value-" + (index + 1)}/>
+                    </li>)
+                })
+            }
+        </ul>
+    </div>
+)
 const Button =(props)=> (<button className={props.className} onClick={props.handleClick}>{props.name}</button>)
 const Root = React.createClass({
-    getInitialState:function(){
+    /*getInitialState:function(){
         return {
             login_required:false,
             url:'',
@@ -172,22 +148,17 @@ const Root = React.createClass({
                         // 'admin':'www.google.com'
                     }
                 },{
-                    /*'admin':{
+                    /!*'admin':{
                         Cookie:[this.getValues(Cookie,1)],
                         Credentials:[this.getValues(Credentials,1)],
                         Selenium:[this.getValues(Selenium,1)],
-                    }*/
+                    }*!/
                 }
             ],
             modalOpen:false,
             crosssite : { activeRole:'',currentstep: 1, limit: 5, edit_login: 0 }
         };
-    },
-    componentDidMount:function () {
-    },
-    componentWillUnmount: function () {
-        $(this.refs.modal).off();
-    },
+    },*/
     getValues:function(object,itemNumber){
         let k ={}
         Object.keys(object).map(prop => {
@@ -200,13 +171,14 @@ const Root = React.createClass({
     validateForm() {
         return true
     },
-
     handleChange :function(e){
-        this.setState({
+        /*this.setState({
             [e.target.name]: e.target.name==='login_required' ? !this.state[e.target.name] : e.target.value
-        });
+        })*/
+        this.props.inputChange({
+            [e.target.name]: e.target.name==='login_required' ? !this.props[e.target.name] : e.target.value
+        })
     },
-
     formAndAddStep3Object:function(){
         return {
         Cookie:[this.getValues(Cookie,1)],
@@ -217,7 +189,7 @@ const Root = React.createClass({
         console.log('onModalInputChange')
         console.log('e.target.name ',e.target.name)
         console.log('e.target.value ',e.target.value )
-        let {steps,crosssite}=this.state
+        let {steps,crosssite}=this.props
         let activeRole = crosssite.activeRole
         console.log('steps are ',steps)
         if(crosssite.currentstep===4 ){
@@ -248,76 +220,63 @@ const Root = React.createClass({
             }
         }
         console.log('onModalInputChange steps are ',steps)
-        this.setState({...this.state,steps:steps,crosssite:crosssite})
+        this.props.modalInputChange({steps,crosssite})
+        // this.setState({...this.state,steps:steps,crosssite:crosssite})
     },
     closeModal:function(){
         alert('close event')
         console.log('close event');
-        this.setState({...this.state,modalOpen:false,crosssite:{...this.state.crosssite,currentstep:1,activeRole:""}})
+        this.props.closeModal()
+        // this.setState({...this.state,modalOpen:false,crosssite:{...this.state.crosssite,currentstep:1,activeRole:""}})
     },
     show: function () {
-        alert('show')
-        if (!(this.is_valid_url(this.state.url))) {
+        if (!(this.is_valid_url(this.props.url))) {
             alert('Enter a valid URL to scan');
             return false;
         }
-        this.setState({...this.state,modalOpen:true})
-    },
-    validateInitialForm:function(){
-        if (!(this.is_valid_url(this.state.url))) {
-            alert('Enter a valid URL to scan');
-            return false;
-        }
-        let state= {...this.state}
-        state.steps = state.map((step,index)=>{
-            step.visible = index===0
-        })
-        state.crosssite.currentstep = 1
-        this.setState(state)
-        // this.setState({crosssite:{currentstep : 1}})
-        // this.state.crosssite.currentstep = 1;
-        // console.log("Current: " + crosssite.currentstep);
-        // Init buttons and UI
-        // widget.not(':eq(0)').hide();
-        // $(".step").eq(0).show();
-        // this.hideButtons();
+        this.props.openModal()
+        // this.setState({...this.state,modalOpen:true})
     },
     backButtonHandle:function(){
-        if(this.state.crosssite.currentstep > 1){
-            this.setState({...this.state,crosssite:{...this.state.crosssite,currentstep:this.state.crosssite.currentstep - 1}})
+        if(this.props.crosssite.currentstep > 1){
+            // this.setState({...this.props,crosssite:{...this.props.crosssite,currentstep:this.props.crosssite.currentstep - 1}})
+            this.props.backButtonHandle({...this.props.crosssite,currentstep:this.props.crosssite.currentstep - 1})
         }
-        console.log("Inside back button: ", this.state.crosssite.currentstep);
+        console.log("Inside back button: ", this.props.crosssite.currentstep);
     },
     nextButtonHandle:function(){
-        const {currentstep,limit}=this.state.crosssite
+        const {currentstep,limit}=this.props.crosssite
         console.log("Inside next button currentstep: ",currentstep);
         if (currentstep) {
             if (!this.canClickNext()) return;
         }
         if(currentstep < limit){
-            this.setState({...this.state,crosssite:{...this.state.crosssite,currentstep:currentstep + 1}})
+            this.props.nextButtonHandle({...this.props.crosssite,currentstep:currentstep + 1})
+            // this.setState({...this.state,crosssite:{...this.state.crosssite,currentstep:currentstep + 1}})
         }
     },
     canClickNext:function(){
         debugger
-        if ( this.state.crosssite.currentstep === 1 ) return this.validate_login_role();
-        if ( this.state.crosssite.currentstep === 2 ) return this.validateLoginType();
-        if ( this.state.crosssite.currentstep === 3 ) return this.validateRedirectURL();
+        if ( this.props.crosssite.currentstep === 1 ) return this.validate_login_role();
+        if ( this.props.crosssite.currentstep === 2 ) return this.validateLoginType();
+        if ( this.props.crosssite.currentstep === 3 ) return this.validateRedirectURL();
     },
 
     validateRedirectURL:function(){
-        let activeRole = this.state.crosssite.activeRole
+        let activeRole = this.props.crosssite.activeRole
         debugger
-        return this.is_valid_url(this.state.steps[2]['success_url'][activeRole])
+        return this.is_valid_url(this.props.steps[2]['success_url'][activeRole])
     },
 
     addMoreParams:function(){
-        let steps= [...this.state.steps]
-        let activeRole = this.state.crosssite.activeRole
+        let steps= [...this.props.steps]
+        let activeRole = this.props.crosssite.activeRole
         let login_type = steps[1]['login_type'][activeRole]
         let map ={'Credentials':Credentials,'Cookie':Cookie,'Selenium':Selenium}
         steps[3][activeRole][login_type].push(this.getValues(map[login_type],steps[3][activeRole][login_type].length+1))
-        this.setState({...this.state,steps:steps})
+        // this.setState({...this.props,steps:steps})
+        this.props.addMoreParams({steps})
+        // this.setState({...this.props,steps:steps})
     },
     getObjectArraySerialized:function(arrayOfSimpleObjects){
         let str = '';
@@ -330,7 +289,7 @@ const Root = React.createClass({
         let str=''
         Object.keys(structure).map((item,index)=>{
             if(structure.hasOwnProperty(item)) {
-                if(Object.keys(this.state.crosssite).indexOf(item)===-1){
+                if(Object.keys(this.props.crosssite).indexOf(item)===-1){
                     str+= `${item}=${structure[item]}&`
                 }
             }}
@@ -372,7 +331,7 @@ const Root = React.createClass({
     },
     save:function(){
         alert('save')
-        let state= {...this.state}
+        let state= {...this.props}
         let hash = this.serialize(state);
 
         hash = hash.slice(0,hash.length-1)
@@ -401,17 +360,15 @@ const Root = React.createClass({
         });
         xhr.send(hash);
     },
-    validate_login_role:function(){return this.state.crosssite.activeRole !==''},
+    validate_login_role:function(){return this.props.crosssite.activeRole !==''},
     validateLoginType:function(){
-        let activeRole = this.state.crosssite.activeRole
-        debugger
-        return  (this.state.steps[1]['login_type'][activeRole]!=='')
+        let activeRole = this.props.crosssite.activeRole
+        return  (this.props.steps[1]['login_type'][activeRole]!=='')
     },
     is_valid_url:function(url){return (/^(http(s)?:\/\/)?(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(url))},
     /*handleSubmit :function (event) {
         event.preventDefault();
     },*/
-
     /*$('#mainModal').on('hidden.bs.modal', function(){
         // widget      = $(".step");
         // widget.not(':eq(0)').hide();
@@ -424,16 +381,19 @@ const Root = React.createClass({
         //current = 1; Not Needed, otherwise back button wont work
     })*/
     EditLoginCredentials:function(e){
-        let {crosssite}=this.state
-        let userrole=e.target.value
+        let {crosssite} = this.props
+        let userrole = e.target.value
         // crosssite.activeRole = userrole
         // this.crosssite.currentstep = 4
-        this.setState({...this.state,crosssite:{...crosssite,activeRole : userrole ,currentstep : 4 }})
+        this.props.editLoginCredentials({...crosssite,activeRole : userrole ,currentstep : 4 })
+        // this.setState({...this.state,crosssite:{...crosssite,activeRole : userrole ,currentstep : 4 }})
     },
     render:function(){
-        console.log(this.state)
+        console.log(this.props)
+        debugger
         const userRoleValues={admin:'Admin',non_admin:'Non Admin',custom_role_1:'Custom Role 1',custom_role_2:'Custom Role 2',no_login:'No Login'}
-        const {url,url_id,login_required,service,modalOpen,steps,crosssite}=this.state
+        const {url,url_id,login_required,service,modalOpen,steps,crosssite}=this.props
+        debugger
         let activeRole = crosssite.activeRole
         let login_type = activeRole ? steps[1]['login_type'][crosssite.activeRole] : ''
         let success_url = activeRole ? steps[2]['success_url'][crosssite.activeRole] : ''
@@ -452,7 +412,6 @@ const Root = React.createClass({
         }
         jQuery("#add-another-login").show();
 */
-
         return(
             <div className="col-sm-9">
                 <div className="form-group">
@@ -506,4 +465,56 @@ const Root = React.createClass({
         )
     }
 })
-export default Root
+
+const mapDispatchToProps = (dispatch,getState) => {
+    return {
+        openModal:(creds)=>{
+            dispatch(openModal(creds))
+        },
+        closeModal:()=>{
+            dispatch(closeModal())
+        },
+        modalInputChange:(data)=>{
+            dispatch(onModalInputChange(data))
+        },
+        editLoginCredentials:(data)=>{
+            dispatch(editLoginCredentials(data))
+        },
+        inputChange:(data)=>{
+            dispatch(inputChange(data))
+        },
+        backButtonHandle:(data)=>{
+            dispatch(backButtonHandle(data))
+        },
+        nextButtonHandle:(data)=>{
+            dispatch(backButtonHandle(data))
+        },
+        addMoreParams:(data)=>{
+            dispatch(addMoreParams(data))
+        }
+
+    }
+}
+
+Root.propTypes = {
+    openModal:React.PropTypes.func.isRequired,
+    closeModal:React.PropTypes.func.isRequired,
+    modalInputChange:React.PropTypes.func.isRequired,
+    editLoginCredentials:React.PropTypes.func.isRequired,
+    inputChange:React.PropTypes.func.isRequired,
+    backButtonHandle:React.PropTypes.func.isRequired,
+    addMoreParams:React.PropTypes.func.isRequired,
+    nextButtonHandle:React.PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    debugger
+    const { modal } = state
+    // const { modalOpen} = modal
+    return {
+        ...modal
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Root);
+
