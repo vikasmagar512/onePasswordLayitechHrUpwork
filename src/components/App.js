@@ -1,16 +1,18 @@
 
 import React,{Component} from 'react';
-import createReactClass from 'create-react-class';
+import {connect} from 'react-redux';
 
 import PropTypes from 'prop-types'
 import Header from './common/Header';
+import {getRegisterModalStatusSelector} from "../selectors/index";
+import Register from "./Register";
 
-class App extends Component {
-
+class AppComponent extends Component {
   render() {
+      const {registerModalOpen,children} = this.props
     return (
         <div className="container-fluid">
-            <Header />
+            <Header/>
             <div className="row">
                 <div className="col-sm-3 col-lg-2">
                     <nav className="navbar navbar-default navbar-fixed-side">
@@ -35,7 +37,14 @@ class App extends Component {
                         </div>
                     </nav>
                 </div>
-                <div id="root">{this.props.children} </div>
+                <div id="root">
+                    {!registerModalOpen
+                        ?
+                            children
+                        :
+                            <Register/>
+                    }
+                </div>
             </div>
             <footer>
                 <div className="navbar navbar-default">
@@ -56,14 +65,13 @@ class App extends Component {
                                 <span className="icon-bar"/>
                                 <span className="icon-bar"/>
                                 <span className="icon-bar"/>
-                            </button>/
+                            </button>
                             <ul className="footer-bar-btns visible-xs">
                                 <li><a href="#" className="btn" title="History"><i className="fa fa-2x fa-clock-o blue-text"/></a></li>
                                 <li><a href="#" className="btn" title="Favourites"><i className="fa fa-2x fa-star yellow-text"/></a></li>
                                 <li><a href="#" className="btn" title="Subscriptions"><i className="fa fa-2x fa-rss-square orange-text"/></a></li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </footer>
@@ -71,8 +79,19 @@ class App extends Component {
     );
   }
 }
-
-/*App.propTypes = {
-  children: PropTypes.object.isRequired
-};*/
+const mapStateToProps=(state,ownProps)=>{
+    console.log('mapStateToProps app state is',state)
+    return {
+        registerModalOpen:getRegisterModalStatusSelector(state)
+    }
+}
+const mapDispatchToProps=(dispatch)=>{
+    return {
+    }
+}
+AppComponent.propTypes = {
+    registerModalOpen:PropTypes.bool.isRequired,
+    children: PropTypes.object.isRequired
+};
+export const App = connect(mapStateToProps,mapDispatchToProps)(AppComponent)
 export default App;

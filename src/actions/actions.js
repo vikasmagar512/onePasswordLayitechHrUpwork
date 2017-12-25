@@ -1,6 +1,9 @@
 // The middleware to call the API for quotes
 import { CALL_API } from '../middleware/api'
-import {LOGIN_SUCCESS,LOGIN_FAILURE,LOGIN_REQUEST,LOGOUT_SUCCESS,LOGOUT_REQUEST} from "./actionTypes";
+import {
+    LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
+    CROSS_SITE_RQ_FORGERY
+} from "./actionTypes";
 
 // There are three possible states for our login
 // process and we need actions for each of them
@@ -51,6 +54,11 @@ function receiveLogout() {
     isFetching: false,
     isAuthenticated: false
   }
+}
+export function setCrossSiteRequestForgery() {
+    return {
+        type: CROSS_SITE_RQ_FORGERY
+    }
 }
 
 // Calls the API to get a token and

@@ -4,11 +4,11 @@ import Logout from '../Logout'
 import PropTypes from 'prop-types';
 import {Link, IndexLink } from 'react-router';
 import {connect} from 'react-redux';
-import {logoutUser,loginUser} from "../../actions/sessionActions";
+import {logoutUser,loginUser,openRegisterModal} from "../../actions/sessionActions";
 
 class Header extends Component {
     render(){
-        const { isAuthenticated, errorMessage, loginUser, logoutUser} = this.props
+        const { isAuthenticated, errorMessage, loginUser, logoutUser,openRegisterModal} = this.props
         return (
               <div className="row">
                   <div className="navbar-header">
@@ -26,11 +26,28 @@ class Header extends Component {
                         ?
                             <Logout onLogoutClick={logoutUser}/>
                         :
-                            <Login onLoginClick={loginUser} errorMessage={errorMessage}/>
+                            <Login onLoginClick={loginUser} openRegisterModal={openRegisterModal} errorMessage={errorMessage}/>
                       }
                   </div>
               </div>
         )
+    }
+}
+
+Header.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired,
+    loginUser:PropTypes.func.isRequired,
+    logoutUser:PropTypes.func.isRequired,
+    openRegisterModal:PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    const { auth } = state
+    const { isAuthenticated, errorMessage } = auth
+    return {
+        isAuthenticated,
+        errorMessage
     }
 }
 
@@ -41,23 +58,10 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         logoutUser:()=>{
             dispatch(logoutUser())
+        },
+        openRegisterModal:()=>{
+            dispatch(openRegisterModal())
         }
-    }
-}
-
-Header.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string.isRequired,
-    loginUser:PropTypes.func.isRequired,
-    logoutUser:PropTypes.func.isRequired
-}
-
-function mapStateToProps(state) {
-    const { auth } = state
-    const { isAuthenticated, errorMessage } = auth
-    return {
-        isAuthenticated,
-        errorMessage
     }
 }
 

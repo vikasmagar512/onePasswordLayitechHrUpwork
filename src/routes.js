@@ -21,19 +21,27 @@ import auth from './auth/authenticator';
 
 import {handleRedirection} from './handleRedirection';
 import {requireAuthentication} from './requireAuthentication';
-
-export default(
-  <Route path="/" component={App}>
-    <IndexRoute component={HomePage} />
-    <Route path="login" component={handleRedirection(LogInPage)} />
-    <Route path="about" component={requireAuthentication(AboutPage)}>
-      <Route path="profile" component={ProfilePage} />
-      <Route path="team" component={TeamPage} />
-      <Route path="contact" component={ContactPage} />
-    </Route>
-    <Route path="info" component={InfoPage} />
-    <Route path="/scan/cross_site_req_forgery" component={Root} />
-    <Route path="*" component={NotFound}/>
-  </Route>
-);
+import Register from "./components/Register";
+import {setCrossSiteRequestForgery} from './actions/actions'
+export const setModalStore =(store)=> {
+    let state= store.getState()
+    store.dispatch(setCrossSiteRequestForgery(state))
+}
+export const getRoutes=(store,dispatch)=>{
+    return (
+        <Route path="/" component={App}>
+            <IndexRoute component={HomePage} />
+            <Route path="login" component={handleRedirection(LogInPage)} />
+            <Route path="about" component={requireAuthentication(AboutPage)}>
+                <Route path="profile" component={ProfilePage} />
+                <Route path="team" component={TeamPage} />
+                <Route path="contact" component={ContactPage} />
+            </Route>
+            <Route path="info" component={InfoPage} />
+            <Route path="/scan/cross_site_req_forgery" component={Root} onEnter={setModalStore(store)}/>
+            <Route path="/scan/register" component={Register} />
+            <Route path="*" component={NotFound}/>
+        </Route>
+    );
+}
 
