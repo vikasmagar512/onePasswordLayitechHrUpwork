@@ -2,7 +2,9 @@ import React,{PropTypes,Component} from 'react'
 import { Modal} from 'react-bootstrap';
 
 import {connect} from 'react-redux'
-import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange,backButtonHandle,nextButtonHandle,addMoreParams
+import {
+    closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
+    addMoreParams, setErrorStep
 } from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
@@ -14,16 +16,6 @@ export class APIHandlerComponent extends Component{
         super(props)
         this.handleChange = this.handleChange.bind(this)
     }
-    /*export const setModalStore =(store,route)=> {
-        let state = store.getState()
-        if(route==='access_control'){
-            debugger
-            store.dispatch(setAccessControl(state))
-        }else if(route==='cross_site_req_forgery'){
-            debugger
-            store.dispatch(setCrossSiteRequestForgery(state))
-        }
-    }*/
     componentWillMount(){
         this.props.setAPIHandler()
     }
@@ -162,21 +154,26 @@ export class APIHandlerComponent extends Component{
         }
         jQuery("#add-another-login").show();
 */
+        const options=['GET','POST','PUT','DELETE']
         return(
             <div className="col-sm-9">
                 <div className="form-group">
                     <form action="" method="post" className="form-inline">
-                        <label htmlFor="urlid" className="control-label">URL</label>
+
+                        <div className="form-group">
+                            <label className="col-sm-4" htmlFor="company">Request Type</label>
+                            <div className="col-sm-6 col-md-4">
+                                <select id="request-type" className="form-control" name="request_type">
+                                    {
+                                        options.map((item,index)=> <option key={index} value={item}>{item}</option> )
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <label htmlFor="urlid" className="control-label">End Point:</label>
                         <input type="text" size="50" name="url" id="urlid" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
-                        <input type="hidden" name="url_id" value={url_id} id="urlid1" onChange={ this.handleChange }/>
-                        <input type="hidden" name="userrole" value={activeRole} onChange={ this.handleChange }/>
-                        <input type="hidden" name="service" value={service} onChange={ this.handleChange }/>
-                        <h>{login_required}</h>
-                        <input type="checkbox" label={login_required} name="login_required" id="loginrequired" checked={login_required} onChange={ this.handleChange }/>Login Required?
-                        {login_required && (
-                            <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Login Credentials</button>
-                            // <button type="button" className="btn btn-primary" id="mainmodalbutton" data-toggle="modal" data-target="#mainModal" onClick={ this.openModal }>Add Login Credentials</button>
-                        )}
+                        <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Path / Params</button>
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
                     <ModalComponent {...this.props}/>
@@ -195,7 +192,9 @@ APIHandlerComponent.propTypes = {
     inputChange:PropTypes.func.isRequired,
     backButtonHandle:PropTypes.func.isRequired,
     addMoreParams:PropTypes.func.isRequired,
-    nextButtonHandle:PropTypes.func.isRequired
+    nextButtonHandle:PropTypes.func.isRequired,
+    setErrorStep:PropTypes.func.isRequired
+
 }
 const mapStateToProps=state=> {
     console.log('mapStateToProps(state)  is ',state)
@@ -231,6 +230,9 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         setAPIHandler:()=>{
             dispatch(setAPIHandler())
+        },
+        setErrorStep:(data)=>{
+            dispatch(setErrorStep(data))
         }
     }
 }

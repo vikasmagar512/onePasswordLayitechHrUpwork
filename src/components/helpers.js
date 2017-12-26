@@ -34,13 +34,15 @@ export const SeleniumComponent=({seleniumArray,onModalInputChange})=>(
         </ul>
     </div>
 )
-export const LoginDetailsComponent=({login_type,data,addMoreParams,onModalInputChange,save})=>{
+export const LoginDetailsComponent=({login_type,data,currentWarning,path,addMoreParams,onModalInputChange,save})=>{
     const cookiesArray=data['Cookie']
     const seleniumArray=data['Selenium']
     const credentialsArray=data['Credentials']
+    alert('path is ',path)
+    console.log('path is ',path)
     return(
         <div className="step 4 step4">
-            {login_type === "Credentials" && (<CredentialsComponent credentialsArray={credentialsArray} onModalInputChange = {onModalInputChange}/>)}
+            {login_type === "Credentials" && (<CredentialsComponent credentialsArray={credentialsArray} path={path} onModalInputChange = {onModalInputChange} />)}
             {login_type === "Cookie" && (<CookiesComponent cookiesArray={cookiesArray} onModalInputChange = {onModalInputChange}/>)}
             {login_type === "Selenium" && (<SeleniumComponent seleniumArray={seleniumArray} onModalInputChange = {onModalInputChange}/> )}
             <Button className = {"btn btn-primary"} name={"Add More Param"} id={"add-param"} handleClick={addMoreParams}/>
@@ -49,40 +51,40 @@ export const LoginDetailsComponent=({login_type,data,addMoreParams,onModalInputC
         </div>
     )
 }
-export const LoginTypeComponent=({login_type,onModalInputChange})=>{
+export const LoginTypeComponent=({login_type,currentWarning,onModalInputChange})=>{
     const loginTypeNames =['Password','Cookie','Xpath'];
     const loginTypeValues =["Credentials","Cookie","Selenium"];
     return(
         <div className="step 2 step1">
             Login Type
-            {login_type==='' && (
+            {currentWarning && login_type==='' && (
                 <div className="alert alert-danger fade in" id="loginTypeError">Please select login type</div>)}
             {loginTypeValues.map((item,index)=>{
                 return (
                     <div className="radio" key={index}>
                         <label>
                             <input type="radio" name="login_type" value={item}
-                                   checked={login_type===item}
-                                   onChange={onModalInputChange}/>{loginTypeNames[index]}</label>
+                               checked={login_type===item}
+                               onChange={onModalInputChange}/>{loginTypeNames[index]}</label>
                     </div>
                 )
             })}
         </div>
     )
 }
-export const SuccessURLComponent=({success_url,onModalInputChange})=>(
+export const SuccessURLComponent=({success_url,currentWarning,onModalInputChange})=>(
     <div className="step 3 step3">
-        {success_url==='' && (<div className="alert alert-danger fade in" id="successURLError" >Please enter valid success URL</div>)}
+        {currentWarning && success_url==='' && (<div className="alert alert-danger fade in" id="successURLError" >Please enter valid success URL</div>)}
         URL if the user logged in successfully
         {/*<input type="text" name="success_url" size="30" value={this.state.steps[1]['success_url']} className="form-control" onChange={this.onModalInputChange}/>*/}
         <input type="text" name="success_url" size="30" value={"www.google.com"} className="form-control" onChange={onModalInputChange}/>
         {/*<input type="text" name="success_url" size="30" value={success_url} className="form-control" onChange={this.onModalInputChange}/>*/}
     </div>
 )
-export const UserRoleComponent= ({activeRole,userRoleValues,onModalInputChange})=>(
+export const UserRoleComponent= ({activeRole,userRoleValues,currentWarning,onModalInputChange})=>(
     <div className="step 1 step1">
         Role for which you are adding Login Credentials
-        {activeRole==='' && (
+        {currentWarning && activeRole==='' && (
             <div className="alert alert-danger fade in" id="loginTypeError">Please select a role</div>)}
         {Object.keys(userRoleValues).map((item,index)=>{
             return (
@@ -96,7 +98,7 @@ export const UserRoleComponent= ({activeRole,userRoleValues,onModalInputChange})
         })}
     </div>
 )
-export const CredentialsComponent= ({credentialsArray,onModalInputChange} )=>(
+export const CredentialsComponent= ({credentialsArray,path,onModalInputChange} )=>(
     <div id="login-param-div">
         <p>Add Login Parameters: ie the username and password to login to the site. </p>
         <p>Enter the name of the parameter in login form in the param field, Enter the value
@@ -104,9 +106,17 @@ export const CredentialsComponent= ({credentialsArray,onModalInputChange} )=>(
             username in login form, enter username in param field, and actual username value
             in value field.</p>
         <ul id="login-param-list" className="list-unstyled">
+            {
+                path !== undefined &&
+                (<li>
+                        <label htmlFor={"param1"} className="control-label">Path</label>
+                        <input type="text" size="10" name="path" value={path} className="form-control" id="pathid" onChange={onModalInputChange}/>
+                </li>)
+            }
             {credentialsArray.map((cookie, index) => {
                 return (
                     <li key={index}>
+
                         <label htmlFor={"param" + (index + 1)} className="control-label">{"Param " + (index + 1)}</label>
                         <input type="text" size="10" name={"param" + (index + 1)} value={cookie['param']}
                                className="form-control" onChange={onModalInputChange}

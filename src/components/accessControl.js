@@ -2,7 +2,9 @@ import React,{PropTypes,Component} from 'react'
 import { Modal} from 'react-bootstrap';
 
 import {connect} from 'react-redux'
-import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange,backButtonHandle,nextButtonHandle,addMoreParams
+import {
+    closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
+    addMoreParams, setErrorStep
 } from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
@@ -14,16 +16,6 @@ export class AccessCtrlComponent extends Component{
         super(props)
         this.handleChange = this.handleChange.bind(this)
     }
-    /*export const setModalStore =(store,route)=> {
-        let state = store.getState()
-        if(route==='access_control'){
-            debugger
-            store.dispatch(setAccessControl(state))
-        }else if(route==='cross_site_req_forgery'){
-            debugger
-            store.dispatch(setCrossSiteRequestForgery(state))
-        }
-    }*/
     componentWillMount(){
         this.props.setAccessControl()
     }
@@ -195,7 +187,9 @@ AccessCtrlComponent.propTypes = {
     inputChange:PropTypes.func.isRequired,
     backButtonHandle:PropTypes.func.isRequired,
     addMoreParams:PropTypes.func.isRequired,
-    nextButtonHandle:PropTypes.func.isRequired
+    nextButtonHandle:PropTypes.func.isRequired,
+    setErrorStep:PropTypes.func.isRequired
+
 }
 const mapStateToProps=state=> {
     console.log('mapStateToProps(state)  is ',state)
@@ -231,6 +225,9 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         setAccessControl:()=>{
             dispatch(setAccessControl())
+        },
+        setErrorStep:(data)=>{
+            dispatch(setErrorStep(data))
         }
     }
 }

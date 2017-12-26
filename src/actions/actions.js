@@ -2,7 +2,7 @@
 import { CALL_API } from '../middleware/api'
 import {
     LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
-    CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, CLOSE_REGISTER_MODAL, API_HANDLER
+    CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, CLOSE_REGISTER_MODAL, API_HANDLER,SET_CURRENT_STEP_ERROR
 } from "./actionTypes";
 
 // There are three possible states for our login
@@ -59,7 +59,10 @@ export function setCrossSiteRequestForgery() {
     return {
         type: CROSS_SITE_RQ_FORGERY
     }
+
 }
+
+
 export function setAccessControl() {
     return {
         type: ACCESS_CONTROL

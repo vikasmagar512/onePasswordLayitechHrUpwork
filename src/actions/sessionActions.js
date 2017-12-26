@@ -4,7 +4,7 @@ const BASE_URL ='http://35.167.23.92'
 import {
     LOG_IN_FAILURE, LOG_IN_SUCCESS, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
     OPEN_MODAL, CLOSE_MODAL, MODAL_INPUT_CHANGE, INPUT_CHANGE, BACK_BUTTON, ADD_MORE_PARAMS, EDIT_LOGIN_CREDENTIALS,
-    NEXT_BUTTON, OPEN_REGISTER_MODAL, CLOSE_REGISTER_MODAL
+    NEXT_BUTTON, OPEN_REGISTER_MODAL, CLOSE_REGISTER_MODAL, SET_CURRENT_STEP_ERROR
 } from "./actionTypes";
 
 export function loginSuccess(response) {
@@ -101,6 +101,13 @@ export function backButtonHandle(data) {
 export function nextButtonHandle(data) {
     return {
         type: NEXT_BUTTON,
+        data
+    }
+}
+
+export function setErrorStep(data) {
+    return {
+        type: SET_CURRENT_STEP_ERROR,
         data
     }
 }

@@ -3,7 +3,8 @@ import {browserHistory} from 'react-router';
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, OPEN_MODAL,
     CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
-    CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER
+    CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER,
+    SET_CURRENT_STEP_ERROR
 } from '../actions/actionTypes'
 import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
 export function auth(state = {
@@ -68,7 +69,7 @@ const modalState= {
         }
     ],
     modalOpen:false,
-    crosssite : { activeRole:'',currentstep: 1, limit: 5, edit_login: 0 }
+    crosssite : { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0 }
 }
 export function globalApp(state=globalState,action) {
     switch (action.type){
@@ -94,7 +95,6 @@ const getModifiedSteps=(steps)=>{
         console.log('step is ',step)
         switch (index){
             case 0:
-                // return {...step,userrole:[...step.userrole,'no_role']}
                 return {...step,userrole:new Set().add('no_role')}
             case 1:
                 return {...step,login_type:{...step.login_type,no_role:''}}
@@ -103,7 +103,6 @@ const getModifiedSteps=(steps)=>{
             case 3:{
                 let no_role = formAndAddStep3Object()
                 debugger
-                // return {...step,no_role:{...step.no_role,k}}
                 return {...step,no_role}
             }
             default:
@@ -117,40 +116,16 @@ const getModifiedSteps=(steps)=>{
 const getAPIModifiedSteps=(steps)=>{
     let stepsModified = getModifiedSteps(steps)
     let stepsAPIModified = stepsModified.map((step,index)=>{
-        if(index===3){
+        if(index===1){
+            return {...step,login_type:{...step.login_type,no_role:"Credentials"}}
+        }else if(index===3){
             let k = formAndAddStep3ObjectForAPI()
             debugger
             return {...step,no_role:k}
-        } if(index===1){
-            // return {...step,no_role:formAndAddStep3ObjectForAPI()
-            return {...step,login_type:{...step.login_type,no_role:"Credentials"}}
-        }else{
+        } else{
             return {...step}
         }
     })
-    /*console.log('getModifiedSteps steps',steps)
-    console.log('step0 is ',steps[0])
-    let k = steps.map((step,index)=>{
-        console.log('step is ',step)
-        switch (index){
-            case 0:
-                // return {...step,userrole:[...step.userrole,'no_role']}
-                return {...step,userrole:new Set().add('no_role')}
-            case 1:
-                return {...step,login_type:{...step.login_type,no_role:''}}
-            case 2:
-                return {...step,success_url:{...step.success_url,no_role:''}}
-            case 3:{
-                // let no_role = formAndAddStep3Object()
-                let no_role = formAndAddStep3ObjectForAPI()
-                debugger
-                // return {...step,no_role:{...step.no_role,k}}
-                return {...step,no_role}
-            }
-            default:
-                return {...step}
-        }
-    })*/
     debugger
     return stepsAPIModified
 }
@@ -171,13 +146,14 @@ export function modal(state = modalState, action) {
         case API_HANDLER:
             return {
                 ...state,
+                request_type:'',
                 crosssite:{...state.crosssite,currentstep:4,activeRole:"no_role"},
                 steps:[...getAPIModifiedSteps(state.steps)]
             }
         case MODAL_INPUT_CHANGE: {
             console.log('action data is ',action.data)
             let crosssite = action.data.crosssite
-            return {...state,steps:action.data.steps,crosssite:{...state.crosssite,...crosssite}}
+            return {...state,crosssite:{...state.crosssite,...crosssite},steps:action.data.steps}
         }
         case EDIT_LOGIN_CREDENTIALS:{
             let crosssite = action.data
@@ -190,6 +166,9 @@ export function modal(state = modalState, action) {
         case BACK_BUTTON:
             return {...state,crosssite:action.data}
         case NEXT_BUTTON:
+            return {...state,crosssite:action.data}
+        case SET_CURRENT_STEP_ERROR:
+        // {...this.props.modal.crosssite,currentWarning:true}
             return {...state,crosssite:action.data}
         case ADD_MORE_PARAMS:
             return {...state,steps:action.data.steps}

@@ -25,6 +25,7 @@ export class ModalComponent extends Component{
         let {steps,crosssite}=this.props.modal
         let activeRole = crosssite.activeRole
         console.log('steps are ',steps)
+
         if(crosssite.currentstep===4 ){
             let login_type = steps[1]['login_type'][activeRole]
             console.log('steps[3] ',steps[3])
@@ -38,9 +39,6 @@ export class ModalComponent extends Component{
             if(e.target.name === 'userrole'){
                 let selectedUserrole = e.target.value
                 if(!(steps[0]['userrole'].has(selectedUserrole))){
-                    // let obj = this.setUserRole(steps,crosssite,selectedUserrole)
-                    // steps = obj.steps
-                    // crosssite = obj.crosssite
                     steps[0]['userrole'].add(e.target.value)
                     steps[1]['login_type'][selectedUserrole]=''
                     steps[2]['success_url'][selectedUserrole]=''
@@ -55,6 +53,7 @@ export class ModalComponent extends Component{
                 steps[crosssite.currentstep-1][e.target.name][crosssite.activeRole]=e.target.value
             }
         }
+        crosssite.currentWarning=false
         console.log('onModalInputChange steps are ',steps)
         console.log('onModalInputChange crosssite is ',crosssite)
         this.props.modalInputChange({steps,crosssite})
@@ -74,7 +73,7 @@ export class ModalComponent extends Component{
                 }
             }*/
             // this.setState({...this.props.modal,crosssite:{...this.props.modal.crosssite,currentstep:this.props.modal.crosssite.currentstep - 1}})
-            this.props.backButtonHandle({...this.props.modal.crosssite,currentstep:this.props.modal.crosssite.currentstep - 1})
+            this.props.backButtonHandle({...this.props.modal.crosssite,currentstep:this.props.modal.crosssite.currentstep - 1,currentWarning:false})
         }
         console.log("Inside back button: ", this.props.modal.crosssite.currentstep);
     }
@@ -82,10 +81,13 @@ export class ModalComponent extends Component{
         const {currentstep,limit} = this.props.modal.crosssite
         console.log("Inside next button currentstep: ",currentstep);
         if (currentstep) {
-            if (!this.canClickNext()) return;
+            if (!this.canClickNext()) {
+                this.props.setErrorStep({...this.props.modal.crosssite,currentWarning:true})
+                return;
+            }
         }
         if(currentstep < limit){
-            this.props.nextButtonHandle({...this.props.modal.crosssite,currentstep:currentstep + 1})
+            this.props.nextButtonHandle({...this.props.modal.crosssite,currentstep:currentstep + 1,currentWarning:false})
             // this.setState({...this.state,crosssite:{...this.state.crosssite,currentstep:currentstep + 1}})
         }
     }
@@ -128,10 +130,23 @@ export class ModalComponent extends Component{
         // const userRoleValues={no_role:'No Role'}
         const {modalOpen,steps,crosssite}=this.props.modal
         let activeRole = crosssite.activeRole
-        let login_type = activeRole ? steps[1]['login_type'][crosssite.activeRole] : ''
-        let success_url = activeRole ? steps[2]['success_url'][crosssite.activeRole] : ''
-        // let success_url= steps[2]['success_url'][crosssite.activeRole]
-        let cookieSelCred =  activeRole ? steps[3][crosssite.activeRole] : {}
+        let currentWarning = crosssite.currentWarning
+        let login_type = activeRole ? steps[1]['login_type'][activeRole] : ''
+        let success_url = activeRole ? steps[2]['success_url'][activeRole] : ''
+        // let success_url= steps[2]['success_url'][activeRole]
+        let cookieSelCred = activeRole ? steps[3][activeRole] : {}
+        debugger
+        let path = activeRole
+            ? (steps[3][activeRole]).hasOwnProperty('path') ? {steps[3][activeRole]['path'] }: undefined : undefined
+        /*let path =undefined
+        if(activeRole){
+            console.log('here steps[3][activeRole][path] ',steps[3][activeRole])
+            debugger
+            if((steps[3][activeRole]).hasOwnProperty('path')){
+                path = steps[3][activeRole]['path']
+            }
+        }*/
+        console.log('render path is ',path)
         return(
             <Modal className="modal-container" show={modalOpen} onHide={()=>this.closeModal()} animation>
                 <Modal.Header>
@@ -148,14 +163,14 @@ export class ModalComponent extends Component{
                             )}
                         </ul>
                     </div>
-                    {(crosssite.currentstep === 1) &&
-                    (<UserRoleComponent activeRole={activeRole} userRoleValues={userRoleValues} onModalInputChange ={this.onModalInputChange}/>)}
+                    {crosssite.currentstep === 1 &&
+                    (<UserRoleComponent activeRole={activeRole} userRoleValues={userRoleValues} currentWarning={currentWarning } onModalInputChange ={this.onModalInputChange}/>)}
                     {crosssite.currentstep  === 2 &&
-                    (<LoginTypeComponent login_type={login_type} onModalInputChange ={this.onModalInputChange}/>)}
+                    (<LoginTypeComponent login_type={login_type} currentWarning={currentWarning } onModalInputChange ={this.onModalInputChange}/>)}
                     {crosssite.currentstep  === 3 &&
-                    (<SuccessURLComponent success_url={success_url} onModalInputChange = {this.onModalInputChange}/>)}
+                    (<SuccessURLComponent success_url={success_url} currentWarning={currentWarning } onModalInputChange = {this.onModalInputChange}/>)}
                     {crosssite.currentstep  === 4 &&
-                    (<LoginDetailsComponent login_type={login_type} data = {cookieSelCred} addMoreParams={this.addMoreParams} onModalInputChange={this.onModalInputChange} save={this.save}/>)}
+                    (<LoginDetailsComponent login_type={login_type} data = {cookieSelCred} currentWarning={currentWarning } path={path} addMoreParams={this.addMoreParams} onModalInputChange={this.onModalInputChange} save={this.save}/>)}
                 </Modal.Body>
                 <Modal.Footer>
                     {((crosssite.activeRole === 'no_role' && crosssite.currentstep > 2) ||
@@ -178,5 +193,6 @@ ModalComponent.PropTypes={
     inputChange:PropTypes.func.isRequired,
     backButtonHandle:PropTypes.func.isRequired,
     addMoreParams:PropTypes.func.isRequired,
-    nextButtonHandle:PropTypes.func.isRequired
+    nextButtonHandle:PropTypes.func.isRequired,
+    setErrorStep:PropTypes.func.isRequired
 }

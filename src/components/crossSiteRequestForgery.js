@@ -1,7 +1,7 @@
 import React,{PropTypes,Component} from 'react'
 
 import {connect} from 'react-redux'
-import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange,backButtonHandle,nextButtonHandle,addMoreParams
+import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange,backButtonHandle,nextButtonHandle,addMoreParams,setErrorStep
 } from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
@@ -184,7 +184,9 @@ CSRFComponent.propTypes = {
     inputChange:PropTypes.func.isRequired,
     backButtonHandle:PropTypes.func.isRequired,
     addMoreParams:PropTypes.func.isRequired,
-    nextButtonHandle:PropTypes.func.isRequired
+    nextButtonHandle:PropTypes.func.isRequired,
+    setErrorStep:PropTypes.func.isRequired
+
 }
 const mapStateToProps=state=> {
     console.log('mapStateToProps(state)  is ',state)
@@ -220,7 +222,11 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         setCrossSiteRequestForgery:()=>{
             dispatch(setCrossSiteRequestForgery())
+        },
+        setErrorStep:(data)=>{
+            dispatch(setErrorStep(data))
         }
+
     }
 }
 export const CSRF = connect(mapStateToProps, mapDispatchToProps)(CSRFComponent);
