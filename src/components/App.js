@@ -25,7 +25,7 @@ class AppComponent extends Component {
                                 <li className="nav-item "><a href="/scan/port_scan">Port Scan</a></li>
                                 <li className="nav-item "><a href="/scan/nmap_scan">Ping Sweep</a></li>
                                 <li className="nav-item "><a href="/scan/cross-site-scripting">Cross-Site Scripting</a></li>
-                                <li className="nav-item active"><a href="/scan/cross_site_req_forgery">Cross-Site Request Forgery</a></li>
+                                <li className="nav-item "><a href="/scan/cross_site_req_forgery">Cross-Site Request Forgery</a></li>
                                 <li className="nav-item "><a href="/scan/access_control">Missing Function Level Access Control</a></li>
                                 {/*<!--<li className="nav-item "><a href="/scan/vuln_scan">Blind SQL Injection</a></li>-->*/}
                                 <li className="nav-item "><a href="/scan/api_handler">API Handler</a></li>

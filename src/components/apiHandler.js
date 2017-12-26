@@ -7,9 +7,9 @@ import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputCh
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
-import {setAccessControl} from "../actions/actions";
+import {setAPIHandler} from "../actions/actions";
 
-export class AccessCtrlComponent extends Component{
+export class APIHandlerComponent extends Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
@@ -25,7 +25,7 @@ export class AccessCtrlComponent extends Component{
         }
     }*/
     componentWillMount(){
-        this.props.setAccessControl()
+        this.props.setAPIHandler()
     }
     handleChange(e){
         /*this.setState({
@@ -186,7 +186,7 @@ export class AccessCtrlComponent extends Component{
     }
 }
 
-AccessCtrlComponent.propTypes = {
+APIHandlerComponent.propTypes = {
     modal:PropTypes.object.isRequired,
     openModal:PropTypes.func.isRequired,
     closeModal:PropTypes.func.isRequired,
@@ -229,10 +229,10 @@ const mapDispatchToProps = (dispatch,getState) => {
         addMoreParams:(data)=>{
             dispatch(addMoreParams(data))
         },
-        setAccessControl:()=>{
-            dispatch(setAccessControl())
+        setAPIHandler:()=>{
+            dispatch(setAPIHandler())
         }
     }
 }
-export const AccessCtrl = connect(mapStateToProps, mapDispatchToProps)(AccessCtrlComponent);
-export default AccessCtrl
+export const APICtrl = connect(mapStateToProps, mapDispatchToProps)(APIHandlerComponent);
+export default APICtrl

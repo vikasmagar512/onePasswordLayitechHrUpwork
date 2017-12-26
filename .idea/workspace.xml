@@ -2,25 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fba8ff84-246b-40b3-b8a5-d524c99b98d2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/helperFunc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/actionTypes.js" afterPath="$PROJECT_DIR$/src/actions/actionTypes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/actions.js" afterPath="$PROJECT_DIR$/src/actions/actions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/sessionActions.js" afterPath="$PROJECT_DIR$/src/actions/sessionActions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App.js" afterPath="$PROJECT_DIR$/src/components/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Login.js" afterPath="$PROJECT_DIR$/src/components/Login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Logout.js" afterPath="$PROJECT_DIR$/src/components/Logout.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Register.js" afterPath="$PROJECT_DIR$/src/components/Register.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/common/Header.js" afterPath="$PROJECT_DIR$/src/components/common/Header.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/registerOriginal.html" afterPath="$PROJECT_DIR$/src/components/registerOriginal.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/scriptsMultipurpose.js" afterPath="$PROJECT_DIR$/src/components/scriptsMultipurpose.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reducers/index.js" afterPath="$PROJECT_DIR$/src/reducers/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reducers/sessionReducer.js" afterPath="$PROJECT_DIR$/src/reducers/sessionReducer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes.js" afterPath="$PROJECT_DIR$/src/routes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/selectors/index.js" afterPath="$PROJECT_DIR$/src/selectors/index.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/actions/actionTypes.js" afterPath="$PROJECT_DIR$/src/actions/actionTypes.js" />
+      <change beforePath="$PROJECT_DIR$/src/actions/actions.js" afterPath="$PROJECT_DIR$/src/actions/actions.js" />
+      <change beforePath="$PROJECT_DIR$/src/actions/sessionActions.js" afterPath="$PROJECT_DIR$/src/actions/sessionActions.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/App.js" afterPath="$PROJECT_DIR$/src/components/App.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProcessModal.js" afterPath="$PROJECT_DIR$/src/components/ProcessModal.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/accessControl.js" afterPath="$PROJECT_DIR$/src/components/accessControl.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/apiHandler.js" afterPath="$PROJECT_DIR$/src/components/apiHandler.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/crossSiteRequestForgery.js" afterPath="$PROJECT_DIR$/src/components/crossSiteRequestForgery.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/helpers.js" afterPath="$PROJECT_DIR$/src/components/helpers.js" />
+      <change beforePath="$PROJECT_DIR$/src/helperFunc.js" afterPath="$PROJECT_DIR$/src/helperFunc.js" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/sessionReducer.js" afterPath="$PROJECT_DIR$/src/reducers/sessionReducer.js" />
+      <change beforePath="$PROJECT_DIR$/src/routes.js" afterPath="$PROJECT_DIR$/src/routes.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,8 +32,8 @@
       <file leaf-file-name="sessionActions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/actions/sessionActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="161" column="35" lean-forward="true" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
+            <state relative-caret-position="388">
+              <caret line="177" column="37" lean-forward="true" selection-start-line="177" selection-start-column="37" selection-end-line="177" selection-end-column="37" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
                 <element signature="e#124#445#0" expanded="true" />
@@ -48,28 +42,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scriptsMultipurpose.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/scriptsMultipurpose.js">
+      <file leaf-file-name="crossSiteRequestForgery.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/crossSiteRequestForgery.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="260" column="44" lean-forward="false" selection-start-line="260" selection-start-column="44" selection-end-line="260" selection-end-column="44" />
+            <state relative-caret-position="15">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#653#2687#0" expanded="false" />
-                <element signature="e#2765#3383#0" expanded="false" />
-                <element signature="e#3480#4470#0" expanded="false" />
-                <element signature="e#3628#4462#0" expanded="false" />
-                <element signature="e#4538#5359#0" expanded="false" />
-                <element signature="e#5435#6107#0" expanded="false" />
-                <element signature="e#6198#6883#0" expanded="false" />
-                <element signature="e#6969#8408#0" expanded="false" />
-                <element signature="n#!!block;n#closeModal#0;n#ModalComponent#0" expanded="false" />
-                <element signature="n#!!block;n#backButtonHandle#0;n#ModalComponent#0" expanded="false" />
-                <element signature="n#!!block;n#nextButtonHandle#0;n#ModalComponent#0" expanded="false" />
-                <element signature="n#!!block;n#canClickNext#0;n#ModalComponent#0" expanded="false" />
-                <element signature="n#!!block;n#validateRedirectURL#0;n#ModalComponent#0" expanded="false" />
-                <element signature="n#!!block;n#serialize#0;n#RootComponent#0" expanded="false" />
-                <element signature="e#25670#28478#0" expanded="false" />
+                <element signature="n#!!block;n#serialize#0;n#CSRFComponent#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -78,9 +57,45 @@
       <file leaf-file-name="actions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/actions/actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="57" column="46" lean-forward="true" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="46" />
+            <state relative-caret-position="341">
+              <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+              <folding>
+                <element signature="e#45#89#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="actionTypes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/actions/actionTypes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="accessControl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/accessControl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="448">
+              <caret line="186" column="1" lean-forward="true" selection-start-line="186" selection-start-column="1" selection-end-line="186" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#47#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apiHandler.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/apiHandler.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="550">
+              <caret line="237" column="22" lean-forward="false" selection-start-line="237" selection-start-column="15" selection-end-line="237" selection-end-column="22" />
+              <folding>
+                <element signature="e#0#47#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,27 +103,36 @@
       <file leaf-file-name="sessionReducer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/reducers/sessionReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="132" column="23" lean-forward="false" selection-start-line="132" selection-start-column="23" selection-end-line="132" selection-end-column="23" />
+            <state relative-caret-position="182">
+              <caret line="106" column="40" lean-forward="true" selection-start-line="106" selection-start-column="40" selection-end-line="106" selection-end-column="40" />
               <folding>
                 <element signature="e#0#42#0" expanded="true" />
-                <element signature="e#486#678#0" expanded="false" />
                 <element signature="n#!!block;n#auth#0" expanded="false" />
-                <element signature="e#694#1530#0" expanded="false" />
-                <element signature="e#1702#1744#0" expanded="false" />
-                <element signature="e#1770#1821#0" expanded="false" />
-                <element signature="e#1858#1917#0" expanded="false" />
-                <element signature="e#5551#6179#0" expanded="false" />
+                <element signature="e#740#1576#0" expanded="false" />
+                <element signature="e#1748#1790#0" expanded="false" />
+                <element signature="e#1816#1867#0" expanded="false" />
+                <element signature="e#1904#1963#0" expanded="false" />
+                <element signature="e#6823#7451#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Header.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/common/Header.js">
+      <file leaf-file-name="helperFunc.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/helperFunc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="28" column="31" lean-forward="false" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+            <state relative-caret-position="390">
+              <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="32" column="47" lean-forward="true" selection-start-line="32" selection-start-column="47" selection-end-line="32" selection-end-column="47" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -116,12 +140,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Login.js">
+      <file leaf-file-name="ProcessModal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/ProcessModal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="24" column="30" lean-forward="true" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-              <folding />
+            <state relative-caret-position="271">
+              <caret line="129" column="45" lean-forward="true" selection-start-line="129" selection-start-column="45" selection-end-line="129" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#108#0" expanded="true" />
+                <element signature="n#!!block;n#closeModal#0;n#ModalComponent#0" expanded="false" />
+                <element signature="n#!!block;n#nextButtonHandle#0;n#ModalComponent#0" expanded="false" />
+                <element signature="n#!!block;n#canClickNext#0;n#ModalComponent#0" expanded="false" />
+                <element signature="n#!!block;n#validateRedirectURL#0;n#ModalComponent#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -138,42 +168,44 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>closeRegisterModal</find>
-      <find>openRegisterModal</find>
-      <find>PropTypes</find>
-      <find>registerModalOpen</find>
-      <find>modalOpen</find>
-      <find>show</find>
-      <find>.PropTypes</find>
-      <find>extends Compone</find>
-      <find>isvali</find>
-      <find>valid</find>
-      <find>is_vali</find>
-      <find>addMoreParams</find>
-      <find>validateRedirectURL</find>
-      <find>UserRoleComponent</find>
-      <find>store</find>
-      <find>setUserRole</find>
-      <find>dispa</find>
-      <find>loginUser</find>
-      <find>mapDispatchToProps</find>
-      <find>formAndAddStep3Object</find>
+      <find>no_rl</find>
       <find>getValues</find>
+      <find>this.get</find>
+      <find>EditLoginCredentials</find>
+      <find>editlogin</find>
+      <find>back</find>
+      <find>backbutton</find>
+      <find>backButtonHandle</find>
+      <find>col-sm-3</find>
+      <find>canclicknext</find>
+      <find>formAndAddStep3Object</find>
+      <find>getvalues</find>
+      <find>CookiesComponent</find>
+      <find>setUserRole</find>
+      <find>is_valid_url</find>
+      <find>rootcomponent</find>
+      <find>userrole</find>
+      <find>setstate</find>
+      <find>AcessCtrlComponent</find>
+      <find>&lt;register</find>
+      <find>CROSS_SITE_RQ_FORGERY</find>
+      <find>UserRoleComponent</find>
+      <find>userRoleValues</find>
+      <find>setAccessControl</find>
+      <find>url_id</find>
       <find>crosss</find>
-      <find>getvalu</find>
       <find>cross</find>
-      <find>render</find>
-      <find>getModifiedSteps</find>
-      <find>q</find>
-      <find>new set</find>
-      <find>Q</find>
-      <find>debugger</find>
+      <find>let k</find>
+      <find>AccessCtrlComponent</find>
+      <find>setModalStore</find>
     </findStrings>
     <replaceStrings>
       <replace>className=&quot;</replace>
       <replace>()</replace>
       <replace>PropTypes</replace>
       <replace>className=</replace>
+      <replace>APIHandlerComponent</replace>
+      <replace>AccessCtrlComponent</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -192,19 +224,24 @@
         <option value="$PROJECT_DIR$/src/store/configureStore.js" />
         <option value="$PROJECT_DIR$/src/reducers/index.js" />
         <option value="$PROJECT_DIR$/src/selectors/index.js" />
-        <option value="$PROJECT_DIR$/src/actions/sessionActions.js" />
         <option value="$PROJECT_DIR$/src/components/Login.js" />
         <option value="$PROJECT_DIR$/src/components/registerOriginal.html" />
         <option value="$PROJECT_DIR$/src/components/Logout.js" />
         <option value="$PROJECT_DIR$/src/components/common/Header.js" />
-        <option value="$PROJECT_DIR$/src/components/App.js" />
         <option value="$PROJECT_DIR$/src/components/Register.js" />
-        <option value="$PROJECT_DIR$/src/helperFunc.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/src/components/helpers.js" />
+        <option value="$PROJECT_DIR$/src/components/ProcessModal.js" />
+        <option value="$PROJECT_DIR$/src/components/scriptsMultipurpose.js" />
+        <option value="$PROJECT_DIR$/src/components/App.js" />
+        <option value="$PROJECT_DIR$/src/components/crossSiteRequestForgery.js" />
+        <option value="$PROJECT_DIR$/src/components/accessControl.js" />
+        <option value="$PROJECT_DIR$/src/actions/sessionActions.js" />
         <option value="$PROJECT_DIR$/src/actions/actionTypes.js" />
         <option value="$PROJECT_DIR$/src/actions/actions.js" />
+        <option value="$PROJECT_DIR$/src/components/apiHandler.js" />
         <option value="$PROJECT_DIR$/src/routes.js" />
-        <option value="$PROJECT_DIR$/src/components/scriptsMultipurpose.js" />
+        <option value="$PROJECT_DIR$/src/helperFunc.js" />
         <option value="$PROJECT_DIR$/src/reducers/sessionReducer.js" />
       </list>
     </option>
@@ -220,11 +257,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="75" />
-    <option name="y" value="6" />
-    <option name="width" value="1279" />
-    <option name="height" value="724" />
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -241,6 +276,29 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="project_redux" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_redux" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project_redux" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_redux" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project_redux" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project_redux" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -275,95 +333,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="actions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="middleware" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="reducers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="selectors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="store" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="b2602c69:ProjectViewProjectNode" />
-              <item name="React-Redux-Thunk-Middleware-Authentication-System" type="462c0819:PsiDirectoryNode" />
-              <item name="tools" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="nodejs_interpreter_path" value="/usr/bin/node" />
+    <property name="nodejs_interpreter_path" value="node" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -372,11 +346,12 @@
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.selected.package.standard" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/components" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/actions" />
     </key>
   </component>
@@ -409,6 +384,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="fba8ff84-246b-40b3-b8a5-d524c99b98d2" name="Default" comment="" />
@@ -427,37 +405,39 @@
       <workItem from="1514175193622" duration="13649000" />
       <workItem from="1514194275229" duration="17588000" />
       <workItem from="1514223625336" duration="16213000" />
+      <workItem from="1514264245914" duration="14382000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107194000" />
+    <option name="totallyTimeSpent" value="121576000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18427323" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="SFDX" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886904" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32907802" sideWeight="0.51231134" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962447" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886904" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24061196" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18447348" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962447" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Log Manager" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886904" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32907802" sideWeight="0.48768863" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="SFDX" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886904" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886904" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Log Manager" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886904" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Salesforce" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -473,35 +453,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/actions/actionTypes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/sessionActions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="35" lean-forward="false" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/auth/authenticator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="20" lean-forward="false" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/about/TeamPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -612,13 +563,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/babel-polyfill/dist/polyfill.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="4048" column="6" lean-forward="false" selection-start-line="4048" selection-start-column="6" selection-end-line="4048" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/babel-polyfill/dist/polyfill.js" />
     <entry file="file://$PROJECT_DIR$/src/auth/authenticator.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -640,13 +585,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-bootstrap/es/Modal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1818">
-          <caret line="266" column="0" lean-forward="true" selection-start-line="266" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-bootstrap/es/Modal.js" />
     <entry file="file://$PROJECT_DIR$/src/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -662,13 +601,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/react.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/react.d.ts" />
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/block.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
@@ -687,13 +620,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/jsdom/lib/jsdom/living/helpers/selectors.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/jsdom/lib/jsdom/living/helpers/selectors.js" />
     <entry file="file://$PROJECT_DIR$/src/requireAuthentication.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -752,32 +679,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding>
-            <element signature="e#1#39#0" expanded="false" />
-            <element signature="e#487#2593#0" expanded="false" />
-            <element signature="e#2871#4727#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/Header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="28" column="31" lean-forward="false" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="30" lean-forward="true" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+        <state relative-caret-position="360">
+          <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -794,32 +699,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/helperFunc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-redux/lib/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-redux/lib/index.js" />
     <entry file="file://$PROJECT_DIR$/src/components/Register.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-400">
           <caret line="82" column="42" lean-forward="true" selection-start-line="82" selection-start-column="42" selection-end-line="82" selection-end-column="42" />
           <folding>
-            <element signature="e#0#47#0" expanded="true" />
+            <element signature="e#0#47#0" expanded="false" />
             <element signature="e#835#1203#0" expanded="false" />
             <element signature="e#3286#3707#0" expanded="false" />
           </folding>
@@ -831,24 +720,80 @@
         <state relative-caret-position="272">
           <caret line="16" column="50" lean-forward="false" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
           <folding>
-            <element signature="e#35#59#0" expanded="true" />
-            <element signature="e#305#340#0" expanded="true" />
+            <element signature="e#35#59#0" expanded="false" />
+            <element signature="e#305#340#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/actionTypes.js">
+    <entry file="file://$PROJECT_DIR$/src/components/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="26" column="59" lean-forward="false" selection-start-line="26" selection-start-column="59" selection-end-line="26" selection-end-column="59" />
-          <folding />
+        <state relative-caret-position="137">
+          <caret line="23" column="86" lean-forward="true" selection-start-line="23" selection-start-column="86" selection-end-line="23" selection-end-column="86" />
+          <folding>
+            <element signature="e#2865#4721#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/Header.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="25" lean-forward="true" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/helpers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="81" column="30" lean-forward="false" selection-start-line="81" selection-start-column="13" selection-end-line="81" selection-end-column="30" />
+          <folding>
+            <element signature="e#4914#5586#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ProcessModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="129" column="45" lean-forward="true" selection-start-line="129" selection-start-column="45" selection-end-line="129" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#108#0" expanded="true" />
+            <element signature="n#!!block;n#closeModal#0;n#ModalComponent#0" expanded="false" />
+            <element signature="n#!!block;n#nextButtonHandle#0;n#ModalComponent#0" expanded="false" />
+            <element signature="n#!!block;n#canClickNext#0;n#ModalComponent#0" expanded="false" />
+            <element signature="n#!!block;n#validateRedirectURL#0;n#ModalComponent#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/crossSiteRequestForgery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#serialize#0;n#CSRFComponent#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/accessControl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="186" column="1" lean-forward="true" selection-start-line="186" selection-start-column="1" selection-end-line="186" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/sessionActions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="161" column="35" lean-forward="true" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
+        <state relative-caret-position="388">
+          <caret line="177" column="37" lean-forward="true" selection-start-line="177" selection-start-column="37" selection-end-line="177" selection-end-column="37" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
             <element signature="e#124#445#0" expanded="true" />
@@ -856,10 +801,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions/actionTypes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/apiHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="237" column="22" lean-forward="false" selection-start-line="237" selection-start-column="15" selection-end-line="237" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+        <state relative-caret-position="191">
+          <caret line="32" column="47" lean-forward="true" selection-start-line="32" selection-start-column="47" selection-end-line="32" selection-end-column="47" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
@@ -868,50 +831,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="57" column="46" lean-forward="true" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="46" />
-          <folding />
+        <state relative-caret-position="341">
+          <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+          <folding>
+            <element signature="e#45#89#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/scriptsMultipurpose.js">
+    <entry file="file://$PROJECT_DIR$/src/helperFunc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="260" column="44" lean-forward="false" selection-start-line="260" selection-start-column="44" selection-end-line="260" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#653#2687#0" expanded="false" />
-            <element signature="e#2765#3383#0" expanded="false" />
-            <element signature="e#3480#4470#0" expanded="false" />
-            <element signature="e#3628#4462#0" expanded="false" />
-            <element signature="e#4538#5359#0" expanded="false" />
-            <element signature="e#5435#6107#0" expanded="false" />
-            <element signature="e#6198#6883#0" expanded="false" />
-            <element signature="e#6969#8408#0" expanded="false" />
-            <element signature="n#!!block;n#closeModal#0;n#ModalComponent#0" expanded="false" />
-            <element signature="n#!!block;n#backButtonHandle#0;n#ModalComponent#0" expanded="false" />
-            <element signature="n#!!block;n#nextButtonHandle#0;n#ModalComponent#0" expanded="false" />
-            <element signature="n#!!block;n#canClickNext#0;n#ModalComponent#0" expanded="false" />
-            <element signature="n#!!block;n#validateRedirectURL#0;n#ModalComponent#0" expanded="false" />
-            <element signature="n#!!block;n#serialize#0;n#RootComponent#0" expanded="false" />
-            <element signature="e#25670#28478#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="390">
+          <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/sessionReducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="132" column="23" lean-forward="false" selection-start-line="132" selection-start-column="23" selection-end-line="132" selection-end-column="23" />
+        <state relative-caret-position="182">
+          <caret line="106" column="40" lean-forward="true" selection-start-line="106" selection-start-column="40" selection-end-line="106" selection-end-column="40" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
-            <element signature="e#486#678#0" expanded="false" />
             <element signature="n#!!block;n#auth#0" expanded="false" />
-            <element signature="e#694#1530#0" expanded="false" />
-            <element signature="e#1702#1744#0" expanded="false" />
-            <element signature="e#1770#1821#0" expanded="false" />
-            <element signature="e#1858#1917#0" expanded="false" />
-            <element signature="e#5551#6179#0" expanded="false" />
+            <element signature="e#740#1576#0" expanded="false" />
+            <element signature="e#1748#1790#0" expanded="false" />
+            <element signature="e#1816#1867#0" expanded="false" />
+            <element signature="e#1904#1963#0" expanded="false" />
+            <element signature="e#6823#7451#0" expanded="false" />
           </folding>
         </state>
       </provider>

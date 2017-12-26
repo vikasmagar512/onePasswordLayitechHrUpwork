@@ -138,6 +138,8 @@ export function closeRegisterModal() {
     }
 }
 
+
+
 // Three possible states for our logout process as well.
 // Since we are using JWTs, we just need to remove the token
 // from localStorage. These actions are more useful if we

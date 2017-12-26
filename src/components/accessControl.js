@@ -5,14 +5,27 @@ import {connect} from 'react-redux'
 import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange,backButtonHandle,nextButtonHandle,addMoreParams
 } from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
-import {Cookie,Selenium,Credentials,getValues,formAndAddStep3Object,is_valid_url} from "../helperFunc";
-import {UserRoleComponent,LoginDetailsComponent,LoginTypeComponent,SuccessURLComponent,Button} from './helpers'
+import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
+import {setAccessControl} from "../actions/actions";
 
-export class CSRFComponent extends Component{
+export class AccessCtrlComponent extends Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+    }
+    /*export const setModalStore =(store,route)=> {
+        let state = store.getState()
+        if(route==='access_control'){
+            debugger
+            store.dispatch(setAccessControl(state))
+        }else if(route==='cross_site_req_forgery'){
+            debugger
+            store.dispatch(setCrossSiteRequestForgery(state))
+        }
+    }*/
+    componentWillMount(){
+        this.props.setAccessControl()
     }
     handleChange(e){
         /*this.setState({
@@ -173,7 +186,7 @@ export class CSRFComponent extends Component{
     }
 }
 
-CSRFComponent.propTypes = {
+AccessCtrlComponent.propTypes = {
     modal:PropTypes.object.isRequired,
     openModal:PropTypes.func.isRequired,
     closeModal:PropTypes.func.isRequired,
@@ -215,8 +228,11 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         addMoreParams:(data)=>{
             dispatch(addMoreParams(data))
+        },
+        setAccessControl:()=>{
+            dispatch(setAccessControl())
         }
     }
 }
-export const CSRF = connect(mapStateToProps, mapDispatchToProps)(CSRFComponent);
-export default CSRF
+export const AccessCtrl = connect(mapStateToProps, mapDispatchToProps)(AccessCtrlComponent);
+export default AccessCtrl

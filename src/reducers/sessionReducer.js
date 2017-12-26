@@ -3,9 +3,9 @@ import {browserHistory} from 'react-router';
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, OPEN_MODAL,
     CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
-    CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY
+    CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER
 } from '../actions/actionTypes'
-import {RootComponent} from '../components/scriptsMultipurpose'
+import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
 export function auth(state = {
     isFetching: false,
     isAuthenticated: (document.cookie !== "" && document.cookie.split("=")[1] !== ''),
@@ -90,24 +90,69 @@ steps[3][selectedUserrole] = this.formAndAddStep3Object(selectedUserrole)
 const getModifiedSteps=(steps)=>{
     console.log('getModifiedSteps steps',steps)
     console.log('step0 is ',steps[0])
-    let k =steps.map=(step,index)=>{
+    let k = steps.map((step,index)=>{
+        console.log('step is ',step)
         switch (index){
-            /*case 0:
+            case 0:
                 // return {...step,userrole:[...step.userrole,'no_role']}
-                return {...step,userrole:new Set('no_role')}
+                return {...step,userrole:new Set().add('no_role')}
             case 1:
                 return {...step,login_type:{...step.login_type,no_role:''}}
             case 2:
-                step['success_url']['no_role']=''
-            case 3:
-                step['no_role'] = RootComponent.formAndAddStep3Object('no_role')*/
+                return {...step,success_url:{...step.success_url,no_role:''}}
+            case 3:{
+                let no_role = formAndAddStep3Object()
+                debugger
+                // return {...step,no_role:{...step.no_role,k}}
+                return {...step,no_role}
+            }
             default:
                 return {...step}
         }
-    }
+    })
     debugger
     return k
+}
 
+const getAPIModifiedSteps=(steps)=>{
+    let stepsModified = getModifiedSteps(steps)
+    let stepsAPIModified = stepsModified.map((step,index)=>{
+        if(index===3){
+            let k = formAndAddStep3ObjectForAPI()
+            debugger
+            return {...step,no_role:k}
+        } if(index===1){
+            // return {...step,no_role:formAndAddStep3ObjectForAPI()
+            return {...step,login_type:{...step.login_type,no_role:"Credentials"}}
+        }else{
+            return {...step}
+        }
+    })
+    /*console.log('getModifiedSteps steps',steps)
+    console.log('step0 is ',steps[0])
+    let k = steps.map((step,index)=>{
+        console.log('step is ',step)
+        switch (index){
+            case 0:
+                // return {...step,userrole:[...step.userrole,'no_role']}
+                return {...step,userrole:new Set().add('no_role')}
+            case 1:
+                return {...step,login_type:{...step.login_type,no_role:''}}
+            case 2:
+                return {...step,success_url:{...step.success_url,no_role:''}}
+            case 3:{
+                // let no_role = formAndAddStep3Object()
+                let no_role = formAndAddStep3ObjectForAPI()
+                debugger
+                // return {...step,no_role:{...step.no_role,k}}
+                return {...step,no_role}
+            }
+            default:
+                return {...step}
+        }
+    })*/
+    debugger
+    return stepsAPIModified
 }
 export function modal(state = modalState, action) {
     switch (action.type) {
@@ -120,32 +165,25 @@ export function modal(state = modalState, action) {
                 ...state,
                 crosssite:{...state.crosssite,currentstep:2,activeRole:"no_role"},
                 steps:[...getModifiedSteps(state.steps)]
-                    /*state.steps.map=(step,index)=>{
-                        switch (index){
-                            /!*case 0:
-                                return {...step,userrole:[...step.userrole,'no_role']}
-                            case 1:
-                                return {...step,login_type:{...step.login_type,no_role:''}}
-                            case 2:
-                                step['success_url']['no_role']=''
-                            case 3:
-                                step['no_role'] = RootComponent.formAndAddStep3Object('no_role')*!/
-                            default:
-                                return {...step}
-                        }
-                    }
-*/
             }
-        case MODAL_INPUT_CHANGE:
-        {
+        case ACCESS_CONTROL:
+            return modalState
+        case API_HANDLER:
+            return {
+                ...state,
+                crosssite:{...state.crosssite,currentstep:4,activeRole:"no_role"},
+                steps:[...getAPIModifiedSteps(state.steps)]
+            }
+        case MODAL_INPUT_CHANGE: {
             console.log('action data is ',action.data)
             let crosssite = action.data.crosssite
             return {...state,steps:action.data.steps,crosssite:{...state.crosssite,...crosssite}}
         }
-        case EDIT_LOGIN_CREDENTIALS:
-        {
-            let crosssite = action.data.crosssite
-            return {...state,crosssite:{...state.crosssite,...crosssite}}
+        case EDIT_LOGIN_CREDENTIALS:{
+            let crosssite = action.data
+            let k = {...state,crosssite:{...state.crosssite,...crosssite}}
+            debugger
+            return k
         }
         case INPUT_CHANGE:
             return {...state,...action.data}

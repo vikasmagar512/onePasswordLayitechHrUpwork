@@ -1,18 +1,20 @@
 import React,{PropTypes,Component} from 'react'
-import { Modal} from 'react-bootstrap';
 
 import {connect} from 'react-redux'
 import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange,backButtonHandle,nextButtonHandle,addMoreParams
 } from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
-import {Cookie,Selenium,Credentials,getValues,formAndAddStep3Object,is_valid_url} from "../helperFunc";
-import {UserRoleComponent,LoginDetailsComponent,LoginTypeComponent,SuccessURLComponent,Button} from './helpers'
+import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
+import { setCrossSiteRequestForgery} from "../actions/actions";
 
-export class RootComponent extends Component{
+export class CSRFComponent extends Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+    }
+    componentWillMount(){
+        this.props.setCrossSiteRequestForgery()
     }
     handleChange(e){
         /*this.setState({
@@ -173,7 +175,7 @@ export class RootComponent extends Component{
     }
 }
 
-RootComponent.propTypes = {
+CSRFComponent.propTypes = {
     modal:PropTypes.object.isRequired,
     openModal:PropTypes.func.isRequired,
     closeModal:PropTypes.func.isRequired,
@@ -215,8 +217,11 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         addMoreParams:(data)=>{
             dispatch(addMoreParams(data))
+        },
+        setCrossSiteRequestForgery:()=>{
+            dispatch(setCrossSiteRequestForgery())
         }
     }
 }
-export const Root = connect(mapStateToProps, mapDispatchToProps)(RootComponent);
-export default Root
+export const CSRF = connect(mapStateToProps, mapDispatchToProps)(CSRFComponent);
+export default CSRF
