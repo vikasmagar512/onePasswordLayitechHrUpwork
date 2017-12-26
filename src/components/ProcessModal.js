@@ -136,8 +136,7 @@ export class ModalComponent extends Component{
         // let success_url= steps[2]['success_url'][activeRole]
         let cookieSelCred = activeRole ? steps[3][activeRole] : {}
         debugger
-        let path = activeRole
-            ? (steps[3][activeRole]).hasOwnProperty('path') ? {steps[3][activeRole]['path'] }: undefined : undefined
+        let path = activeRole ? (steps[3][activeRole]).hasOwnProperty('path') ? steps[3][activeRole]['path'] : undefined : undefined
         /*let path =undefined
         if(activeRole){
             console.log('here steps[3][activeRole][path] ',steps[3][activeRole])
