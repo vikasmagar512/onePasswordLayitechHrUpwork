@@ -93,34 +93,25 @@ export class CSRFComponent extends Component{
                         console.log('item===steps')
                         console.log('structure[item] ',structure[item])
                         structure[item].map((j,i)=> {
-                                debugger
-                                if(i===0){
-                                    l += `userrole=${activeRole}&`
-                                }else if(i===1) {
-                                    l += `login_type=${j['login_type'][activeRole]}&`
-                                }else if(i===2) {
-                                    l += `success_url=${j['success_url'][activeRole]}&`
-                                }else if(i===3) {
-                                    Object.keys(structure[item][3][activeRole]).map((CookieCredSel, indo) => {
-                                        if (structure[item][3][activeRole].hasOwnProperty(CookieCredSel)) {
-                                            if (Array.isArray(structure[item][3][activeRole][CookieCredSel])) {
-                                                l += this.getObjectArraySerialized(structure[item][3][activeRole][CookieCredSel])
-                                            }else{
-                                                //api handler "path"
-                                                l+=`${CookieCredSel}=${structure[item][3][activeRole][CookieCredSel]}&`
-                                            }
-                                        }
-                                    })
-                                }
-                            /*else {
-                                Object.keys(structure[item][3]).map((CookieCredSel, indo) => {
-                                    if (structure[item][3].hasOwnProperty(CookieCredSel)) {
-                                        if (Array.isArray(structure[item][3][CookieCredSel])) {
-                                            l += this.getObjectArraySerialized(structure[item][3][CookieCredSel])
+                            debugger
+                            if(i===0){
+                                l += `userrole=${activeRole}&`
+                            }else if(i===1) {
+                                l += `login_type=${j['login_type'][activeRole]}&`
+                            }else if(i===2) {
+                                l += `success_url=${j['success_url'][activeRole]}&`
+                            }else if(i===3) {
+                                Object.keys(structure[item][3][activeRole]).map((CookieCredSel, indo) => {
+                                    if (structure[item][3][activeRole].hasOwnProperty(CookieCredSel)) {
+                                        if (Array.isArray(structure[item][3][activeRole][CookieCredSel])) {
+                                            l += this.getObjectArraySerialized(structure[item][3][activeRole][CookieCredSel])
+                                        }else{
+                                            //api handler "path"
+                                            l+=`${CookieCredSel}=${structure[item][3][activeRole][CookieCredSel]}&`
                                         }
                                     }
                                 })
-                            }*/
+                            }
                         })
                     }
                 }
