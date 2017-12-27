@@ -169,7 +169,7 @@ export class ModalComponent extends Component{
                     {crosssite.currentstep  === 3 &&
                     (<SuccessURLComponent success_url={success_url} currentWarning={currentWarning } onModalInputChange = {this.onModalInputChange}/>)}
                     {crosssite.currentstep  === 4 &&
-                    (<LoginDetailsComponent login_type={login_type} data = {cookieSelCred} currentWarning={currentWarning } path={path} addMoreParams={this.addMoreParams} onModalInputChange={this.onModalInputChange} save={this.save}/>)}
+                    (<LoginDetailsComponent login_type={login_type} data = {cookieSelCred} currentWarning={currentWarning } path={path} addMoreParams={this.addMoreParams} onModalInputChange={this.onModalInputChange} save={this.props.save}/>)}
                 </Modal.Body>
                 <Modal.Footer>
                     {((crosssite.activeRole === 'no_role' && crosssite.currentstep > 2) ||

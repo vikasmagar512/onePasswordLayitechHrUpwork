@@ -12,6 +12,7 @@ export class CSRFComponent extends Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+        this.save= this.save.bind(this)
     }
     componentWillMount(){
         this.props.setCrossSiteRequestForgery()
@@ -31,35 +32,87 @@ export class CSRFComponent extends Component{
         })
         return str
     }
+    /*getObjectSerialized(structure){
+        let str=''
+        Object.keys(structure).map((item,index)=>{
+            console.log('structure item is ',item)
+            if(structure.hasOwnProperty(item)) {
+                console.log('item is ',item)
+                if(Object.keys(this.props.modal.crosssite).indexOf(item)===-1){
+                    str+= `${item}=${structure[item]}&`
+                    console.log('here str is ',str)
+                }
+            }}
+        )
+        return str
+    }*/
     getObjectSerialized(structure){
         let str=''
         Object.keys(structure).map((item,index)=>{
+            console.log('structure item is ',item)
             if(structure.hasOwnProperty(item)) {
-                if(Object.keys(this.props.modal.crosssite).indexOf(item)===-1){
+                console.log('item is ',item)
+                // if(Object.keys(this.props.modal.crosssite).indexOf(item)===-1){
                     str+= `${item}=${structure[item]}&`
+                    console.log('here str is ',str)
+                // }
+            }}
+        )
+        return str
+    }
+    getLoginTypeUserRoleSuccessURLObjectSerialized(structure,activeRole){
+        let str=''
+        Object.keys(structure).map((item,index)=>{
+            console.log('structure item is ',item)
+            if(structure.hasOwnProperty(item)) {
+                console.log('item is ',item)
+                if(item==='userrole'){
+                    str += `${item}=${activeRole}&`
+                }else if (['success_url','login_type'].indexOf(item)!==-1){
+                    str += `${item}=${structure[item][activeRole]}`
                 }
+                console.log('here str is ',str)
             }}
         )
         return str
     }
     serialize(structure){
         let l =''
+        let activeRole = structure.crosssite.activeRole
         Object.keys(structure).map((item,index)=>{
             if(structure.hasOwnProperty(item)) {
                 if (typeof structure[item] !== "object") {
+                    debugger
                     if(['modalOpen','login_required'].indexOf(item)===-1){
+                        debugger
                         l+=`${item}=${structure[item]}&`
                     }
+                    console.log('l is ',l)
                 }else{
-                    if(item==='crosssite'){
-                        l+=this.getObjectSerialized(structure[item])
-                    }else if(item==='steps'){
-
+                    if(item==='steps'){
+                        console.log('item===steps')
                         console.log('structure[item] ',structure[item])
                         structure[item].map((j,i)=> {
-                            if ([0,1,2].indexOf(i) !== -1) {
-                                l += this.getObjectSerialized(j)
-                            } else {
+                                debugger
+                                if(i===0){
+                                    l += `userrole=${activeRole}&`
+                                }else if(i===1) {
+                                    l += `login_type=${j['login_type'][activeRole]}&`
+                                }else if(i===2) {
+                                    l += `success_url=${j['success_url'][activeRole]}&`
+                                }else if(i===3) {
+                                    Object.keys(structure[item][3][activeRole]).map((CookieCredSel, indo) => {
+                                        if (structure[item][3][activeRole].hasOwnProperty(CookieCredSel)) {
+                                            if (Array.isArray(structure[item][3][activeRole][CookieCredSel])) {
+                                                l += this.getObjectArraySerialized(structure[item][3][activeRole][CookieCredSel])
+                                            }else{
+                                                //api handler "path"
+                                                l+=`${CookieCredSel}=${structure[item][3][activeRole][CookieCredSel]}&`
+                                            }
+                                        }
+                                    })
+                                }
+                            /*else {
                                 Object.keys(structure[item][3]).map((CookieCredSel, indo) => {
                                     if (structure[item][3].hasOwnProperty(CookieCredSel)) {
                                         if (Array.isArray(structure[item][3][CookieCredSel])) {
@@ -67,7 +120,7 @@ export class CSRFComponent extends Component{
                                         }
                                     }
                                 })
-                            }
+                            }*/
                         })
                     }
                 }
@@ -77,7 +130,7 @@ export class CSRFComponent extends Component{
     }
     save(){
         alert('save')
-        const state = {...this.props.modal}
+        const state = this.props.modal
         let hash = this.serialize(state);
 
         hash = hash.slice(0,hash.length-1)
@@ -85,8 +138,8 @@ export class CSRFComponent extends Component{
         // crosssite.edit_login = 0;
 
         const xhr = new XMLHttpRequest();
-        // xhr.open('post', 'http://35.167.23.92/scan/save_loginnew');
-        xhr.open('post', '/scan/save_loginnew');
+        xhr.open('post', 'http://35.167.23.92/scan/save_loginnew');
+        // xhr.open('post', '/scan/save_loginnew');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
@@ -168,7 +221,7 @@ export class CSRFComponent extends Component{
                         )}
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
-                    <ModalComponent {...this.props}/>
+                    <ModalComponent {...this.props} save={this.save}/>
                 </div>
             </div>
         )
