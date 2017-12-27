@@ -21,7 +21,7 @@ import auth from './auth/authenticator';
 
 import {handleRedirection} from './handleRedirection';
 import {requireAuthentication} from './requireAuthentication';
-import Register from "./components/Register";
+import Register from "./components/Register/Register";
 import {setAccessControl, setCrossSiteRequestForgery} from './actions/actions'
 import AccessCtrl from "./components/accessControl";
 import {API_HANDLER} from "./actions/actionTypes";

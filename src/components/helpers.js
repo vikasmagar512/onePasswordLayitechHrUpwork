@@ -89,7 +89,8 @@ export const CredentialsComponent= ({credentialsArray,path,onModalInputChange} )
                         <input type="text" size="10" name={"value" + (index + 1)} value={cookie['value']}
                                className="form-control" onChange={onModalInputChange}
                                id={"value-" + (index + 1)}/>
-                    </li>)
+                    </li>
+                )
             })
             }
         </ul>

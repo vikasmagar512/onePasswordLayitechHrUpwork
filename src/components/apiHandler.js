@@ -15,6 +15,7 @@ export class APIHandlerComponent extends Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+        this.save= this.save.bind(this)
     }
     componentWillMount(){
         this.props.setAPIHandler()
@@ -35,45 +36,13 @@ export class APIHandlerComponent extends Component{
         return str
     }
 
-    /*getObjectSerialized(structure){
-        let str=''
-        Object.keys(structure).map((item,index)=>{
-            console.log('structure item is ',item)
-            if(structure.hasOwnProperty(item)) {
-                console.log('item is ',item)
-                if(Object.keys(this.props.modal.crosssite).indexOf(item)===-1){
-                    str+= `${item}=${structure[item]}&`
-                    console.log('here str is ',str)
-                }
-            }}
-        )
-        return str
-    }*/
     getObjectSerialized(structure){
         let str=''
         Object.keys(structure).map((item,index)=>{
             console.log('structure item is ',item)
             if(structure.hasOwnProperty(item)) {
                 console.log('item is ',item)
-                // if(Object.keys(this.props.modal.crosssite).indexOf(item)===-1){
                 str+= `${item}=${structure[item]}&`
-                console.log('here str is ',str)
-                // }
-            }}
-        )
-        return str
-    }
-    getLoginTypeUserRoleSuccessURLObjectSerialized(structure,activeRole){
-        let str=''
-        Object.keys(structure).map((item,index)=>{
-            console.log('structure item is ',item)
-            if(structure.hasOwnProperty(item)) {
-                console.log('item is ',item)
-                if(item==='userrole'){
-                    str += `${item}=${activeRole}&`
-                }else if (['success_url','login_type'].indexOf(item)!==-1){
-                    str += `${item}=${structure[item][activeRole]}`
-                }
                 console.log('here str is ',str)
             }}
         )
@@ -86,7 +55,7 @@ export class APIHandlerComponent extends Component{
             if(structure.hasOwnProperty(item)) {
                 if (typeof structure[item] !== "object") {
                     debugger
-                    if(['modalOpen','login_required'].indexOf(item)===-1){
+                    if(['modalOpen','login_required','service'].indexOf(item)===-1){
                         debugger
                         l+=`${item}=${structure[item]}&`
                     }
@@ -95,27 +64,8 @@ export class APIHandlerComponent extends Component{
                     if(item==='steps'){
                         console.log('item===steps')
                         console.log('structure[item] ',structure[item])
-                        structure[item].map((j,i)=> {
-                            debugger
-                            if(i===0){
-                                l += `userrole=${activeRole}&`
-                            }else if(i===1) {
-                                l += `login_type=${j['login_type'][activeRole]}&`
-                            }else if(i===2) {
-                                l += `success_url=${j['success_url'][activeRole]}&`
-                            }else if(i===3) {
-                                Object.keys(structure[item][3][activeRole]).map((CookieCredSel, indo) => {
-                                    if (structure[item][3][activeRole].hasOwnProperty(CookieCredSel)) {
-                                        if (Array.isArray(structure[item][3][activeRole][CookieCredSel])) {
-                                            l += this.getObjectArraySerialized(structure[item][3][activeRole][CookieCredSel])
-                                        }else{
-                                            //api handler "path"
-                                            l+=`${CookieCredSel}=${structure[item][3][activeRole][CookieCredSel]}&`
-                                        }
-                                    }
-                                })
-                            }
-                        })
+                        l+=`path=${structure[item][3][activeRole]['path']}&`
+                        l += this.getObjectArraySerialized(structure[item][3][activeRole]['Credentials'])
                     }
                 }
             }
@@ -180,6 +130,7 @@ export class APIHandlerComponent extends Component{
         const userRoleValues={admin:'Admin',non_admin:'Non Admin',custom_role_1:'Custom Role 1',custom_role_2:'Custom Role 2',no_login:'No Login'}
         const {url,url_id,login_required,service,modalOpen,steps,crosssite}=this.props.modal
         let activeRole = crosssite.activeRole
+        let request_type = this.props.modal.request_type
         // alert(activeRole)
         let login_type = activeRole ? steps[1]['login_type'][crosssite.activeRole] : ''
         let success_url = activeRole ? steps[2]['success_url'][crosssite.activeRole] : ''
@@ -203,11 +154,10 @@ export class APIHandlerComponent extends Component{
             <div className="col-sm-9">
                 <div className="form-group">
                     <form action="" method="post" className="form-inline">
-
                         <div className="form-group">
                             <label className="col-sm-4" htmlFor="company">Request Type</label>
                             <div className="col-sm-6 col-md-4">
-                                <select id="request-type" className="form-control" name="request_type">
+                                <select id="request-type" className="form-control" value={request_type} name="request_type" onChange={this.handleChange}>
                                     {
                                         options.map((item,index)=> <option key={index} value={item}>{item}</option> )
                                     }
@@ -220,7 +170,7 @@ export class APIHandlerComponent extends Component{
                         <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Path / Params</button>
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
-                    <ModalComponent {...this.props}/>
+                    <ModalComponent {...this.props} save={this.save}/>
                 </div>
             </div>
         )

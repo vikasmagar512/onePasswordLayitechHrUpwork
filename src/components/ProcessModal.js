@@ -29,11 +29,15 @@ export class ModalComponent extends Component{
         if(crosssite.currentstep===4 ){
             let login_type = steps[1]['login_type'][activeRole]
             console.log('steps[3] ',steps[3])
-            steps[3][activeRole][login_type].map((item,index)=>{
-                if(item.hasOwnProperty(e.target.name)){
-                    steps[3][activeRole][login_type][index][e.target.name]=e.target.value
-                }
-            })
+            if(e.target.name==='path'){
+                steps[3][activeRole]['path'] = e.target.value
+            }else{
+                steps[3][activeRole][login_type].map((item,index)=>{
+                    if(item.hasOwnProperty(e.target.name)){
+                        steps[3][activeRole][login_type][index][e.target.name]=e.target.value
+                    }
+                })
+            }
             console.log('step[3]..... ',steps[3])
         }else{
             if(e.target.name === 'userrole'){

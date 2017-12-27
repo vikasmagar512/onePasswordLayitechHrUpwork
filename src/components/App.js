@@ -5,7 +5,10 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import Header from './common/Header';
 import {getRegisterModalStatusSelector} from "../selectors/index";
-import Register from "./Register";
+import Register from "./Register/Register";
+import RegisterModal from './Register/RegisterModal'
+import {loginUser} from "../actions/actions";
+import {closeRegisterModal, openRegisterModal} from "../actions/sessionActions";
 
 class AppComponent extends Component {
   render() {
@@ -38,12 +41,10 @@ class AppComponent extends Component {
                     </nav>
                 </div>
                 <div id="root">
-                    {!registerModalOpen
-                        ?
-                            children
-                        :
-                            <Register/>
+                    {
+                        registerModalOpen && <RegisterModal {...this.props}/>
                     }
+                    {children}
                 </div>
             </div>
             <footer>
@@ -87,6 +88,15 @@ const mapStateToProps=(state,ownProps)=>{
 }
 const mapDispatchToProps=(dispatch)=>{
     return {
+        loginUser:(creds)=>{
+            dispatch(loginUser(creds))
+        },
+        openRegisterModal:()=>{
+            dispatch(openRegisterModal())
+        },
+        closeRegisterModal:()=>{
+            dispatch(closeRegisterModal())
+        }
     }
 }
 AppComponent.propTypes = {

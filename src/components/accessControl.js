@@ -4,17 +4,19 @@ import { Modal} from 'react-bootstrap';
 import {connect} from 'react-redux'
 import {
     closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
-    addMoreParams, setErrorStep
+    addMoreParams, setErrorStep, openRegisterModal, closeRegisterModal
 } from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
-import {setAccessControl} from "../actions/actions";
+import {loginUser, setAccessControl} from "../actions/actions";
 
 export class AccessCtrlComponent extends Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+        this.save= this.save.bind(this)
+
     }
     componentWillMount(){
         this.props.setAccessControl()
@@ -27,7 +29,13 @@ export class AccessCtrlComponent extends Component{
             [e.target.name]: e.target.name==='login_required' ? !this.props.modal[e.target.name] : e.target.value
         })
     }
-
+    getObjectArraySerialized(arrayOfSimpleObjects){
+        let str = '';
+        arrayOfSimpleObjects.map((item)=>{
+            str+=this.getObjectSerialized(item)
+        })
+        return str
+    }
     /*getObjectSerialized(structure){
         let str=''
         Object.keys(structure).map((item,index)=>{
@@ -195,21 +203,24 @@ export class AccessCtrlComponent extends Component{
             <div className="col-sm-9">
                 <div className="form-group">
                     <h4>Compare Access Privilege between different Roles</h4>
-
                     <form action="" method="post" className="form-inline">
                         <div className="container">
                             <div className="row">
                                 <label htmlFor="urlid" className="control-label">Login URL</label>
-                                <input type="text" size="50" name="url" id="urlid" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
+                                <input type="text" size="50" name="url" id="urlid" value={url}
+                                       placeholder="https://www.google.com" className="form-control"
+                                       onChange={this.handleChange}/>
                             </div>
                             <div className="row">&nbsp;</div>
                             <div className="row">
-                                <button type="button" className="btn btn-primary" id="mainmodalbutton" onClick={()=>this.show()}>Add Login Credentials</button>
+                                <button type="button" className="btn btn-primary" id="mainmodalbutton"
+                                        onClick={() => this.show()}>Add Login Credentials
+                                </button>
                                 <input type="submit" className="btn btn-primary" value="Compare Access Privilege"/>
                             </div>
                         </div>
                     </form>
-                    <ModalComponent {...this.props}/>
+                    <ModalComponent {...this.props} save={this.save}/>
                 </div>
             </div>
         )
@@ -228,12 +239,12 @@ AccessCtrlComponent.propTypes = {
     nextButtonHandle:PropTypes.func.isRequired,
     setErrorStep:PropTypes.func.isRequired,
     setAccessControl:PropTypes.func.isRequired
-
 }
 const mapStateToProps=state=> {
     console.log('mapStateToProps(state)  is ',state)
     return {
-        modal:getModalPropsSelector(state)
+        modal:getModalPropsSelector(state),
+        registerModalOpen:false
     }
 }
 const mapDispatchToProps = (dispatch,getState) => {
