@@ -60,7 +60,7 @@ export class ModalComponent extends Component{
         // this.setState({...this.state,steps:steps,crosssite:crosssite})
     }
     closeModal(){
-        alert('close event')
+        // alert('close event')
         console.log('close event');
         this.props.closeModal()
         // this.setState({...this.state,modalOpen:false,crosssite:{...this.state.crosssite,currentstep:1,activeRole:""}})

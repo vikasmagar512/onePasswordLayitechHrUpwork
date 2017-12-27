@@ -157,19 +157,20 @@ export class AccessCtrlComponent extends Component{
         return(
             <div className="col-sm-9">
                 <div className="form-group">
+                    <h4>Compare Access Privilege between different Roles</h4>
+
                     <form action="" method="post" className="form-inline">
-                        <label htmlFor="urlid" className="control-label">URL</label>
-                        <input type="text" size="50" name="url" id="urlid" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
-                        <input type="hidden" name="url_id" value={url_id} id="urlid1" onChange={ this.handleChange }/>
-                        <input type="hidden" name="userrole" value={activeRole} onChange={ this.handleChange }/>
-                        <input type="hidden" name="service" value={service} onChange={ this.handleChange }/>
-                        <h>{login_required}</h>
-                        <input type="checkbox" label={login_required} name="login_required" id="loginrequired" checked={login_required} onChange={ this.handleChange }/>Login Required?
-                        {login_required && (
-                            <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Login Credentials</button>
-                            // <button type="button" className="btn btn-primary" id="mainmodalbutton" data-toggle="modal" data-target="#mainModal" onClick={ this.openModal }>Add Login Credentials</button>
-                        )}
-                        <input type="submit" className="btn btn-primary" value="Scan"/>
+                        <div className="container">
+                            <div className="row">
+                                <label htmlFor="urlid" className="control-label">Login URL</label>
+                                <input type="text" size="50" name="url" id="urlid" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
+                            </div>
+                            <div className="row">&nbsp;</div>
+                            <div className="row">
+                                <button type="button" className="btn btn-primary" id="mainmodalbutton" onClick={()=>this.show()}>Add Login Credentials</button>
+                                <input type="submit" className="btn btn-primary" value="Compare Access Privilege"/>
+                            </div>
+                        </div>
                     </form>
                     <ModalComponent {...this.props}/>
                 </div>
@@ -188,7 +189,8 @@ AccessCtrlComponent.propTypes = {
     backButtonHandle:PropTypes.func.isRequired,
     addMoreParams:PropTypes.func.isRequired,
     nextButtonHandle:PropTypes.func.isRequired,
-    setErrorStep:PropTypes.func.isRequired
+    setErrorStep:PropTypes.func.isRequired,
+    setAccessControl:PropTypes.func.isRequired
 
 }
 const mapStateToProps=state=> {

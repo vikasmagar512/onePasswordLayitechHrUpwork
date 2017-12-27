@@ -79,7 +79,7 @@ export class APIHandlerComponent extends Component{
         return l
     }
     save(){
-        alert('save')
+        alert('save');
         const state = {...this.props.modal}
         let hash = this.serialize(state);
 
@@ -193,7 +193,8 @@ APIHandlerComponent.propTypes = {
     backButtonHandle:PropTypes.func.isRequired,
     addMoreParams:PropTypes.func.isRequired,
     nextButtonHandle:PropTypes.func.isRequired,
-    setErrorStep:PropTypes.func.isRequired
+    setErrorStep:PropTypes.func.isRequired,
+    setAPIHandler:PropTypes.func.isRequired
 
 }
 const mapStateToProps=state=> {

@@ -160,11 +160,11 @@ export class CSRFComponent extends Component{
                         <input type="hidden" name="url_id" value={url_id} id="urlid1" onChange={ this.handleChange }/>
                         <input type="hidden" name="userrole" value={activeRole} onChange={ this.handleChange }/>
                         <input type="hidden" name="service" value={service} onChange={ this.handleChange }/>
-                        <h>{login_required}</h>
-                        <input type="checkbox" label={login_required} name="login_required" id="loginrequired" checked={login_required} onChange={ this.handleChange }/>Login Required?
+                        <label>
+                            <input type="checkbox" label={login_required} name="login_required" id="loginrequired" checked={login_required} onChange={ this.handleChange }/><span>Login Required ?</span>
+                        </label>
                         {login_required && (
                             <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Login Credentials</button>
-                            // <button type="button" className="btn btn-primary" id="mainmodalbutton" data-toggle="modal" data-target="#mainModal" onClick={ this.openModal }>Add Login Credentials</button>
                         )}
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
@@ -185,8 +185,8 @@ CSRFComponent.propTypes = {
     backButtonHandle:PropTypes.func.isRequired,
     addMoreParams:PropTypes.func.isRequired,
     nextButtonHandle:PropTypes.func.isRequired,
-    setErrorStep:PropTypes.func.isRequired
-
+    setErrorStep:PropTypes.func.isRequired,
+    setCrossSiteRequestForgery:PropTypes.func.isRequired
 }
 const mapStateToProps=state=> {
     console.log('mapStateToProps(state)  is ',state)
