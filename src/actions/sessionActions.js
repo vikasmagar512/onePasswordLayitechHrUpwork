@@ -145,8 +145,6 @@ export function closeRegisterModal() {
     }
 }
 
-
-
 // Three possible states for our logout process as well.
 // Since we are using JWTs, we just need to remove the token
 // from localStorage. These actions are more useful if we
@@ -171,7 +169,6 @@ function receiveLogout() {
 // Calls the API to get a token and
 // dispatches actions along the way
 export function loginUser(creds) {
-    debugger
     let config = {
         method: 'POST',
         headers: { 'Content-Type':'application/x-www-form-urlencoded' },
@@ -183,40 +180,33 @@ export function loginUser(creds) {
     return dispatch => {
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(creds))
-        debugger
         // http://35.167.23.92/scan/login
         // return fetch(BASE_URL+'/scan/login', config)
         return fetch(BASE_URL+'/scan/login', config)
         // return fetch(BASE_URL+'/scan/login',{'mode': 'no-cors'}, config)
             .then(response => {
-                console.log('response isdd ', response)
-                console.log('response.headers.get(\'set-cookie\')',response.headers.get('set-cookie')); // undefined
-                console.log('response.body ',response.body); // undefined
-                console.log('document.cookie',document.cookie); // nope
 
                 if (!response.ok) {
-                    console.log('document.cookie',document.cookie); // nope
                     // return Promise.reject(user)
                     document.cookie = 'user' + '=; path = /; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                     // If there was a problem, we want to
-                    let user={message:'vikas cookie not set'}
+                    let user = {message: 'vikas cookie not set'}
                     dispatch(loginError(user.message))
                 } else {
                     // dispatch the error condition
-                    document.cookie= 'user=cf995a6ad0c081fcbe314660eb020725; path=/; domain=.webapiskan.com; expires=Mon, 24-Dec-2018 09:51:40 GMT'
-                    console.log('document.cookie is ',document.cookie); // nope
+                    document.cookie = 'user=cf995a6ad0c081fcbe314660eb020725; path=/; domain=.webapiskan.com; expires=Mon, 24-Dec-2018 09:51:40 GMT'
 
                     // If login was successful, set the token in local storage
                     // localStorage.setItem('id_token', user.id_token)
 
                     // Dispatch the success action
                     let user = {
-                        id_token:'vikas'
-                    }
+                        id_token: 'vikas'
+                    };
                     dispatch(receiveLogin(user))
                 }
                 return response.json()
-            }).catch(err => console.log("Error: ", err))
+            }).catch(error=>{console.log('error is ',error)})
     }
 }
 

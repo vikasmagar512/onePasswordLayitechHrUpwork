@@ -7,6 +7,7 @@ import {
     SET_CURRENT_STEP_ERROR
 } from '../actions/actionTypes'
 import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
+import {Credentials, crosssite} from "../components/helpers";
 export function auth(state = {
     isFetching: false,
     isAuthenticated: (document.cookie !== "" && document.cookie.split("=")[1] !== ''),
@@ -48,10 +49,12 @@ const modalState= {
     login_required:false,
     url:'',
     url_id:'',
-    service:'crosssite',
+    service:crosssite,
     steps:[
         {
-            userrole:new Set()
+            userrole:new Set(
+                /*'admin'*/
+            )
         },{
             login_type:{
                 // 'admin':'Cookie'
@@ -89,10 +92,7 @@ crosssite.activeRole=selectedUserrole
 steps[3][selectedUserrole] = this.formAndAddStep3Object(selectedUserrole)
 */
 const getModifiedSteps=(steps)=>{
-    console.log('getModifiedSteps steps',steps)
-    console.log('step0 is ',steps[0])
     let k = steps.map((step,index)=>{
-        console.log('step is ',step)
         switch (index){
             case 0:
                 return {...step,userrole:new Set().add('no_role')}
@@ -102,14 +102,12 @@ const getModifiedSteps=(steps)=>{
                 return {...step,success_url:{...step.success_url,no_role:''}}
             case 3:{
                 let no_role = formAndAddStep3Object()
-                debugger
                 return {...step,no_role}
             }
             default:
                 return {...step}
         }
     })
-    debugger
     return k
 }
 
@@ -117,16 +115,14 @@ const getAPIModifiedSteps=(steps)=>{
     let stepsModified = getModifiedSteps(steps)
     let stepsAPIModified = stepsModified.map((step,index)=>{
         if(index===1){
-            return {...step,login_type:{...step.login_type,no_role:"Credentials"}}
+            return {...step,login_type:{...step.login_type,no_role:Credentials}}
         }else if(index===3){
             let k = formAndAddStep3ObjectForAPI()
-            debugger
             return {...step,no_role:k}
         } else{
             return {...step}
         }
     })
-    debugger
     return stepsAPIModified
 }
 export function modal(state = modalState, action) {
@@ -151,14 +147,12 @@ export function modal(state = modalState, action) {
                 steps:[...getAPIModifiedSteps(state.steps)]
             }
         case MODAL_INPUT_CHANGE: {
-            console.log('action data is ',action.data)
             let crosssite = action.data.crosssite
             return {...state,crosssite:{...state.crosssite,...crosssite},steps:action.data.steps}
         }
         case EDIT_LOGIN_CREDENTIALS:{
             let crosssite = action.data
             let k = {...state,crosssite:{...state.crosssite,...crosssite}}
-            debugger
             return k
         }
         case INPUT_CHANGE:

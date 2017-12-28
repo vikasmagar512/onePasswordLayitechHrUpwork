@@ -1,3 +1,17 @@
+export const Credentials = 'Credentials'
+export const Cookie = 'Cookie'
+export const Selenium= 'Selenium'
+export const userrole= 'userrole'
+export const login_type= 'login_type'
+export const success_url= 'success_url'
+export const crosssite = 'crosssite'
+export const activeRole= 'activeRole'
+export const login_required= 'login_required'
+export const modalOpen= 'modalOpen'
+export const steps= 'steps'
+export const service= 'service'
+export const path= 'path'
+
 import React,{PropTypes,Component} from 'react'
 export const UserRoleComponent= ({activeRole,userRoleValues,currentWarning,onModalInputChange})=>(
     <div className="step 1 step1">
@@ -19,7 +33,7 @@ export const UserRoleComponent= ({activeRole,userRoleValues,currentWarning,onMod
 
 export const LoginTypeComponent=({login_type,currentWarning,onModalInputChange})=>{
     const loginTypeNames =['Password','Cookie','Xpath'];
-    const loginTypeValues =["Credentials","Cookie","Selenium"];
+    const loginTypeValues =[Credentials,Cookie,Selenium];
     return(
         <div className="step 2 step2">
             Login Type
@@ -46,29 +60,27 @@ export const SuccessURLComponent=({success_url,currentWarning,onModalInputChange
         <input type="text" name="success_url" size="30" value={success_url} className="form-control" onChange={onModalInputChange}/>
     </div>
 )
-export const LoginDetailsComponent=({login_type,data,currentWarning,path,addMoreParams,onModalInputChange,save})=>{
-    const cookiesArray=data['Cookie']
-    const seleniumArray=data['Selenium']
-    const credentialsArray=data['Credentials']
+export const LoginDetailsComponent=({login_type,data,currentWarning,path,addMoreParams,addAnotherLoginCred,onModalInputChange,save})=>{
+    const cookiesArray=data[Cookie]
+    const seleniumArray=data[Selenium]
+    const credentialsArray=data[Credentials]
     console.log('path is ',path)
     return(
         <div className="step 4 step4">
-            {login_type === "Credentials" && (<CredentialsComponent credentialsArray={credentialsArray} path={path} onModalInputChange = {onModalInputChange} />)}
-            {login_type === "Cookie" && (<CookiesComponent cookiesArray={cookiesArray} onModalInputChange = {onModalInputChange}/>)}
-            {login_type === "Selenium" && (<SeleniumComponent seleniumArray={seleniumArray} onModalInputChange = {onModalInputChange}/> )}
-            <Button className = {"btn btn-primary"} name={"Add More Param"} id={"add-param"} handleClick={addMoreParams}/>
-            <Button className = {"btn btn-primary"} name={"Save"} id={"add-param-save"} handleClick={save}/>
-            <button className="btn btn-primary" id="add-another-login" style={{display:"none"}}>Add Another Login Credentials</button>
+            {login_type === Credentials && (<CredentialsComponent credentialsArray={credentialsArray} path={path} onModalInputChange = {onModalInputChange} />)}
+            {login_type === Cookie && (<CookiesComponent cookiesArray={cookiesArray} onModalInputChange = {onModalInputChange}/>)}
+            {login_type === Selenium && (<SeleniumComponent seleniumArray={seleniumArray} onModalInputChange = {onModalInputChange}/> )}
+            <Button className = {"btn btn-primary"} name={"Add More Param"} handleClick={addMoreParams}/>
+            <Button className = {"btn btn-primary"} name={"Add Another Login Credentials"} handleClick={addAnotherLoginCred}/>
+            <Button className = {"btn btn-primary"} name={"Save"} handleClick={save}/>
         </div>
     )
 }
-export const CredentialsComponent= ({credentialsArray,path,onModalInputChange} )=>(
+export const CredentialsComponent= ({credentialsArray,path,onModalInputChange})=>(
     <div id="login-param-div">
         <p>Add Login Parameters: ie the username and password to login to the site. </p>
-        <p>Enter the name of the parameter in login form in the param field, Enter the value
-            of the parameter in value field). For example if the username parameter is named
-            username in login form, enter username in param field, and actual username value
-            in value field.</p>
+        <p>Enter the name of the parameter in login form in the param field, Enter the value of the parameter in value field). For example if the username parameter is namedusername in login form,
+            enter username in param field, and actual username value in value field.</p>
         <ul id="login-param-list" className="list-unstyled">
             {
                 path !== undefined &&

@@ -7,107 +7,61 @@ import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
 import { setCrossSiteRequestForgery} from "../actions/actions";
+import {login_required, login_type, modalOpen, steps, success_url, userrole} from "./helpers";
 
 export class CSRFComponent extends Component{
     constructor(props){
-        super(props)
-        this.handleChange = this.handleChange.bind(this)
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
         this.save= this.save.bind(this)
     }
     componentWillMount(){
         this.props.setCrossSiteRequestForgery()
     }
     handleChange(e){
-        /*this.setState({
-            [e.target.name]: e.target.name==='login_required' ? !this.state[e.target.name] : e.target.value
-        })*/
         this.props.inputChange({
-            [e.target.name]: e.target.name==='login_required' ? !this.props.modal[e.target.name] : e.target.value
+            [e.target.name]: e.target.name===login_required ? !this.props.modal[e.target.name] : e.target.value
         })
     }
     getObjectArraySerialized(arrayOfSimpleObjects){
         let str = '';
         arrayOfSimpleObjects.map((item)=>{
             str+=this.getObjectSerialized(item)
-        })
+        });
         return str
     }
-    /*getObjectSerialized(structure){
-        let str=''
-        Object.keys(structure).map((item,index)=>{
-            console.log('structure item is ',item)
-            if(structure.hasOwnProperty(item)) {
-                console.log('item is ',item)
-                if(Object.keys(this.props.modal.crosssite).indexOf(item)===-1){
-                    str+= `${item}=${structure[item]}&`
-                    console.log('here str is ',str)
-                }
-            }}
-        )
-        return str
-    }*/
     getObjectSerialized(structure){
-        let str=''
+        let str='';
         Object.keys(structure).map((item,index)=>{
-            console.log('structure item is ',item)
             if(structure.hasOwnProperty(item)) {
-                console.log('item is ',item)
-                // if(Object.keys(this.props.modal.crosssite).indexOf(item)===-1){
-                    str+= `${item}=${structure[item]}&`
-                    console.log('here str is ',str)
-                // }
+                str+= `${item}=${structure[item]}&`
             }}
-        )
-        return str
-    }
-    getLoginTypeUserRoleSuccessURLObjectSerialized(structure,activeRole){
-        let str=''
-        Object.keys(structure).map((item,index)=>{
-            console.log('structure item is ',item)
-            if(structure.hasOwnProperty(item)) {
-                console.log('item is ',item)
-                if(item==='userrole'){
-                    str += `${item}=${activeRole}&`
-                }else if (['success_url','login_type'].indexOf(item)!==-1){
-                    str += `${item}=${structure[item][activeRole]}`
-                }
-                console.log('here str is ',str)
-            }}
-        )
+        );
         return str
     }
     serialize(structure){
-        let l =''
-        let activeRole = structure.crosssite.activeRole
+        let l ='';
+        let activeRole = structure.crosssite.activeRole;
         Object.keys(structure).map((item,index)=>{
             if(structure.hasOwnProperty(item)) {
                 if (typeof structure[item] !== "object") {
-                    debugger
-                    if(['modalOpen','login_required'].indexOf(item)===-1){
-                        debugger
+                    if([modalOpen,login_required].indexOf(item)===-1){
                         l+=`${item}=${structure[item]}&`
                     }
-                    console.log('l is ',l)
                 }else{
-                    if(item==='steps'){
-                        console.log('item===steps')
-                        console.log('structure[item] ',structure[item])
+                    if(item===steps){
                         structure[item].map((j,i)=> {
-                            debugger
                             if(i===0){
-                                l += `userrole=${activeRole}&`
+                                l += `${userrole}=${activeRole}&`
                             }else if(i===1) {
-                                l += `login_type=${j['login_type'][activeRole]}&`
+                                l += `${login_type}=${j[login_type][activeRole]}&`
                             }else if(i===2) {
-                                l += `success_url=${j['success_url'][activeRole]}&`
+                                l += `${success_url}=${j[success_url][activeRole]}&`
                             }else if(i===3) {
                                 Object.keys(structure[item][3][activeRole]).map((CookieCredSel, indo) => {
                                     if (structure[item][3][activeRole].hasOwnProperty(CookieCredSel)) {
                                         if (Array.isArray(structure[item][3][activeRole][CookieCredSel])) {
                                             l += this.getObjectArraySerialized(structure[item][3][activeRole][CookieCredSel])
-                                        }else{
-                                            //api handler "path"
-                                            l+=`${CookieCredSel}=${structure[item][3][activeRole][CookieCredSel]}&`
                                         }
                                     }
                                 })
@@ -116,34 +70,28 @@ export class CSRFComponent extends Component{
                     }
                 }
             }
-        })
+        });
         return l
     }
     save(){
-        alert('save')
-        const state = this.props.modal
+        const state = this.props.modal;
         let hash = this.serialize(state);
 
-        hash = hash.slice(0,hash.length-1)
-        console.log('hash is ',hash)
+        hash = hash.slice(0,hash.length-1);
         // crosssite.edit_login = 0;
 
         const xhr = new XMLHttpRequest();
         xhr.open('post', 'http://35.167.23.92/scan/save_loginnew');
         // xhr.open('post', '/scan/save_loginnew');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.withCredentials = true;
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
             if (xhr.status === 200) {
                 // success
-                console.log(xhr.response)
-                console.log('The form is valid');
                 alert('The Login Credentials are saved');
-                // this.setState({...this.state,url_id:data.scan_id})
             } else {
                 // failure
-                console.log(xhr.response)
-                console.log(xhr.response.message)
                 // const errors = xhr.response.errors ? xhr.response.errors : {};
                 // errors.summary = xhr.response.message;
             }
@@ -160,8 +108,6 @@ export class CSRFComponent extends Component{
         let steps=this.state.steps.map(item=>{
             item.visible = index===0
         })
-        console.log('close event');
-        this.setState({...this.state,steps:steps})
         //current = 1; Not Needed, otherwise back button wont work
     })*/
     show(){
@@ -170,18 +116,14 @@ export class CSRFComponent extends Component{
             return false;
         }
         this.props.openModal()
-        // this.setState({...this.state,modalOpen:true})
     }
     render(){
-        console.log('render props ',this.props.modal)
         const userRoleValues={admin:'Admin',non_admin:'Non Admin',custom_role_1:'Custom Role 1',custom_role_2:'Custom Role 2',no_login:'No Login'}
-        const {url,url_id,login_required,service,modalOpen,steps,crosssite}=this.props.modal
-        let activeRole = crosssite.activeRole
-        // alert(activeRole)
-        let login_type = activeRole ? steps[1]['login_type'][crosssite.activeRole] : ''
-        let success_url = activeRole ? steps[2]['success_url'][crosssite.activeRole] : ''
-        // let success_url= steps[2]['success_url'][crosssite.activeRole]
-        let cookieSelCred =  activeRole ? steps[3][crosssite.activeRole] : {}
+        const {url,url_id,login_required,service,modalOpen,steps,crosssite}=this.props.modal;
+        let activeRole = crosssite.activeRole;
+        let loginType = activeRole ? steps[1][login_type][activeRole] : '';
+        let successUrl = activeRole ? steps[2][success_url][activeRole] : '';
+        let cookieSelCred = activeRole ? steps[3][activeRole] : {};
         /*let logincount;
         if ( crosssite.edit_login ) {
             logincount = crosssite.edit_login;
@@ -201,9 +143,9 @@ export class CSRFComponent extends Component{
                     <form action="" method="post" className="form-inline">
                         <label htmlFor="urlid" className="control-label">URL</label>
                         <input type="text" size="50" name="url" id="urlid" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
-                        <input type="hidden" name="url_id" value={url_id} id="urlid1" onChange={ this.handleChange }/>
-                        <input type="hidden" name="userrole" value={activeRole} onChange={ this.handleChange }/>
-                        <input type="hidden" name="service" value={service} onChange={ this.handleChange }/>
+                        <input type="hidden" name="url_id" value={url_id} id="urlid1" onChange={this.handleChange}/>
+                        <input type="hidden" name="userrole" value={activeRole} onChange={this.handleChange}/>
+                        <input type="hidden" name="service" value={service} onChange={this.handleChange}/>
                         <label>
                             <input type="checkbox" label={login_required} name="login_required" id="loginrequired" checked={login_required} onChange={ this.handleChange }/><span>Login Required ?</span>
                         </label>
@@ -231,13 +173,12 @@ CSRFComponent.propTypes = {
     nextButtonHandle:PropTypes.func.isRequired,
     setErrorStep:PropTypes.func.isRequired,
     setCrossSiteRequestForgery:PropTypes.func.isRequired
-}
+};
 const mapStateToProps=state=> {
-    console.log('mapStateToProps(state)  is ',state)
     return {
         modal:getModalPropsSelector(state)
     }
-}
+};
 const mapDispatchToProps = (dispatch,getState) => {
     return {
         openModal:(creds)=>{
@@ -272,6 +213,6 @@ const mapDispatchToProps = (dispatch,getState) => {
         }
 
     }
-}
+};
 export const CSRF = connect(mapStateToProps, mapDispatchToProps)(CSRFComponent);
 export default CSRF

@@ -1,52 +1,48 @@
 import {Cookie, Credentials, Selenium, formAndAddStep3Object,  is_valid_url,getValues} from "../helperFunc";
-import {UserRoleComponent,LoginDetailsComponent,LoginTypeComponent,SuccessURLComponent,Button} from './helpers'
+import {
+    UserRoleComponent, LoginDetailsComponent, LoginTypeComponent, SuccessURLComponent, Button,
+    login_type, path, userrole, success_url} from './helpers'
 import React,{PropTypes,Component} from 'react'
 import { Modal} from 'react-bootstrap';
 
 export class ModalComponent extends Component{
     constructor(props){
-        super(props)
-        this.onModalInputChange= this.onModalInputChange.bind(this)
-        this.addMoreParams= this.addMoreParams.bind(this)
+        super(props);
+        this.onModalInputChange= this.onModalInputChange.bind(this);
+        this.addMoreParams= this.addMoreParams.bind(this);
         this.EditLoginCredentials= this.EditLoginCredentials.bind(this)
     }
     setUserRole(steps,crosssite,selectedUserrole){
-        steps[0]['userrole'].add(selectedUserrole)
-        steps[1]['login_type'][selectedUserrole]=''
-        steps[2]['success_url'][selectedUserrole]=''
-        crosssite.activeRole=selectedUserrole
-        steps[3][selectedUserrole] = formAndAddStep3Object(selectedUserrole)
+        steps[0][userrole].add(selectedUserrole);
+        steps[1][login_type][selectedUserrole]='';
+        steps[2][success_url][selectedUserrole]='';
+        crosssite.activeRole=selectedUserrole;
+        steps[3][selectedUserrole] = formAndAddStep3Object(selectedUserrole);
         return {steps,crosssite}
     }
     onModalInputChange(e){
-        console.log('onModalInputChange')
-        console.log('e.target.name ',e.target.name)
-        console.log('e.target.value ',e.target.value )
-        let {steps,crosssite}=this.props.modal
-        let activeRole = crosssite.activeRole
-        console.log('steps are ',steps)
+        let {steps,crosssite}=this.props.modal;
+        let activeRole = crosssite.activeRole;
 
         if(crosssite.currentstep===4 ){
-            let login_type = steps[1]['login_type'][activeRole]
-            console.log('steps[3] ',steps[3])
-            if(e.target.name==='path'){
-                steps[3][activeRole]['path'] = e.target.value
+            let loginType = steps[1][login_type][activeRole];
+            if(e.target.name===path){
+                steps[3][activeRole][path] = e.target.value
             }else{
-                steps[3][activeRole][login_type].map((item,index)=>{
+                steps[3][activeRole][loginType].map((item,index)=>{
                     if(item.hasOwnProperty(e.target.name)){
-                        steps[3][activeRole][login_type][index][e.target.name]=e.target.value
+                        steps[3][activeRole][loginType][index][e.target.name]=e.target.value
                     }
                 })
             }
-            console.log('step[3]..... ',steps[3])
         }else{
-            if(e.target.name === 'userrole'){
-                let selectedUserrole = e.target.value
-                if(!(steps[0]['userrole'].has(selectedUserrole))){
-                    steps[0]['userrole'].add(e.target.value)
-                    steps[1]['login_type'][selectedUserrole]=''
-                    steps[2]['success_url'][selectedUserrole]=''
-                    crosssite.activeRole=selectedUserrole
+            if(e.target.name === userrole){
+                let selectedUserrole = e.target.value;
+                if(!(steps[0][userrole].has(selectedUserrole))){
+                    steps[0][userrole].add(e.target.value);
+                    steps[1][login_type][selectedUserrole]='';
+                    steps[2][success_url][selectedUserrole]='';
+                    crosssite.activeRole=selectedUserrole;
                     steps[3][selectedUserrole] = formAndAddStep3Object(selectedUserrole)
                 }else {
                     crosssite.activeRole=selectedUserrole
@@ -57,17 +53,11 @@ export class ModalComponent extends Component{
                 steps[crosssite.currentstep-1][e.target.name][crosssite.activeRole]=e.target.value
             }
         }
-        crosssite.currentWarning=false
-        console.log('onModalInputChange steps are ',steps)
-        console.log('onModalInputChange crosssite is ',crosssite)
+        crosssite.currentWarning=false;
         this.props.modalInputChange({steps,crosssite})
-        // this.setState({...this.state,steps:steps,crosssite:crosssite})
     }
     closeModal(){
-        // alert('close event')
-        console.log('close event');
         this.props.closeModal()
-        // this.setState({...this.state,modalOpen:false,crosssite:{...this.state.crosssite,currentstep:1,activeRole:""}})
     }
     backButtonHandle(){
         if(this.props.modal.crosssite.currentstep > 1){
@@ -76,14 +66,11 @@ export class ModalComponent extends Component{
                     return
                 }
             }*/
-            // this.setState({...this.props.modal,crosssite:{...this.props.modal.crosssite,currentstep:this.props.modal.crosssite.currentstep - 1}})
             this.props.backButtonHandle({...this.props.modal.crosssite,currentstep:this.props.modal.crosssite.currentstep - 1,currentWarning:false})
         }
-        console.log("Inside back button: ", this.props.modal.crosssite.currentstep);
     }
     nextButtonHandle(){
-        const {currentstep,limit} = this.props.modal.crosssite
-        console.log("Inside next button currentstep: ",currentstep);
+        const {currentstep,limit} = this.props.modal.crosssite;
         if (currentstep) {
             if (!this.canClickNext()) {
                 this.props.setErrorStep({...this.props.modal.crosssite,currentWarning:true})
@@ -92,64 +79,54 @@ export class ModalComponent extends Component{
         }
         if(currentstep < limit){
             this.props.nextButtonHandle({...this.props.modal.crosssite,currentstep:currentstep + 1,currentWarning:false})
-            // this.setState({...this.state,crosssite:{...this.state.crosssite,currentstep:currentstep + 1}})
         }
     }
     canClickNext(){
-        if ( this.props.modal.crosssite.currentstep === 1 ) return this.validate_login_role();
-        if ( this.props.modal.crosssite.currentstep === 2 ) return this.validateLoginType();
-        if ( this.props.modal.crosssite.currentstep === 3 ) return this.validateRedirectURL();
+        const currentstep = this.props.modal.crosssite.currentstep;
+        if ( currentstep === 1 ) return this.validate_login_role();
+        if ( currentstep === 2 ) return this.validateLoginType();
+        if ( currentstep === 3 ) return this.validateRedirectURL();
     }
     validateRedirectURL(){
-        let activeRole = this.props.modal.crosssite.activeRole
-        return is_valid_url(this.props.modal.steps[2]['success_url'][activeRole])
+        let activeRole = this.props.modal.crosssite.activeRole;
+        return is_valid_url(this.props.modal.steps[2][success_url][activeRole])
     }
     addMoreParams(){
-        let steps= [...this.props.modal.steps]
-        let activeRole = this.props.modal.crosssite.activeRole
-        let login_type = steps[1]['login_type'][activeRole]
-        let map = {'Credentials':Credentials,'Cookie':Cookie,'Selenium':Selenium}
-        steps[3][activeRole][login_type].push(getValues(map[login_type],steps[3][activeRole][login_type].length+1))
-        // this.setState({...this.props.modal,steps:steps})
+        let steps= [...this.props.modal.steps];
+        let activeRole = this.props.modal.crosssite.activeRole;
+        let loginType = steps[1][login_type][activeRole];
+        let map = {'Credentials':Credentials,'Cookie':Cookie,'Selenium':Selenium};
+        steps[3][activeRole][loginType].push(getValues(map[loginType],steps[3][activeRole][loginType].length+1));
         this.props.addMoreParams({steps})
-        // this.setState({...this.props.modal,steps:steps})
     }
     validate_login_role(){return this.props.modal.crosssite.activeRole !==''}
     validateLoginType(){
-        let activeRole = this.props.modal.crosssite.activeRole
-        return  (this.props.modal.steps[1]['login_type'][activeRole]!=='')
+        let activeRole = this.props.modal.crosssite.activeRole;
+        return  (this.props.modal.steps[1][login_type][activeRole]!=='')
     }
     EditLoginCredentials(e){
-        let {crosssite} = this.props.modal
-        let userrole = e.target.id
-        console.log('userrole is ',userrole)
+        let {crosssite} = this.props.modal;
+        let userrole = e.target.id;
         // crosssite.activeRole = userrole
         // this.crosssite.currentstep = 4
         this.props.editLoginCredentials({...crosssite,activeRole : userrole ,currentstep : 4 })
-        // this.setState({...this.state,crosssite:{...crosssite,activeRole : userrole ,currentstep : 4 }})
     }
     render(){
-        console.log('render props ',this.props.modal)
         const userRoleValues={admin:'Admin',non_admin:'Non Admin',custom_role_1:'Custom Role 1',custom_role_2:'Custom Role 2',no_login:'No Login'}
-        // const userRoleValues={no_role:'No Role'}
-        const {modalOpen,steps,crosssite}=this.props.modal
-        let activeRole = crosssite.activeRole
-        let currentWarning = crosssite.currentWarning
-        let login_type = activeRole ? steps[1]['login_type'][activeRole] : ''
-        let success_url = activeRole ? steps[2]['success_url'][activeRole] : ''
+        const {modalOpen,steps,crosssite}=this.props.modal;
+        let activeRole = crosssite.activeRole;
+        let currentWarning = crosssite.currentWarning;
+        let login_type = activeRole ? steps[1]['login_type'][activeRole] : '';
+        let success_url = activeRole ? steps[2]['success_url'][activeRole] : '';
         // let success_url= steps[2]['success_url'][activeRole]
-        let cookieSelCred = activeRole ? steps[3][activeRole] : {}
-        debugger
+        let cookieSelCred = activeRole ? steps[3][activeRole] : {};
         let path = activeRole ? (steps[3][activeRole]).hasOwnProperty('path') ? steps[3][activeRole]['path'] : undefined : undefined
         /*let path =undefined
         if(activeRole){
-            console.log('here steps[3][activeRole][path] ',steps[3][activeRole])
-            debugger
             if((steps[3][activeRole]).hasOwnProperty('path')){
                 path = steps[3][activeRole]['path']
             }
         }*/
-        console.log('render path is ',path)
         return(
             <Modal className="modal-container" show={modalOpen} onHide={()=>this.closeModal()} animation>
                 <Modal.Header>
@@ -167,13 +144,13 @@ export class ModalComponent extends Component{
                         </ul>
                     </div>
                     {crosssite.currentstep === 1 &&
-                    (<UserRoleComponent activeRole={activeRole} userRoleValues={userRoleValues} currentWarning={currentWarning } onModalInputChange ={this.onModalInputChange}/>)}
+                    (<UserRoleComponent activeRole={activeRole} userRoleValues={userRoleValues} currentWarning={currentWarning} onModalInputChange ={this.onModalInputChange}/>)}
                     {crosssite.currentstep  === 2 &&
-                    (<LoginTypeComponent login_type={login_type} currentWarning={currentWarning } onModalInputChange ={this.onModalInputChange}/>)}
+                    (<LoginTypeComponent login_type={login_type} currentWarning={currentWarning} onModalInputChange ={this.onModalInputChange}/>)}
                     {crosssite.currentstep  === 3 &&
-                    (<SuccessURLComponent success_url={success_url} currentWarning={currentWarning } onModalInputChange = {this.onModalInputChange}/>)}
+                    (<SuccessURLComponent success_url={success_url} currentWarning={currentWarning} onModalInputChange = {this.onModalInputChange}/>)}
                     {crosssite.currentstep  === 4 &&
-                    (<LoginDetailsComponent login_type={login_type} data = {cookieSelCred} currentWarning={currentWarning } path={path} addMoreParams={this.addMoreParams} onModalInputChange={this.onModalInputChange} save={this.props.save}/>)}
+                    (<LoginDetailsComponent login_type={login_type} data = {cookieSelCred} currentWarning={currentWarning} path={path} addMoreParams={this.addMoreParams} addAnotherLoginCred={this.addAnotherLoginCred} onModalInputChange={this.onModalInputChange} save={this.props.save}/>)}
                 </Modal.Body>
                 <Modal.Footer>
                     {((crosssite.activeRole === 'no_role' && crosssite.currentstep > 2) ||
@@ -198,4 +175,4 @@ ModalComponent.PropTypes={
     addMoreParams:PropTypes.func.isRequired,
     nextButtonHandle:PropTypes.func.isRequired,
     setErrorStep:PropTypes.func.isRequired
-}
+};

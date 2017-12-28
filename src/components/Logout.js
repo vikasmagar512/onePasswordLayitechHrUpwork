@@ -2,14 +2,17 @@ import React, { Component, PropTypes } from 'react'
 
 export default class Logout extends Component {
   render() {
-    const { onLogoutClick } = this.props
+    // const { onLogoutClick } = this.props
     return (
-      <input type="button" className="btn btn-primary" value="Logout" onClick={()=>onLogoutClick()}/>
+      <div>
+        <div className="alert alert-danger">
+            We're sorry. You may to need to login first to access this page or the requested resource is not found
+        </div>
+      </div>
     )
   }
 }
 
 Logout.propTypes = {
-  onLogoutClick: PropTypes.func.isRequired,
-    value: PropTypes.String
+  // onLogoutClick: PropTypes.func.isRequired,
 }

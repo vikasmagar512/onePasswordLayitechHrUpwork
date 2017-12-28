@@ -26,6 +26,7 @@ import {setAccessControl, setCrossSiteRequestForgery} from './actions/actions'
 import AccessCtrl from "./components/accessControl";
 import {API_HANDLER} from "./actions/actionTypes";
 import {APICtrl} from "./components/apiHandler";
+import Logout from "./components/Logout";
 export const setModalStore =(store,route)=> {
     let state = store.getState()
     if(route==='access_control'){
@@ -53,6 +54,7 @@ export const getRoutes=(store,dispatch)=>{
             <Route path="/scan/access_control" component={AccessCtrl}/>
             <Route path="/scan/api_handler" component={APICtrl}/>
             <Route path="/scan/register" component={Register} />
+            <Route path="/scan/logout" component={Logout} />
             <Route path="*" component={NotFound}/>
         </Route>
     );

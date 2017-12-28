@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {logoutUser,loginUser,openRegisterModal} from "../../actions/sessionActions";
 
 class Header extends Component {
+
     render(){
         const { isAuthenticated, errorMessage, loginUser, logoutUser,openRegisterModal} = this.props
         return (
@@ -24,8 +25,8 @@ class Header extends Component {
                   <div className="navbar-header navbar-right">
                       {isAuthenticated
                         ?
-                            <Logout onLogoutClick={logoutUser}/>
-                        :
+                            <input type="button" className="btn btn-primary" value="Logout" onClick={()=>logoutUser()}/>
+                          :
                             <Login onLoginClick={loginUser} openRegisterModal={openRegisterModal} errorMessage={errorMessage}/>
                       }
                   </div>

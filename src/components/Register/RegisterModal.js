@@ -3,7 +3,7 @@ import { Modal} from 'react-bootstrap';
 
 export default class RegisterModal extends Component{
     constructor(props){
-        super(props)
+        super(props);
         this.state={
             first_name:'',
             last_name:'',
@@ -12,32 +12,27 @@ export default class RegisterModal extends Component{
             password1:'',
             error:'',
             waiting:false
-        }
+        };
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(e){
-        let name =e.target.name
-        let value = e.target.value
-        console.log('e.target.name ',name)
-        console.log('e.target.value ',value)
+        let name =e.target.name;
+        let value = e.target.value;
+        console.log('e.target.name ',name);
+        console.log('e.target.value ',value);
         this.setState({...this.state,[name]:value})
     }
     handleClick() {
-        // var l = document.getElementById("register").elements
-        // debugger
-        // var k = this.refs.registerForm
-        // const creds = { username: username.value.trim(), password: password.value.trim() };
-        let payload ={}
-        let urlEncoded =''
+        let payload ={};
+        let urlEncoded ='';
         Object.keys(this.state).map((key,index)=>{
             if(['error','waiting'].indexOf(key)===-1){
                 payload[key]=this.state[key].trim()
                 urlEncoded+= `${key}=${this.state[key].trim()}&`
             }
-        })
+        });
         let urlEncodeded = urlEncoded.slice(0,urlEncoded.length-1)
         debugger
-        // this.props.userLogin(payload)
         this.registerUser(urlEncodeded)
     }
     registerUser(data){
@@ -68,7 +63,6 @@ export default class RegisterModal extends Component{
         }).catch(err => console.log("Error: ", err))
     }
 
-
     render(){
         const {registerModalOpen,closeRegisterModal,openRegisterModal,loginUser} = this.props
         let {first_name,last_name,email_address,password,password1} = this.state
@@ -89,7 +83,7 @@ export default class RegisterModal extends Component{
                                     First Name:
                                 </div>
                                 <div className="col-sm-4">
-                                    <input ref='first_name' type="text" size="30" name="first_name" value={first_name} onChange={this.handleChange}/>
+                                    <input ref="first_name" type="text" size="30" name="first_name" value={first_name} onChange={this.handleChange}/>
                                 </div>
                             </div>
                             <div className="row">
