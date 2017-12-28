@@ -7,7 +7,11 @@ import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
 import {setAPIHandler} from "../actions/actions";
-import {Credentials, login_required, login_type, modalOpen, path, service, steps, success_url} from "./helpers";
+import {
+    API_HANDLER_COMP,
+    Credentials, CSRF_COMP, login_required, login_type, modalOpen, path, service, steps,
+    success_url
+} from "./helpers";
 
 export class APIHandlerComponent extends Component{
     constructor(props){
@@ -145,7 +149,7 @@ export class APIHandlerComponent extends Component{
                         <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Path / Params</button>
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
-                    <ModalComponent {...this.props} save={this.save}/>
+                    <ModalComponent {...this.props} componentType={API_HANDLER_COMP} save={this.save}/>
                 </div>
             </div>
         )

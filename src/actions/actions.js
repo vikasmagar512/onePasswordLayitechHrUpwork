@@ -2,7 +2,7 @@
 import { CALL_API } from '../middleware/api'
 import {
     LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
-    CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, CLOSE_REGISTER_MODAL, API_HANDLER,SET_CURRENT_STEP_ERROR
+    CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, CLOSE_REGISTER_MODAL, API_HANDLER, SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN
 } from "./actionTypes";
 
 // There are three possible states for our login
@@ -71,6 +71,12 @@ export function setAPIHandler() {
         type: API_HANDLER
     }
 }
+/*
+export function add() {
+    return {
+        type: ADD_ANOTHER_LOGIN
+    }
+}*/
 // Calls the API to get a token and
 // dispatches actions along the way
 /*export function registerUser(creds) {

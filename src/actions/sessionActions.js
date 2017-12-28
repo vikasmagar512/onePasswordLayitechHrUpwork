@@ -118,6 +118,13 @@ export function addMoreParams(data) {
         data
     }
 }
+
+export function addAnotherLogin(data) {
+    return {
+        type: ADD_MORE_PARAMS,
+        data
+    }
+}
 function receiveLogin(user) {
     return {
         type: LOGIN_SUCCESS,

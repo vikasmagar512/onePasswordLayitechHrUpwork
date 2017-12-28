@@ -1,3 +1,5 @@
+import {EDIT_LOGIN_CREDENTIALS} from "../actions/actionTypes";
+
 export const Credentials = 'Credentials'
 export const Cookie = 'Cookie'
 export const Selenium= 'Selenium'
@@ -11,6 +13,9 @@ export const modalOpen= 'modalOpen'
 export const steps= 'steps'
 export const service= 'service'
 export const path= 'path'
+export const CSRF_COMP= 'CSRF_COMP'
+export const ACCESS_CONTROL_COMP= 'ACCESS_CONTROL_COMP'
+export const API_HANDLER_COMP= 'API_HANDLER_COMP'
 
 import React,{PropTypes,Component} from 'react'
 export const UserRoleComponent= ({activeRole,userRoleValues,currentWarning,onModalInputChange})=>(

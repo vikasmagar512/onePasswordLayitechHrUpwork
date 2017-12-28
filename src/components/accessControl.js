@@ -9,7 +9,7 @@ import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
 import {loginUser, setAccessControl} from "../actions/actions";
-import {login_required, login_type, modalOpen, success_url, userrole} from "./helpers";
+import {ACCESS_CONTROL_COMP, CSRF_COMP, login_required, login_type, modalOpen, success_url, userrole} from "./helpers";
 
 export class AccessCtrlComponent extends Component{
     constructor(props){
@@ -185,7 +185,7 @@ export class AccessCtrlComponent extends Component{
                             </div>
                         </div>
                     </form>
-                    <ModalComponent {...this.props} save={this.save}/>
+                    <ModalComponent {...this.props} componentType={ACCESS_CONTROL_COMP} save={this.save}/>
                 </div>
             </div>
         )

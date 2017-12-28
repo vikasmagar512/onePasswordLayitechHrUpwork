@@ -4,7 +4,7 @@ import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, OPEN_MODAL,
     CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
     CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER,
-    SET_CURRENT_STEP_ERROR
+    SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN
 } from '../actions/actionTypes'
 import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
 import {Credentials, crosssite} from "../components/helpers";
@@ -113,17 +113,16 @@ const getModifiedSteps=(steps)=>{
 
 const getAPIModifiedSteps=(steps)=>{
     let stepsModified = getModifiedSteps(steps)
-    let stepsAPIModified = stepsModified.map((step,index)=>{
-        if(index===1){
-            return {...step,login_type:{...step.login_type,no_role:Credentials}}
-        }else if(index===3){
+    return stepsModified.map((step, index) => {
+        if (index === 1) {
+            return {...step, login_type: {...step.login_type, no_role: Credentials}}
+        } else if (index === 3) {
             let k = formAndAddStep3ObjectForAPI()
-            return {...step,no_role:k}
-        } else{
+            return {...step, no_role: k}
+        } else {
             return {...step}
         }
     })
-    return stepsAPIModified
 }
 export function modal(state = modalState, action) {
     switch (action.type) {
@@ -166,6 +165,9 @@ export function modal(state = modalState, action) {
             return {...state,crosssite:action.data}
         case ADD_MORE_PARAMS:
             return {...state,steps:action.data.steps}
+        case ADD_ANOTHER_LOGIN:
+            // return {...state,steps:action.data.steps}
+            return {...state}
         default:
             return state
     }

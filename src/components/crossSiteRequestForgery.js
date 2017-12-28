@@ -1,13 +1,15 @@
 import React,{PropTypes,Component} from 'react'
 
 import {connect} from 'react-redux'
-import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange,backButtonHandle,nextButtonHandle,addMoreParams,setErrorStep
+import {
+    closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
+    addMoreParams, setErrorStep, addAnotherLogin
 } from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
 import { setCrossSiteRequestForgery} from "../actions/actions";
-import {login_required, login_type, modalOpen, steps, success_url, userrole} from "./helpers";
+import {CSRF_COMP, login_required, login_type, modalOpen, steps, success_url, userrole} from "./helpers";
 
 export class CSRFComponent extends Component{
     constructor(props){
@@ -154,7 +156,7 @@ export class CSRFComponent extends Component{
                         )}
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
-                    <ModalComponent {...this.props} save={this.save}/>
+                    <ModalComponent {...this.props} componentType={CSRF_COMP} save={this.save}/>
                 </div>
             </div>
         )
@@ -210,8 +212,10 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         setErrorStep:(data)=>{
             dispatch(setErrorStep(data))
+        },
+        addAnotherLogin:(data)=>{
+            dispatch(addAnotherLogin(data))
         }
-
     }
 };
 export const CSRF = connect(mapStateToProps, mapDispatchToProps)(CSRFComponent);
