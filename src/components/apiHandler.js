@@ -1,20 +1,13 @@
 import React,{PropTypes,Component} from 'react'
 
 import {connect} from 'react-redux'
-import {
-    closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
-    addMoreParams, setErrorStep, addAnotherLogin
-} from '../actions/sessionActions'
+import {openModal, inputChange, saveUser} from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
-import {ModalComponent} from "./ProcessModal";
 import {setAPIHandler} from "../actions/actions";
-import {
-    API_HANDLER_COMP,
-    Credentials, CSRF_COMP, login_required, login_type, modalOpen, path, service, steps,
-    success_url
-} from "./helpers";
+import {Credentials, login_required, login_type, modalOpen, path, service, steps,success_url} from "./helpers";
 import {API_HANDLER} from "../actions/actionTypes";
+import ProcessModal from "./ProcessModal";
 
 export class APIHandlerComponent extends Component{
     constructor(props){
@@ -68,6 +61,9 @@ export class APIHandlerComponent extends Component{
     }
     save(){
         const state = this.props.modal;
+        const activeRole = state.crosssite.activeRole
+        this.props.saveUser({activeRole})
+
         let hash = this.serialize(state);
 
         hash = hash.slice(0,hash.length-1);
@@ -152,7 +148,7 @@ export class APIHandlerComponent extends Component{
                         <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Path / Params</button>
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
-                    <ModalComponent {...this.props} componentType={API_HANDLER} save={this.save}/>
+                    <ProcessModal {...this.props} componentType={API_HANDLER} save={this.save}/>
                 </div>
             </div>
         )
@@ -162,15 +158,9 @@ export class APIHandlerComponent extends Component{
 APIHandlerComponent.propTypes = {
     modal:PropTypes.object.isRequired,
     openModal:PropTypes.func.isRequired,
-    closeModal:PropTypes.func.isRequired,
-    modalInputChange:PropTypes.func.isRequired,
-    editLoginCredentials:PropTypes.func.isRequired,
     inputChange:PropTypes.func.isRequired,
-    backButtonHandle:PropTypes.func.isRequired,
-    addMoreParams:PropTypes.func.isRequired,
-    nextButtonHandle:PropTypes.func.isRequired,
-    setErrorStep:PropTypes.func.isRequired,
-    setAPIHandler:PropTypes.func.isRequired
+    setAPIHandler:PropTypes.func.isRequired,
+    saveUser:PropTypes.func.isRequired
 
 };
 const mapStateToProps=state=> {
@@ -183,35 +173,14 @@ const mapDispatchToProps = (dispatch,getState) => {
         openModal:(creds)=>{
             dispatch(openModal(creds))
         },
-        closeModal:()=>{
-            dispatch(closeModal())
-        },
-        modalInputChange:(data)=>{
-            dispatch(onModalInputChange(data))
-        },
-        editLoginCredentials:(data)=>{
-            dispatch(editLoginCredentials(data))
-        },
         inputChange:(data)=>{
             dispatch(inputChange(data))
-        },
-        backButtonHandle:(data)=>{
-            dispatch(backButtonHandle(data))
-        },
-        nextButtonHandle:(data)=>{
-            dispatch(nextButtonHandle(data))
-        },
-        addMoreParams:(data)=>{
-            dispatch(addMoreParams(data))
         },
         setAPIHandler:()=>{
             dispatch(setAPIHandler())
         },
-        setErrorStep:(data)=>{
-            dispatch(setErrorStep(data))
-        },
-        addAnotherLogin:(data)=>{
-            dispatch(addAnotherLogin(data))
+        saveUser:(data)=>{
+            dispatch(saveUser(data))
         }
     }
 };

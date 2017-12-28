@@ -1,16 +1,14 @@
 import React,{PropTypes,Component} from 'react'
 
 import {connect} from 'react-redux'
-import {
-    closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
-    addMoreParams, setErrorStep, openRegisterModal, closeRegisterModal, addAnotherLogin
-} from '../actions/sessionActions'
+import {openModal, inputChange, saveUser} from '../actions/sessionActions'
+
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
-import {ModalComponent} from "./ProcessModal";
 import {loginUser, setAccessControl} from "../actions/actions";
-import {ACCESS_CONTROL_COMP, CSRF_COMP, login_required, login_type, modalOpen, success_url, userrole} from "./helpers";
+import {login_required, login_type, modalOpen, success_url, userrole} from "./helpers";
 import {ACCESS_CONTROL} from "../actions/actionTypes";
+import ProcessModal from "./ProcessModal";
 
 export class AccessCtrlComponent extends Component{
     constructor(props){
@@ -61,7 +59,7 @@ export class AccessCtrlComponent extends Component{
                             }else if(i===2) {
                                 l += `${success_url}=${j[success_url][activeRole]}&`
                             }else if(i===3) {
-                                Object.keys(structure[item][3][activeRole]).map((CookieCredSel, indo) => {
+                                Object.keys(structure[item][3][activeRole]).map((CookieCredSel) => {
                                     if (structure[item][3][activeRole].hasOwnProperty(CookieCredSel)) {
                                         if (Array.isArray(structure[item][3][activeRole][CookieCredSel])) {
                                             l += this.getObjectArraySerialized(structure[item][3][activeRole][CookieCredSel])
@@ -78,6 +76,9 @@ export class AccessCtrlComponent extends Component{
     }
     save(){
         const state = this.props.modal;
+        const activeRole = state.crosssite.activeRole
+        this.props.saveUser({activeRole})
+
         let hash = this.serialize(state);
 
         hash = hash.slice(0,hash.length-1);
@@ -186,66 +187,38 @@ export class AccessCtrlComponent extends Component{
                             </div>
                         </div>
                     </form>
-                    <ModalComponent {...this.props} componentType={ACCESS_CONTROL} save={this.save}/>
+                    <ProcessModal {...this.props} componentType={ACCESS_CONTROL} save={this.save}/>
                 </div>
             </div>
         )
     }
 }
-
 AccessCtrlComponent.propTypes = {
     modal:PropTypes.object.isRequired,
     openModal:PropTypes.func.isRequired,
-    closeModal:PropTypes.func.isRequired,
-    modalInputChange:PropTypes.func.isRequired,
-    editLoginCredentials:PropTypes.func.isRequired,
     inputChange:PropTypes.func.isRequired,
-    backButtonHandle:PropTypes.func.isRequired,
-    addMoreParams:PropTypes.func.isRequired,
-    nextButtonHandle:PropTypes.func.isRequired,
-    setErrorStep:PropTypes.func.isRequired,
-    setAccessControl:PropTypes.func.isRequired
-};
-const mapStateToProps=state=> {
-    return {
-        modal:getModalPropsSelector(state)
-    }
+    setAccessControl:PropTypes.func.isRequired,
+    saveUser:PropTypes.func.isRequired
 };
 const mapDispatchToProps = (dispatch,getState) => {
     return {
         openModal:(creds)=>{
             dispatch(openModal(creds))
         },
-        closeModal:()=>{
-            dispatch(closeModal())
-        },
-        modalInputChange:(data)=>{
-            dispatch(onModalInputChange(data))
-        },
-        editLoginCredentials:(data)=>{
-            dispatch(editLoginCredentials(data))
-        },
         inputChange:(data)=>{
             dispatch(inputChange(data))
-        },
-        backButtonHandle:(data)=>{
-            dispatch(backButtonHandle(data))
-        },
-        nextButtonHandle:(data)=>{
-            dispatch(nextButtonHandle(data))
-        },
-        addMoreParams:(data)=>{
-            dispatch(addMoreParams(data))
         },
         setAccessControl:()=>{
             dispatch(setAccessControl())
         },
-        setErrorStep:(data)=>{
-            dispatch(setErrorStep(data))
-        },
-        addAnotherLogin:(data)=>{
-            dispatch(addAnotherLogin(data))
+        saveUser:(data)=>{
+            dispatch(saveUser(data))
         }
+    }
+};
+const mapStateToProps=state=> {
+    return {
+        modal:getModalPropsSelector(state)
     }
 };
 export const AccessCtrl = connect(mapStateToProps, mapDispatchToProps)(AccessCtrlComponent);

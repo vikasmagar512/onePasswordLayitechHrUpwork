@@ -1,12 +1,14 @@
-import {Cookie, Credentials, Selenium, formAndAddStep3Object,  is_valid_url,getValues} from "../helperFunc";
-import {
-    UserRoleComponent, LoginDetailsComponent, LoginTypeComponent, SuccessURLComponent, Button,
-    login_type, path, userrole, success_url, CSRF_COMP, API_HANDLER_COMP, ACCESS_CONTROL_COMP
-} from './helpers'
 import React,{PropTypes,Component} from 'react'
+import {connect} from 'react-redux'
+
 import { Modal} from 'react-bootstrap';
+import {Cookie, Credentials, Selenium, formAndAddStep3Object,  is_valid_url,getValues} from "../helperFunc";
+import {UserRoleComponent, LoginDetailsComponent, LoginTypeComponent, SuccessURLComponent, Button,login_type, path, userrole, success_url} from './helpers'
 import {ACCESS_CONTROL, API_HANDLER, CROSS_SITE_RQ_FORGERY} from "../actions/actionTypes";
-import {getAPIModifiedSteps, getModifiedSteps, INITIAL_CROSSSITE} from "../reducers/sessionReducer";
+import {INITIAL_CROSSSITE} from "../reducers/sessionReducer";
+
+import {closeModal, onModalInputChange, openModal, editLoginCredentials,backButtonHandle, nextButtonHandle,
+    addMoreParams, setErrorStep, addAnotherLogin} from '../actions/sessionActions'
 
 export class ModalComponent extends Component{
     constructor(props){
@@ -61,7 +63,24 @@ export class ModalComponent extends Component{
         this.props.modalInputChange({steps,crosssite})
     }
     closeModal(){
-        this.props.closeModal()
+        const componentType = this.props.componentType
+        let currentstep = this.props.modal.currentstep
+        switch (componentType){
+            case CROSS_SITE_RQ_FORGERY:
+                currentstep=2
+                break
+            case ACCESS_CONTROL:
+                currentstep=1
+                break
+            case API_HANDLER:
+                currentstep=4
+                break
+            default:
+        }
+        debugger
+        let k ={currentstep}
+        debugger
+        this.props.closeModal({currentstep})
     }
     backButtonHandle(){
         if(this.props.modal.crosssite.currentstep > 1){
@@ -105,6 +124,7 @@ export class ModalComponent extends Component{
     }
     addAnotherLoginCred(){
         const componentType = this.props.componentType
+        const savedUsers= this.props.modal.crosssite.savedUsers
         console.log('here INITIAL_CROSSSITE ',INITIAL_CROSSSITE)
         switch (componentType){
             case CROSS_SITE_RQ_FORGERY:{
@@ -112,7 +132,7 @@ export class ModalComponent extends Component{
             }
             case ACCESS_CONTROL:{
                 console.log('here INITIAL_CROSSSITE ',INITIAL_CROSSSITE)
-                const k ={activeRole:'', currentstep: 1, currentWarning: false, limit: 5, edit_login: 0}
+                const k ={activeRole:'', currentstep: 1, currentWarning: false, limit: 5, edit_login: 0,savedUsers}
                 debugger
                 this.props.addAnotherLogin(k)
                 break
@@ -173,7 +193,6 @@ export class ModalComponent extends Component{
                     && <Button className="action back btn-primary" name={"Back"} handleClick={()=>this.backButtonHandle()}/>}
                     {((crosssite.currentstep < crosssite.limit) && (crosssite.currentstep !== crosssite.limit)) && <Button className="action next btn-primary" name={"Next"} handleClick={()=>this.nextButtonHandle()}/>}
                     {<button type="button" className="btn btn-default" onClick={()=>this.closeModal()}>Close</button>}
-                    {/*{(this.state.crosssite.currentstep === this.state.crosssite.limit) && <button type="button" className="btn btn-default" data-dismiss="modal">Submit button created by vikas</button>}*/}
                 </Modal.Footer>
             </Modal>
         )
@@ -185,10 +204,47 @@ ModalComponent.PropTypes={
     closeModal:PropTypes.func.isRequired,
     modalInputChange:PropTypes.func.isRequired,
     editLoginCredentials:PropTypes.func.isRequired,
-    inputChange:PropTypes.func.isRequired,
     backButtonHandle:PropTypes.func.isRequired,
     addMoreParams:PropTypes.func.isRequired,
     nextButtonHandle:PropTypes.func.isRequired,
     setErrorStep:PropTypes.func.isRequired,
     componentType:PropTypes.string.isRequired
 };
+
+const mapStateToProps=state=> {
+    return {
+    }
+};
+const mapDispatchToProps = (dispatch,getState) => {
+    return {
+        openModal:(creds)=>{
+            dispatch(openModal(creds))
+        },
+        closeModal:(data)=>{
+            dispatch(closeModal(data))
+        },
+        modalInputChange:(data)=>{
+            dispatch(onModalInputChange(data))
+        },
+        editLoginCredentials:(data)=>{
+            dispatch(editLoginCredentials(data))
+        },
+        backButtonHandle:(data)=>{
+            dispatch(backButtonHandle(data))
+        },
+        nextButtonHandle:(data)=>{
+            dispatch(nextButtonHandle(data))
+        },
+        addMoreParams:(data)=>{
+            dispatch(addMoreParams(data))
+        },
+        setErrorStep:(data)=>{
+            dispatch(setErrorStep(data))
+        },
+        addAnotherLogin:(data)=>{
+            dispatch(addAnotherLogin(data))
+        }
+    }
+};
+export const ProcessModal = connect(mapStateToProps, mapDispatchToProps)(ModalComponent);
+export default ProcessModal

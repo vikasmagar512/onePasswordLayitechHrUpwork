@@ -1,16 +1,13 @@
 import React,{PropTypes,Component} from 'react'
-
 import {connect} from 'react-redux'
-import {
-    closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
-    addMoreParams, setErrorStep, addAnotherLogin
-} from '../actions/sessionActions'
+import {openModal, inputChange, saveUser} from '../actions/sessionActions'
+
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
-import {ModalComponent} from "./ProcessModal";
 import { setCrossSiteRequestForgery} from "../actions/actions";
-import {CSRF_COMP, login_required, login_type, modalOpen, steps, success_url, userrole} from "./helpers";
+import {login_required, login_type, modalOpen, steps, success_url, userrole} from "./helpers";
 import {CROSS_SITE_RQ_FORGERY} from "../actions/actionTypes";
+import ProcessModal from "./ProcessModal";
 
 export class CSRFComponent extends Component{
     constructor(props){
@@ -78,6 +75,9 @@ export class CSRFComponent extends Component{
     }
     save(){
         const state = this.props.modal;
+        const activeRole = state.crosssite.activeRole
+        this.props.saveUser({activeRole})
+
         let hash = this.serialize(state);
 
         hash = hash.slice(0,hash.length-1);
@@ -91,6 +91,7 @@ export class CSRFComponent extends Component{
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
             if (xhr.status === 200) {
+                // this.props.saveUser(state.crosssite.activeRole)
                 // success
                 alert('The Login Credentials are saved');
             } else {
@@ -157,7 +158,7 @@ export class CSRFComponent extends Component{
                         )}
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
-                    <ModalComponent {...this.props} componentType={CROSS_SITE_RQ_FORGERY} save={this.save}/>
+                    <ProcessModal {...this.props} componentType={CROSS_SITE_RQ_FORGERY} save={this.save}/>
                 </div>
             </div>
         )
@@ -166,16 +167,10 @@ export class CSRFComponent extends Component{
 
 CSRFComponent.propTypes = {
     modal:PropTypes.object.isRequired,
-    openModal:PropTypes.func.isRequired,
-    closeModal:PropTypes.func.isRequired,
-    modalInputChange:PropTypes.func.isRequired,
-    editLoginCredentials:PropTypes.func.isRequired,
     inputChange:PropTypes.func.isRequired,
-    backButtonHandle:PropTypes.func.isRequired,
-    addMoreParams:PropTypes.func.isRequired,
-    nextButtonHandle:PropTypes.func.isRequired,
-    setErrorStep:PropTypes.func.isRequired,
-    setCrossSiteRequestForgery:PropTypes.func.isRequired
+    openModal:PropTypes.func.isRequired,
+    setCrossSiteRequestForgery:PropTypes.func.isRequired,
+    saveUser:PropTypes.func.isRequired
 };
 const mapStateToProps=state=> {
     return {
@@ -187,35 +182,14 @@ const mapDispatchToProps = (dispatch,getState) => {
         openModal:(creds)=>{
             dispatch(openModal(creds))
         },
-        closeModal:()=>{
-            dispatch(closeModal())
-        },
-        modalInputChange:(data)=>{
-            dispatch(onModalInputChange(data))
-        },
-        editLoginCredentials:(data)=>{
-            dispatch(editLoginCredentials(data))
-        },
         inputChange:(data)=>{
             dispatch(inputChange(data))
-        },
-        backButtonHandle:(data)=>{
-            dispatch(backButtonHandle(data))
-        },
-        nextButtonHandle:(data)=>{
-            dispatch(nextButtonHandle(data))
-        },
-        addMoreParams:(data)=>{
-            dispatch(addMoreParams(data))
         },
         setCrossSiteRequestForgery:()=>{
             dispatch(setCrossSiteRequestForgery())
         },
-        setErrorStep:(data)=>{
-            dispatch(setErrorStep(data))
-        },
-        addAnotherLogin:(data)=>{
-            dispatch(addAnotherLogin(data))
+        saveUser:(data)=>{
+            dispatch(saveUser(data))
         }
     }
 };

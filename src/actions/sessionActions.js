@@ -4,7 +4,7 @@ const BASE_URL ='http://35.167.23.92'
 import {
     LOG_IN_FAILURE, LOG_IN_SUCCESS, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
     OPEN_MODAL, CLOSE_MODAL, MODAL_INPUT_CHANGE, INPUT_CHANGE, BACK_BUTTON, ADD_MORE_PARAMS, EDIT_LOGIN_CREDENTIALS,
-    NEXT_BUTTON, OPEN_REGISTER_MODAL, CLOSE_REGISTER_MODAL, SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN
+    NEXT_BUTTON, OPEN_REGISTER_MODAL, CLOSE_REGISTER_MODAL, SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER
 } from "./actionTypes";
 
 export function loginSuccess(response) {
@@ -66,9 +66,10 @@ export function openModal() {
     }
 }
 
-export function closeModal() {
+export function closeModal(data) {
     return {
-        type: CLOSE_MODAL
+        type: CLOSE_MODAL,
+        data
     }
 }
 
@@ -122,6 +123,12 @@ export function addMoreParams(data) {
 export function addAnotherLogin(data) {
     return {
         type: ADD_ANOTHER_LOGIN,
+        data
+    }
+}
+export function saveUser(data) {
+    return {
+        type: SAVE_USER,
         data
     }
 }

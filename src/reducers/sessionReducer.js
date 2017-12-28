@@ -4,7 +4,7 @@ import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, OPEN_MODAL,
     CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
     CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER,
-    SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN
+    SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER
 } from '../actions/actionTypes'
 import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
 import {Credentials, crosssite} from "../components/helpers";
@@ -45,7 +45,7 @@ export function auth(state = {
 const globalState={
     registerModalOpen :false
 }
-export const INITIAL_CROSSSITE = { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0 }
+export const INITIAL_CROSSSITE = { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0,savedUsers:new Set() }
 const modalState= {
     login_required:false,
     url:'',
@@ -86,13 +86,6 @@ export function globalApp(state=globalState,action) {
             return state
     }
 }
-/*
-steps[0]['userrole'].add(e.target.value)
-steps[1]['login_type'][selectedUserrole]=''
-steps[2]['success_url'][selectedUserrole]=''
-crosssite.activeRole=selectedUserrole
-steps[3][selectedUserrole] = this.formAndAddStep3Object(selectedUserrole)
-*/
 export const getModifiedSteps=(steps)=>{
     let k = steps.map((step,index)=>{
         switch (index){
@@ -131,7 +124,7 @@ export function modal(state = modalState, action) {
         case OPEN_MODAL:
             return {...state,modalOpen:true}
         case CLOSE_MODAL:
-            return {...state,modalOpen:false,crosssite:{...state.crosssite,currentstep:1,activeRole:""}}
+            return {...state,modalOpen:false,crosssite:{...state.crosssite,currentstep:action.data.currentstep}}
         case CROSS_SITE_RQ_FORGERY:
             return {
                 ...state,
@@ -167,10 +160,11 @@ export function modal(state = modalState, action) {
         case ADD_MORE_PARAMS:
             return {...state,steps:action.data.steps}
         case ADD_ANOTHER_LOGIN:
-            console.log('action',action)
-            debugger
             return {...state,crosssite:action.data}
-            // return {...state}
+        case SAVE_USER:{
+            let savedUsers = state.crosssite.savedUsers.add(action.data.activeRole)
+            return {...state,crosssite:{...state.crosssite,savedUsers:savedUsers}}
+        }
         default:
             return state
     }
