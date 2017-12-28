@@ -10,7 +10,6 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 
-
 export const OPEN_MODAL = 'OPEN_MODAL'
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const INPUT_CHANGE = 'INPUT_CHANGE'

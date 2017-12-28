@@ -22,6 +22,5 @@ export const formAndAddStep3Object=()=>{
     }
 }
 export const formAndAddStep3ObjectForAPI=()=>{
-
     return {...formAndAddStep3Object(),path:''}
 }

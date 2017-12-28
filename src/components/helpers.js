@@ -1,4 +1,4 @@
-import {EDIT_LOGIN_CREDENTIALS} from "../actions/actionTypes";
+import {ACCESS_CONTROL, EDIT_LOGIN_CREDENTIALS} from "../actions/actionTypes";
 
 export const Credentials = 'Credentials'
 export const Cookie = 'Cookie'
@@ -13,9 +13,6 @@ export const modalOpen= 'modalOpen'
 export const steps= 'steps'
 export const service= 'service'
 export const path= 'path'
-export const CSRF_COMP= 'CSRF_COMP'
-export const ACCESS_CONTROL_COMP= 'ACCESS_CONTROL_COMP'
-export const API_HANDLER_COMP= 'API_HANDLER_COMP'
 
 import React,{PropTypes,Component} from 'react'
 export const UserRoleComponent= ({activeRole,userRoleValues,currentWarning,onModalInputChange})=>(
@@ -65,7 +62,7 @@ export const SuccessURLComponent=({success_url,currentWarning,onModalInputChange
         <input type="text" name="success_url" size="30" value={success_url} className="form-control" onChange={onModalInputChange}/>
     </div>
 )
-export const LoginDetailsComponent=({login_type,data,currentWarning,path,addMoreParams,addAnotherLoginCred,onModalInputChange,save})=>{
+export const LoginDetailsComponent=({login_type,componentType,data,currentWarning,path,addMoreParams,addAnotherLoginCred,onModalInputChange,save})=>{
     const cookiesArray=data[Cookie]
     const seleniumArray=data[Selenium]
     const credentialsArray=data[Credentials]
@@ -76,7 +73,7 @@ export const LoginDetailsComponent=({login_type,data,currentWarning,path,addMore
             {login_type === Cookie && (<CookiesComponent cookiesArray={cookiesArray} onModalInputChange = {onModalInputChange}/>)}
             {login_type === Selenium && (<SeleniumComponent seleniumArray={seleniumArray} onModalInputChange = {onModalInputChange}/> )}
             <Button className = {"btn btn-primary"} name={"Add More Param"} handleClick={addMoreParams}/>
-            <Button className = {"btn btn-primary"} name={"Add Another Login Credentials"} handleClick={addAnotherLoginCred}/>
+            {componentType===ACCESS_CONTROL && <Button className = {"btn btn-primary"} name={"Add Another Login Credentials"} handleClick={addAnotherLoginCred}/>}
             <Button className = {"btn btn-primary"} name={"Save"} handleClick={save}/>
         </div>
     )

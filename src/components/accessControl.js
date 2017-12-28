@@ -3,13 +3,14 @@ import React,{PropTypes,Component} from 'react'
 import {connect} from 'react-redux'
 import {
     closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
-    addMoreParams, setErrorStep, openRegisterModal, closeRegisterModal
+    addMoreParams, setErrorStep, openRegisterModal, closeRegisterModal, addAnotherLogin
 } from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
 import {loginUser, setAccessControl} from "../actions/actions";
 import {ACCESS_CONTROL_COMP, CSRF_COMP, login_required, login_type, modalOpen, success_url, userrole} from "./helpers";
+import {ACCESS_CONTROL} from "../actions/actionTypes";
 
 export class AccessCtrlComponent extends Component{
     constructor(props){
@@ -185,7 +186,7 @@ export class AccessCtrlComponent extends Component{
                             </div>
                         </div>
                     </form>
-                    <ModalComponent {...this.props} componentType={ACCESS_CONTROL_COMP} save={this.save}/>
+                    <ModalComponent {...this.props} componentType={ACCESS_CONTROL} save={this.save}/>
                 </div>
             </div>
         )
@@ -241,6 +242,9 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         setErrorStep:(data)=>{
             dispatch(setErrorStep(data))
+        },
+        addAnotherLogin:(data)=>{
+            dispatch(addAnotherLogin(data))
         }
     }
 };

@@ -10,6 +10,7 @@ import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
 import { setCrossSiteRequestForgery} from "../actions/actions";
 import {CSRF_COMP, login_required, login_type, modalOpen, steps, success_url, userrole} from "./helpers";
+import {CROSS_SITE_RQ_FORGERY} from "../actions/actionTypes";
 
 export class CSRFComponent extends Component{
     constructor(props){
@@ -156,7 +157,7 @@ export class CSRFComponent extends Component{
                         )}
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
-                    <ModalComponent {...this.props} componentType={CSRF_COMP} save={this.save}/>
+                    <ModalComponent {...this.props} componentType={CROSS_SITE_RQ_FORGERY} save={this.save}/>
                 </div>
             </div>
         )

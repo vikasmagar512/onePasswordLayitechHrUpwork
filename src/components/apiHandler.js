@@ -1,8 +1,10 @@
 import React,{PropTypes,Component} from 'react'
 
 import {connect} from 'react-redux'
-import {closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
-    addMoreParams, setErrorStep } from '../actions/sessionActions'
+import {
+    closeModal, onModalInputChange, openModal, editLoginCredentials, inputChange, backButtonHandle, nextButtonHandle,
+    addMoreParams, setErrorStep, addAnotherLogin
+} from '../actions/sessionActions'
 import {getModalPropsSelector} from '../selectors/index'
 import {is_valid_url} from "../helperFunc";
 import {ModalComponent} from "./ProcessModal";
@@ -12,6 +14,7 @@ import {
     Credentials, CSRF_COMP, login_required, login_type, modalOpen, path, service, steps,
     success_url
 } from "./helpers";
+import {API_HANDLER} from "../actions/actionTypes";
 
 export class APIHandlerComponent extends Component{
     constructor(props){
@@ -149,7 +152,7 @@ export class APIHandlerComponent extends Component{
                         <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Path / Params</button>
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
-                    <ModalComponent {...this.props} componentType={API_HANDLER_COMP} save={this.save}/>
+                    <ModalComponent {...this.props} componentType={API_HANDLER} save={this.save}/>
                 </div>
             </div>
         )
@@ -206,6 +209,9 @@ const mapDispatchToProps = (dispatch,getState) => {
         },
         setErrorStep:(data)=>{
             dispatch(setErrorStep(data))
+        },
+        addAnotherLogin:(data)=>{
+            dispatch(addAnotherLogin(data))
         }
     }
 };

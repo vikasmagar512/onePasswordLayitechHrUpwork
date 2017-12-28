@@ -45,6 +45,7 @@ export function auth(state = {
 const globalState={
     registerModalOpen :false
 }
+export const INITIAL_CROSSSITE = { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0 }
 const modalState= {
     login_required:false,
     url:'',
@@ -72,7 +73,8 @@ const modalState= {
         }
     ],
     modalOpen:false,
-    crosssite : { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0 }
+    // crosssite : { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0 }
+    crosssite : INITIAL_CROSSSITE
 }
 export function globalApp(state=globalState,action) {
     switch (action.type){
@@ -91,7 +93,7 @@ steps[2]['success_url'][selectedUserrole]=''
 crosssite.activeRole=selectedUserrole
 steps[3][selectedUserrole] = this.formAndAddStep3Object(selectedUserrole)
 */
-const getModifiedSteps=(steps)=>{
+export const getModifiedSteps=(steps)=>{
     let k = steps.map((step,index)=>{
         switch (index){
             case 0:
@@ -111,7 +113,7 @@ const getModifiedSteps=(steps)=>{
     return k
 }
 
-const getAPIModifiedSteps=(steps)=>{
+export const getAPIModifiedSteps=(steps)=>{
     let stepsModified = getModifiedSteps(steps)
     return stepsModified.map((step, index) => {
         if (index === 1) {
@@ -161,13 +163,14 @@ export function modal(state = modalState, action) {
         case NEXT_BUTTON:
             return {...state,crosssite:action.data}
         case SET_CURRENT_STEP_ERROR:
-        // {...this.props.modal.crosssite,currentWarning:true}
             return {...state,crosssite:action.data}
         case ADD_MORE_PARAMS:
             return {...state,steps:action.data.steps}
         case ADD_ANOTHER_LOGIN:
-            // return {...state,steps:action.data.steps}
-            return {...state}
+            console.log('action',action)
+            debugger
+            return {...state,crosssite:action.data}
+            // return {...state}
         default:
             return state
     }
