@@ -146,12 +146,12 @@ export class CSRFComponent extends Component{
                 <div className="form-group">
                     <form action="" method="post" className="form-inline">
                         <label htmlFor="urlid" className="control-label">URL</label>
-                        <input type="text" size="50" name="url" id="urlid" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
-                        <input type="hidden" name="url_id" value={url_id} id="urlid1" onChange={this.handleChange}/>
+                        <input type="text" size="50" name="url" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
+                        <input type="hidden" name="url_id" value={url_id} onChange={this.handleChange}/>
                         <input type="hidden" name="userrole" value={activeRole} onChange={this.handleChange}/>
                         <input type="hidden" name="service" value={service} onChange={this.handleChange}/>
                         <label>
-                            <input type="checkbox" label={login_required} name="login_required" id="loginrequired" checked={login_required} onChange={ this.handleChange }/><span>Login Required ?</span>
+                            <input type="checkbox" label={login_required} name="login_required" checked={login_required} onChange={ this.handleChange }/><span>Login Required ?</span>
                         </label>
                         {login_required && (
                             <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Login Credentials</button>
@@ -172,26 +172,16 @@ CSRFComponent.propTypes = {
     setCrossSiteRequestForgery:PropTypes.func.isRequired,
     saveUser:PropTypes.func.isRequired
 };
-const mapStateToProps=state=> {
+const mapStateToProps = state => {
     return {
         modal:getModalPropsSelector(state)
     }
 };
-const mapDispatchToProps = (dispatch,getState) => {
-    return {
-        openModal:(creds)=>{
-            dispatch(openModal(creds))
-        },
-        inputChange:(data)=>{
-            dispatch(inputChange(data))
-        },
-        setCrossSiteRequestForgery:()=>{
-            dispatch(setCrossSiteRequestForgery())
-        },
-        saveUser:(data)=>{
-            dispatch(saveUser(data))
-        }
-    }
+const mapDispatchToProps = {
+    openModal,
+    inputChange,
+    setCrossSiteRequestForgery,
+    saveUser
 };
 export const CSRF = connect(mapStateToProps, mapDispatchToProps)(CSRFComponent);
 export default CSRF

@@ -180,8 +180,7 @@ export class AccessCtrlComponent extends Component{
                             </div>
                             <div className="row">&nbsp;</div>
                             <div className="row">
-                                <button type="button" className="btn btn-primary" id="mainmodalbutton"
-                                        onClick={() => this.show()}>Add Login Credentials
+                                <button type="button" className="btn btn-primary" onClick={() => this.show()}>Add Login Credentials
                                 </button>
                                 <input type="submit" className="btn btn-primary" value="Compare Access Privilege"/>
                             </div>
@@ -200,21 +199,11 @@ AccessCtrlComponent.propTypes = {
     setAccessControl:PropTypes.func.isRequired,
     saveUser:PropTypes.func.isRequired
 };
-const mapDispatchToProps = (dispatch,getState) => {
-    return {
-        openModal:(creds)=>{
-            dispatch(openModal(creds))
-        },
-        inputChange:(data)=>{
-            dispatch(inputChange(data))
-        },
-        setAccessControl:()=>{
-            dispatch(setAccessControl())
-        },
-        saveUser:(data)=>{
-            dispatch(saveUser(data))
-        }
-    }
+const mapDispatchToProps = {
+    openModal,
+    inputChange,
+    setAccessControl,
+    saveUser
 };
 const mapStateToProps=state=> {
     return {

@@ -3,12 +3,17 @@ import {connect} from 'react-redux'
 
 import { Modal} from 'react-bootstrap';
 import {Cookie, Credentials, Selenium, formAndAddStep3Object,  is_valid_url,getValues} from "../helperFunc";
-import {UserRoleComponent, LoginDetailsComponent, LoginTypeComponent, SuccessURLComponent, Button,login_type, path, userrole, success_url} from './helpers'
+import {
+    UserRoleComponent, LoginDetailsComponent, LoginTypeComponent, SuccessURLComponent, Button, login_type, path,
+    userrole, success_url, EditLoginComponent
+} from './helpers'
 import {ACCESS_CONTROL, API_HANDLER, CROSS_SITE_RQ_FORGERY} from "../actions/actionTypes";
 import {INITIAL_CROSSSITE} from "../reducers/sessionReducer";
 
-import {closeModal, onModalInputChange, openModal, editLoginCredentials,backButtonHandle, nextButtonHandle,
-    addMoreParams, setErrorStep, addAnotherLogin} from '../actions/sessionActions'
+import {
+    closeModal, openModal, editLoginCredentials, backButtonHandle, nextButtonHandle,
+    addMoreParams, setErrorStep, addAnotherLogin, modalInputChange
+} from '../actions/sessionActions'
 
 export class ModalComponent extends Component{
     constructor(props){
@@ -155,8 +160,8 @@ export class ModalComponent extends Component{
     }
     render(){
         const userRoleValues={admin:'Admin',non_admin:'Non Admin',custom_role_1:'Custom Role 1',custom_role_2:'Custom Role 2',no_login:'No Login'}
-        const {modalOpen,steps,crosssite}=this.props.modal;
-        const {activeRole,currentWarning}= crosssite;
+        const {modalOpen,steps,crosssite} = this.props.modal;
+        const {activeRole,currentWarning,savedUsers} = crosssite;
         let loginType = activeRole ? steps[1][login_type][activeRole] : '';
         let successURL = activeRole ? steps[2][success_url][activeRole] : '';
         let cookieSelCred = activeRole ? steps[3][activeRole] : {};
@@ -169,15 +174,7 @@ export class ModalComponent extends Component{
                     <h4 className="modal-title">Add Login Credentials</h4>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="addedLogin">
-                        <ul id="addedLoginList" className="list-unstyled list-inline">
-                            {[...steps[0]['userrole']].map((item,index)=>
-                                (<li key={index}>
-                                    <Button className = {"btn btn-primary edit_login"} id={item} name={`Edit ${userRoleValues[item]} Login Credentials`} handleClick={this.EditLoginCredentials}/>
-                                </li>)
-                            )}
-                        </ul>
-                    </div>
+                    <EditLoginComponent componentType={componentType} savedUsers={savedUsers} userRoleValues={userRoleValues} EditLoginCredentials={this.EditLoginCredentials}/>
                     {crosssite.currentstep === 1 &&
                     (<UserRoleComponent activeRole={activeRole} userRoleValues={userRoleValues} currentWarning={currentWarning} onModalInputChange ={this.onModalInputChange}/>)}
                     {crosssite.currentstep  === 2 &&
@@ -215,36 +212,16 @@ const mapStateToProps=state=> {
     return {
     }
 };
-const mapDispatchToProps = (dispatch,getState) => {
-    return {
-        openModal:(creds)=>{
-            dispatch(openModal(creds))
-        },
-        closeModal:(data)=>{
-            dispatch(closeModal(data))
-        },
-        modalInputChange:(data)=>{
-            dispatch(onModalInputChange(data))
-        },
-        editLoginCredentials:(data)=>{
-            dispatch(editLoginCredentials(data))
-        },
-        backButtonHandle:(data)=>{
-            dispatch(backButtonHandle(data))
-        },
-        nextButtonHandle:(data)=>{
-            dispatch(nextButtonHandle(data))
-        },
-        addMoreParams:(data)=>{
-            dispatch(addMoreParams(data))
-        },
-        setErrorStep:(data)=>{
-            dispatch(setErrorStep(data))
-        },
-        addAnotherLogin:(data)=>{
-            dispatch(addAnotherLogin(data))
-        }
-    }
+const mapDispatchToProps = {
+    openModal,
+    closeModal,
+    modalInputChange,
+    editLoginCredentials,
+    backButtonHandle,
+    nextButtonHandle,
+    addMoreParams,
+    setErrorStep,
+    addAnotherLogin
 };
 export const ProcessModal = connect(mapStateToProps, mapDispatchToProps)(ModalComponent);
 export default ProcessModal

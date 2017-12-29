@@ -136,7 +136,7 @@ export class APIHandlerComponent extends Component{
                         <div className="form-group">
                             <label className="col-sm-4" htmlFor="company">Request Type</label>
                             <div className="col-sm-6 col-md-4">
-                                <select id="request-type" className="form-control" value={request_type} name="request_type" onChange={this.handleChange}>
+                                <select className="form-control" value={request_type} name="request_type" onChange={this.handleChange}>
                                     {
                                         options.map((item,index)=> <option key={index} value={item}>{item}</option> )
                                     }
@@ -144,7 +144,7 @@ export class APIHandlerComponent extends Component{
                             </div>
                         </div>
                         <label htmlFor="urlid" className="control-label">End Point:</label>
-                        <input type="text" size="50" name="url" id="urlid" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
+                        <input type="text" size="50" name="url" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
                         <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Path / Params</button>
                         <input type="submit" className="btn btn-primary" value="Scan"/>
                     </form>
@@ -168,21 +168,11 @@ const mapStateToProps=state=> {
         modal:getModalPropsSelector(state)
     }
 }
-const mapDispatchToProps = (dispatch,getState) => {
-    return {
-        openModal:(creds)=>{
-            dispatch(openModal(creds))
-        },
-        inputChange:(data)=>{
-            dispatch(inputChange(data))
-        },
-        setAPIHandler:()=>{
-            dispatch(setAPIHandler())
-        },
-        saveUser:(data)=>{
-            dispatch(saveUser(data))
-        }
-    }
+const mapDispatchToProps ={
+    openModal,
+    inputChange,
+    setAPIHandler,
+    saveUser
 };
 export const APICtrl = connect(mapStateToProps, mapDispatchToProps)(APIHandlerComponent);
 export default APICtrl

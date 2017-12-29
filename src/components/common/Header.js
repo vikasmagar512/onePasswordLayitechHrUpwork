@@ -52,18 +52,10 @@ function mapStateToProps(state) {
     }
 }
 
-const mapDispatchToProps = (dispatch,getState) => {
-    return {
-        loginUser:(creds)=>{
-            dispatch(loginUser(creds))
-        },
-        logoutUser:()=>{
-            dispatch(logoutUser())
-        },
-        openRegisterModal:()=>{
-            dispatch(openRegisterModal())
-        }
-    }
+const mapDispatchToProps = {
+    loginUser,
+    logoutUser,
+    openRegisterModal
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

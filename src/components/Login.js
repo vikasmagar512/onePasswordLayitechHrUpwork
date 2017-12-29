@@ -12,7 +12,7 @@ export default class Login extends Component {
     const  password ="test123"
     return (
         <form className="form-inline">
-            <ul className="nav navbar-nav navbar-right" id="login-ul">
+            <ul className="nav navbar-nav navbar-right">
                 <li className="nav-item"><span>Username</span></li>
                 <li className="nav-item">
                     <input type='text' ref='username' className="form-control" style={{ marginRight: '5px' }} placeholder='Username' defaultValue={username}/>

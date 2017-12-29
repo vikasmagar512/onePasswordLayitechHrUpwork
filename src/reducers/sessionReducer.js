@@ -136,7 +136,7 @@ export function modal(state = modalState, action) {
         case API_HANDLER:
             return {
                 ...state,
-                request_type:'',
+                request_type:'GET',
                 crosssite:{...state.crosssite,currentstep:4,activeRole:"no_role"},
                 steps:[...getAPIModifiedSteps(state.steps)]
             }

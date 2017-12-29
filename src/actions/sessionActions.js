@@ -60,78 +60,55 @@ function requestLogin(creds) {
     }
 }
 
-export function openModal() {
-    return {
-        type: OPEN_MODAL
-    }
-}
+export const openModal=()=>({
+    type: OPEN_MODAL
+})
+export const closeModal=(data)=> ({
+    type: CLOSE_MODAL,
+    data
+})
 
-export function closeModal(data) {
-    return {
-        type: CLOSE_MODAL,
-        data
-    }
-}
+export const modalInputChange=(data)=>({
+    type: MODAL_INPUT_CHANGE,
+    data
+})
 
-export function onModalInputChange(data) {
-    return {
-        type: MODAL_INPUT_CHANGE,
-        data
-    }
-}
+export const editLoginCredentials=(data)=> ({
+    type: EDIT_LOGIN_CREDENTIALS,
+    data
+})
+export const inputChange=(data)=> ({
+    type: INPUT_CHANGE,
+    data
+})
 
-export function editLoginCredentials(data) {
-    return {
-        type: EDIT_LOGIN_CREDENTIALS,
-        data
-    }
-}
-export function inputChange(data) {
-    return {
-        type: INPUT_CHANGE,
-        data
-    }
-}
+export const backButtonHandle=(data)=> ({
+    type: BACK_BUTTON,
+    data
+})
+export const nextButtonHandle=(data)=> ({
+    type: NEXT_BUTTON,
+    data
+})
 
-export function backButtonHandle(data) {
-    return {
-        type: BACK_BUTTON,
-        data
-    }
-}
-export function nextButtonHandle(data) {
-    return {
-        type: NEXT_BUTTON,
-        data
-    }
-}
+export const setErrorStep=(data)=> ({
+    type: SET_CURRENT_STEP_ERROR,
+    data
+})
 
-export function setErrorStep(data) {
-    return {
-        type: SET_CURRENT_STEP_ERROR,
-        data
-    }
-}
+export const addMoreParams=(data)=> ({
+    type: ADD_MORE_PARAMS,
+    data
+})
 
-export function addMoreParams(data) {
-    return {
-        type: ADD_MORE_PARAMS,
-        data
-    }
-}
-
-export function addAnotherLogin(data) {
-    return {
-        type: ADD_ANOTHER_LOGIN,
-        data
-    }
-}
-export function saveUser(data) {
-    return {
-        type: SAVE_USER,
-        data
-    }
-}
+export const addAnotherLogin=(data)=> ({
+    type: ADD_ANOTHER_LOGIN,
+    data
+})
+export const saveUser=(data)=> ({
+    type: SAVE_USER,
+    data
+})
 function receiveLogin(user) {
     return {
         type: LOGIN_SUCCESS,
@@ -148,16 +125,12 @@ function loginError(message) {
         message
     }
 }
-export function openRegisterModal() {
-    return {
-        type: OPEN_REGISTER_MODAL
-    }
-}
-export function closeRegisterModal() {
-    return {
-        type: CLOSE_REGISTER_MODAL
-    }
-}
+export const openRegisterModal=() =>({
+    type: OPEN_REGISTER_MODAL
+})
+export const closeRegisterModal=() =>({
+    type: CLOSE_REGISTER_MODAL
+})
 
 // Three possible states for our logout process as well.
 // Since we are using JWTs, we just need to remove the token
@@ -186,8 +159,8 @@ export function loginUser(creds) {
     let config = {
         method: 'POST',
         headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-        body: `username=${creds.username}&password=${creds.password}`,
-        credentials: 'same-origin'
+        body: `username=${creds.username}&password=${creds.password}`
+        // credentials: 'same-origin'
         // credentials: 'include'
     }
 
@@ -196,20 +169,26 @@ export function loginUser(creds) {
         dispatch(requestLogin(creds))
         // http://35.167.23.92/scan/login
         // return fetch(BASE_URL+'/scan/login', config)
-        return fetch(BASE_URL+'/scan/login', config)
-        // return fetch(BASE_URL+'/scan/login',{'mode': 'no-cors'}, config)
+        // return fetch(BASE_URL+'/scan/login', config)
+        return fetch(BASE_URL+'/scan/login',{'mode': 'no-cors'}, config)
             .then(response => {
-
+                debugger
+                alert('fuck')
+                // document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=.webapiskan.com; expires=Mon, 24-Dec-2018 09:51:40 GMT'
+                document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=localhost; expires=Mon, 24-Dec-2018 09:51:40 GMT'
+                /*debugger
                 if (!response.ok) {
                     // return Promise.reject(user)
-                    document.cookie = 'user' + '=; path = /; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    // document.cookie = 'user' + '=; path = /; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                     // If there was a problem, we want to
                     let user = {message: 'vikas cookie not set'}
+                    // document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=.webapiskan.com; expires=Mon, 24-Dec-2018 09:51:40 GMT'
+                    document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=localhost; expires=Mon, 24-Dec-2018 09:51:40 GMT'
                     dispatch(loginError(user.message))
                 } else {
                     // dispatch the error condition
-                    document.cookie = 'user=cf995a6ad0c081fcbe314660eb020725; path=/; domain=.webapiskan.com; expires=Mon, 24-Dec-2018 09:51:40 GMT'
-
+                    document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=.webapiskan.com; expires=Mon, 24-Dec-2018 09:51:40 GMT'
+*/
                     // If login was successful, set the token in local storage
                     // localStorage.setItem('id_token', user.id_token)
 
@@ -217,8 +196,8 @@ export function loginUser(creds) {
                     let user = {
                         id_token: 'vikas'
                     };
-                    dispatch(receiveLogin(user))
-                }
+                  /*  dispatch(receiveLogin(user))
+                }*/
                 return response.json()
             }).catch(error=>{console.log('error is ',error)})
     }
