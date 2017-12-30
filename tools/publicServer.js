@@ -37,7 +37,7 @@ app.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
-    console.log("App now running on port", port);
+    console.log("Apsdfp now running on port", port);
     open(`http://localhost:${port}`);
   }
 });
