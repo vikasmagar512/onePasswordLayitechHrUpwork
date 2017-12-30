@@ -30,10 +30,8 @@ import Logout from "./components/Logout";
 export const setModalStore =(store,route)=> {
     let state = store.getState()
     if(route==='access_control'){
-        debugger
         store.dispatch(setAccessControl(state))
     }else if(route==='cross_site_req_forgery'){
-        debugger
         store.dispatch(setCrossSiteRequestForgery(state))
     }
 }

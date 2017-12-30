@@ -9,15 +9,9 @@ import {connect} from 'react-redux';
 class HomePage extends Component {
 
   render() {
-    let loginButton =null; 
-    if (!this.props.isAuthenticated) {
-      loginButton = <Link to="login" className="btn btn-primary btn-lg">log in as a test user</Link>;
-    }
     return (
       <div>
-        {<h2>Inteliment Assignment</h2>}
-        <p>React Redux Authentication Application </p>
-        {loginButton}
+        {<h2>Layitech Assignment</h2>}
       </div>
     );
   }

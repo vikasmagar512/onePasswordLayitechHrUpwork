@@ -52,7 +52,7 @@ export class ModalComponent extends Component{
                 if(!(steps[0][userrole].has(selectedUserrole))){
                     steps[0][userrole].add(e.target.value);
                     steps[1][login_type][selectedUserrole]='';
-                    steps[2][success_url][selectedUserrole]='www.google.com';
+                    steps[2][success_url][selectedUserrole]='';
                     crosssite.activeRole=selectedUserrole;
                     steps[3][selectedUserrole] = formAndAddStep3Object(selectedUserrole)
                 }else {
@@ -82,9 +82,7 @@ export class ModalComponent extends Component{
                 break
             default:
         }
-        debugger
         let k ={currentstep}
-        debugger
         this.props.closeModal({currentstep})
     }
     backButtonHandle(){
@@ -138,7 +136,6 @@ export class ModalComponent extends Component{
             case ACCESS_CONTROL:{
                 console.log('here INITIAL_CROSSSITE ',INITIAL_CROSSSITE)
                 const k ={activeRole:'', currentstep: 1, currentWarning: false, limit: 5, edit_login: 0,savedUsers}
-                debugger
                 this.props.addAnotherLogin(k)
                 break
             }
@@ -188,7 +185,7 @@ export class ModalComponent extends Component{
                     {((crosssite.activeRole === 'no_role' && crosssite.currentstep > 2) ||
                         (crosssite.activeRole !== 'no_role'  && crosssite.currentstep > 1))
                     && <Button className="action back btn-primary" name={"Back"} handleClick={()=>this.backButtonHandle()}/>}
-                    {((crosssite.currentstep < crosssite.limit) && (crosssite.currentstep !== crosssite.limit)) && <Button className="action next btn-primary" name={"Next"} handleClick={()=>this.nextButtonHandle()}/>}
+                    {((crosssite.currentstep+1 < crosssite.limit)) && <Button className="action next btn-primary" name={"Next"} handleClick={()=>this.nextButtonHandle()}/>}
                     {<button type="button" className="btn btn-default" onClick={()=>this.closeModal()}>Close</button>}
                 </Modal.Footer>
             </Modal>

@@ -32,7 +32,6 @@ export default class RegisterModal extends Component{
             }
         });
         let urlEncodeded = urlEncoded.slice(0,urlEncoded.length-1)
-        debugger
         this.registerUser(urlEncodeded)
     }
     registerUser(data){
