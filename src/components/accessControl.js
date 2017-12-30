@@ -170,7 +170,7 @@ export class AccessCtrlComponent extends Component{
             <div className="col-sm-9">
                 <div className="form-group">
                     <h4>Compare Access Privilege between different Roles</h4>
-                    <form action="" method="post" className="form-inline">
+                    <form action="" method="post" className="form-inline overflowHidden" >
                         <div className="container">
                             <div className="row">
                                 <label htmlFor="urlid" className="control-label">Login URL</label>
