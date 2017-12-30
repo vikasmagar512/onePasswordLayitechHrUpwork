@@ -1,13 +1,8 @@
-import React,{PropTypes,Component} from 'react'
-import {connect} from 'react-redux'
-import {openModal, inputChange, saveUser} from '../actions/sessionActions'
-
-import {getModalPropsSelector} from '../selectors/index'
-import {is_valid_url} from "../helperFunc";
-import { setCrossSiteRequestForgery} from "../actions/actions";
-import {login_required, login_type, modalOpen, steps, success_url, userrole} from "./helpers";
-import {CROSS_SITE_RQ_FORGERY} from "../actions/actionTypes";
-import ProcessModal from "./ProcessModal";
+import React,{Component} from 'react'
+import {is_valid_url} from "../../helperFunc";
+import {login_required, login_type, modalOpen, steps, success_url, userrole} from "../helpers";
+import {CROSS_SITE_RQ_FORGERY} from "../../actions/actionTypes";
+import ProcessModal from "../ProcessModal/Container";
 
 export class CSRFComponent extends Component{
     constructor(props){
@@ -164,24 +159,3 @@ export class CSRFComponent extends Component{
         )
     }
 }
-
-CSRFComponent.propTypes = {
-    modal:PropTypes.object.isRequired,
-    inputChange:PropTypes.func.isRequired,
-    openModal:PropTypes.func.isRequired,
-    setCrossSiteRequestForgery:PropTypes.func.isRequired,
-    saveUser:PropTypes.func.isRequired
-};
-const mapStateToProps = state => {
-    return {
-        modal:getModalPropsSelector(state)
-    }
-};
-const mapDispatchToProps = {
-    openModal,
-    inputChange,
-    setCrossSiteRequestForgery,
-    saveUser
-};
-export const CSRF = connect(mapStateToProps, mapDispatchToProps)(CSRFComponent);
-export default CSRF

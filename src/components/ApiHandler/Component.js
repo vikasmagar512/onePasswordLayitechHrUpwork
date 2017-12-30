@@ -1,13 +1,9 @@
-import React,{PropTypes,Component} from 'react'
+import React,{Component} from 'react'
 
-import {connect} from 'react-redux'
-import {openModal, inputChange, saveUser} from '../actions/sessionActions'
-import {getModalPropsSelector} from '../selectors/index'
-import {is_valid_url} from "../helperFunc";
-import {setAPIHandler} from "../actions/actions";
-import {Credentials, login_required, login_type, modalOpen, path, service, steps,success_url} from "./helpers";
-import {API_HANDLER} from "../actions/actionTypes";
-import ProcessModal from "./ProcessModal";
+import {is_valid_url} from "../../helperFunc";
+import {Credentials, login_required, login_type, modalOpen, path, service, steps,success_url} from "../helpers";
+import {API_HANDLER} from "../../actions/actionTypes";
+import ProcessModal from "../ProcessModal/Container";
 
 export class APIHandlerComponent extends Component{
     constructor(props){
@@ -154,25 +150,3 @@ export class APIHandlerComponent extends Component{
         )
     }
 }
-
-APIHandlerComponent.propTypes = {
-    modal:PropTypes.object.isRequired,
-    openModal:PropTypes.func.isRequired,
-    inputChange:PropTypes.func.isRequired,
-    setAPIHandler:PropTypes.func.isRequired,
-    saveUser:PropTypes.func.isRequired
-
-};
-const mapStateToProps=state=> {
-    return {
-        modal:getModalPropsSelector(state)
-    }
-}
-const mapDispatchToProps ={
-    openModal,
-    inputChange,
-    setAPIHandler,
-    saveUser
-};
-export const APICtrl = connect(mapStateToProps, mapDispatchToProps)(APIHandlerComponent);
-export default APICtrl

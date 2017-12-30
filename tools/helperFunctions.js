@@ -21,9 +21,9 @@ export function login(credentials){
   
   if(payload.email.match(mailformat)){
     validCredentials.map(function(c){
-      if(c.email == payload.email){
+      if(c.email === payload.email){
         foundEmail = true;
-        if(c.password == payload.password){
+        if(c.password === payload.password){
           isFormValid = true;
           errors.email= '';  
           errors.password= '';  
@@ -43,12 +43,11 @@ export function login(credentials){
   if (isFormValid) {
     message = 'Login successful.';
   }
-  let retObject ={
-    success: isFormValid,
-    message,
-    errors
-  }; 
-  return retObject;
+    return {
+      success: isFormValid,
+      message,
+      errors
+  };
 }
 
 

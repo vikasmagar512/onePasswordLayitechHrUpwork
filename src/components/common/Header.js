@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import Login from '../Login'
-import Logout from '../Logout'
 import PropTypes from 'prop-types';
 import {Link, IndexLink } from 'react-router';
 import {connect} from 'react-redux';
-import {logoutUser,loginUser,openRegisterModal} from "../../actions/sessionActions";
+import {logoutUser,loginUser} from "../../actions/sessionActions";
+import {openRegisterModal} from "../../actions/processActions";
 
 class Header extends Component {
 

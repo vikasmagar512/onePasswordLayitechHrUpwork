@@ -1,14 +1,9 @@
-import React,{PropTypes,Component} from 'react'
+import React,{Component} from 'react'
 
-import {connect} from 'react-redux'
-import {openModal, inputChange, saveUser} from '../actions/sessionActions'
-
-import {getModalPropsSelector} from '../selectors/index'
-import {is_valid_url} from "../helperFunc";
-import {loginUser, setAccessControl} from "../actions/actions";
-import {login_required, login_type, modalOpen, success_url, userrole} from "./helpers";
-import {ACCESS_CONTROL} from "../actions/actionTypes";
-import ProcessModal from "./ProcessModal";
+import {is_valid_url} from "../../helperFunc";
+import {login_required, login_type, modalOpen, success_url, userrole} from "../helpers";
+import {ACCESS_CONTROL} from "../../actions/actionTypes";
+import ProcessModal from "../ProcessModal/Container";
 
 export class AccessCtrlComponent extends Component{
     constructor(props){
@@ -192,23 +187,3 @@ export class AccessCtrlComponent extends Component{
         )
     }
 }
-AccessCtrlComponent.propTypes = {
-    modal:PropTypes.object.isRequired,
-    openModal:PropTypes.func.isRequired,
-    inputChange:PropTypes.func.isRequired,
-    setAccessControl:PropTypes.func.isRequired,
-    saveUser:PropTypes.func.isRequired
-};
-const mapDispatchToProps = {
-    openModal,
-    inputChange,
-    setAccessControl,
-    saveUser
-};
-const mapStateToProps=state=> {
-    return {
-        modal:getModalPropsSelector(state)
-    }
-};
-export const AccessCtrl = connect(mapStateToProps, mapDispatchToProps)(AccessCtrlComponent);
-export default AccessCtrl

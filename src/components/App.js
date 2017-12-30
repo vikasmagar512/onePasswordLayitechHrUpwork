@@ -5,10 +5,9 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import Header from './common/Header';
 import {getRegisterModalStatusSelector} from "../selectors/index";
-import Register from "./Register/Register";
 import RegisterModal from './Register/RegisterModal'
 import {loginUser} from "../actions/actions";
-import {closeRegisterModal, openRegisterModal} from "../actions/sessionActions";
+import {closeRegisterModal, openRegisterModal} from "../actions/processActions";
 
 class AppComponent extends Component {
   render() {
@@ -86,18 +85,10 @@ const mapStateToProps=(state,ownProps)=>{
         registerModalOpen:getRegisterModalStatusSelector(state)
     }
 }
-const mapDispatchToProps=(dispatch)=>{
-    return {
-        loginUser:(creds)=>{
-            dispatch(loginUser(creds))
-        },
-        openRegisterModal:()=>{
-            dispatch(openRegisterModal())
-        },
-        closeRegisterModal:()=>{
-            dispatch(closeRegisterModal())
-        }
-    }
+const mapDispatchToProps={
+        loginUser,
+        openRegisterModal,
+        closeRegisterModal
 }
 AppComponent.propTypes = {
     registerModalOpen:PropTypes.bool.isRequired,

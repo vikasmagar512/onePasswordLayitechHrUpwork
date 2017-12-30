@@ -1,7 +1,7 @@
 import React,{Component,PropTypes} from 'react'
-import { Modal} from 'react-bootstrap';
 import {connect} from 'react-redux'
-import {openRegisterModal,closeRegisterModal,loginUser} from "../../actions/sessionActions";
+import {openRegisterModal,closeRegisterModal} from "../../actions/processActions";
+import {loginUser} from "../../actions/sessionActions";
 import {getRegisterModalStatusSelector} from "../../selectors/index";
 
 export class RegisterComponent extends Component{
@@ -12,7 +12,7 @@ export class RegisterComponent extends Component{
         this.props.loginUser(creds)
     }
     render(){
-        const {registerModalOpen,closeRegisterModal,openRegisterModal,loginUser} = this.props
+        const {openRegisterModal} = this.props
         return (
             <div className="col-sm-9">
                 <h1>Sign In / Sign Up</h1>
@@ -49,18 +49,10 @@ RegisterComponent.PropTypes={
     loginUser:PropTypes.func.isRequired,
     registerModalOpen:PropTypes.bool.isRequired
 }
-const mapDispatchToProps = (dispatch,getState) => {
-    return {
-        loginUser:(creds)=>{
-            dispatch(loginUser(creds))
-        },
-        openRegisterModal:()=>{
-            dispatch(openRegisterModal())
-        },
-        closeRegisterModal:()=>{
-            dispatch(closeRegisterModal())
-        }
-    }
+const mapDispatchToProps = {
+    loginUser,
+    openRegisterModal,
+    closeRegisterModal
 }
 export const Register = connect(mapStateToProps, mapDispatchToProps)(RegisterComponent);
 

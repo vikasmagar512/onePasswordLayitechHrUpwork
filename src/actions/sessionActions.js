@@ -1,18 +1,6 @@
-import sessionApi from '../api/SessionApi';
-import auth from '../auth/authenticator';
 const BASE_URL ='http://35.167.23.92'
-import {
-    LOG_IN_FAILURE, LOG_IN_SUCCESS, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
-    OPEN_MODAL, CLOSE_MODAL, MODAL_INPUT_CHANGE, INPUT_CHANGE, BACK_BUTTON, ADD_MORE_PARAMS, EDIT_LOGIN_CREDENTIALS,
-    NEXT_BUTTON, OPEN_REGISTER_MODAL, CLOSE_REGISTER_MODAL, SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER
+import {LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST
 } from "./actionTypes";
-
-export function loginSuccess(response) {
-  return {type: LOG_IN_SUCCESS,response:response}
-}
-export function loginFailure(response) {
-  return {type: LOG_IN_FAILURE,response:response}
-}
 
 /*export function logOutUser() {
   auth.logOut();
@@ -60,55 +48,6 @@ function requestLogin(creds) {
     }
 }
 
-export const openModal=()=>({
-    type: OPEN_MODAL
-})
-export const closeModal=(data)=> ({
-    type: CLOSE_MODAL,
-    data
-})
-
-export const modalInputChange=(data)=>({
-    type: MODAL_INPUT_CHANGE,
-    data
-})
-
-export const editLoginCredentials=(data)=> ({
-    type: EDIT_LOGIN_CREDENTIALS,
-    data
-})
-export const inputChange=(data)=> ({
-    type: INPUT_CHANGE,
-    data
-})
-
-export const backButtonHandle=(data)=> ({
-    type: BACK_BUTTON,
-    data
-})
-export const nextButtonHandle=(data)=> ({
-    type: NEXT_BUTTON,
-    data
-})
-
-export const setErrorStep=(data)=> ({
-    type: SET_CURRENT_STEP_ERROR,
-    data
-})
-
-export const addMoreParams=(data)=> ({
-    type: ADD_MORE_PARAMS,
-    data
-})
-
-export const addAnotherLogin=(data)=> ({
-    type: ADD_ANOTHER_LOGIN,
-    data
-})
-export const saveUser=(data)=> ({
-    type: SAVE_USER,
-    data
-})
 function receiveLogin(user) {
     return {
         type: LOGIN_SUCCESS,
@@ -125,12 +64,6 @@ function loginError(message) {
         message
     }
 }
-export const openRegisterModal=() =>({
-    type: OPEN_REGISTER_MODAL
-})
-export const closeRegisterModal=() =>({
-    type: CLOSE_REGISTER_MODAL
-})
 
 // Three possible states for our logout process as well.
 // Since we are using JWTs, we just need to remove the token

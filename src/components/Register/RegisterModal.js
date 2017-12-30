@@ -63,7 +63,7 @@ export default class RegisterModal extends Component{
     }
 
     render(){
-        const {registerModalOpen,closeRegisterModal,openRegisterModal,loginUser} = this.props
+        const {registerModalOpen,closeRegisterModal} = this.props
         let {first_name,last_name,email_address,password,password1} = this.state
         return(
             <Modal className="modal-container" role="document" show={registerModalOpen}>

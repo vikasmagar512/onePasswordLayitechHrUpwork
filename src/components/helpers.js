@@ -14,7 +14,7 @@ export const steps= 'steps'
 export const service= 'service'
 export const path= 'path'
 
-import React,{PropTypes,Component} from 'react'
+import React from 'react'
 export const EditLoginComponent= ({componentType,savedUsers,userRoleValues,EditLoginCredentials})=>(
     componentType===ACCESS_CONTROL &&
     (<div className="addedLogin">
