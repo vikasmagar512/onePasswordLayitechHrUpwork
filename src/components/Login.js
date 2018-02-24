@@ -8,9 +8,9 @@ export default class Login extends Component {
     }
   render() {
     const { errorMessage,openRegisterModal} = this.props;
-    const  username ="sagar@gmail.com"
+    const  username ="patta@gmail.com"
     const  password ="test123"
-    return (
+    /*return (
         <form className="form-inline">
             <ul className="nav navbar-nav navbar-right">
                 <li className="nav-item"><span>Username</span></li>
@@ -30,7 +30,22 @@ export default class Login extends Component {
                 }
             </ul>
         </form>
-    )
+    )*/
+      return(
+          <div>
+              <form action="#" method="post" className="form-inline" id="login-form">
+                  <ul className="nav navbar-nav navbar-right" id="login-ul">
+                      <li className="nav-item"><span>Username</span></li>
+                      <li className="nav-item"><input type="text" name="username" value="abc@example.com" onfocus="if(this.value == 'abc@example.com') { this.value = ''; }"/></li>
+                      <li className="nav-item"><span>Password</span></li>
+                      <li className="nav-item"><input type="password" name="password" value="password" onfocus="if(this.value == 'password') { this.value = ''; }"/></li>
+                      <li className="nav-item"><input type="submit" id="login-button" className="btn btn-primary" value="Login"/></li>
+                      <li className="nav-item"><button type="button" className="btn btn-primary" data-toggle="modal" data-target="#newUser">Register</button></li>
+                  </ul>
+              </form>
+              <a id="forgot-pwd" className="forgotpwd" href="#">Forgot Password?</a>
+          </div>
+      )
   }
 }
 

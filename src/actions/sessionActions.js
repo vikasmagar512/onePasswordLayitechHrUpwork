@@ -105,7 +105,6 @@ export function loginUser(creds) {
         // return fetch(BASE_URL+'/scan/login', config)
         return fetch(BASE_URL+'/scan/login',{'mode': 'no-cors'}, config)
             .then(response => {
-                // alert('fuck')
                 // document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=.webapiskan.com; expires=Mon, 24-Dec-2018 09:51:40 GMT'
                 document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=localhost; expires=Mon, 24-Dec-2018 09:51:40 GMT'
                 let user = {

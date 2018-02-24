@@ -19,8 +19,8 @@ class Header extends Component {
                           <span className="icon-bar"/>
                           <span className="icon-bar"/>
                       </button>
-                      {/*<a className="navbar-brand" href="#">Web Application Vulnerability Testing</a>*/}
-                      <IndexLink className="navbar-brand" to="/">Web Application Vulnerability Testing</IndexLink>
+                      {/*<a className="navbar-brand" href="#">One Password</a>*/}
+                      <IndexLink className="navbar-brand" to="/">One Password</IndexLink>
                   </div>
                   <div className="navbar-header navbar-right">
                       {isAuthenticated
@@ -29,6 +29,7 @@ class Header extends Component {
                           :
                             <Login onLoginClick={loginUser} openRegisterModal={openRegisterModal} errorMessage={errorMessage}/>
                       }
+
                   </div>
               </div>
         )

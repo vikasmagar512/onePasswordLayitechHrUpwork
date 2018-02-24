@@ -3,16 +3,28 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Scan</title>
+        <title>One Password</title>
+<!--
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+-->
 
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="http://52.38.226.152/user1.js"></script>
         <style type="text/css">
-            /*
-            .navbar {
+            /*.navbar {
                 color: white;
                 background-color: #337ab7;
             }*/
@@ -47,10 +59,36 @@
             div.modal-header button {
                 color: white;
             }
-            .overflowHidden{
-                overflow-x: hidden;
+
+            .fade.in {
+                opacity: 1;
+            }
+            .modal.in .modal-dialog {
+                -webkit-transform: translate(0, 0);
+                -o-transform: translate(0, 0);
+                transform: translate(0, 0);
             }
 
+            .modal-backdrop .fade .in {
+                opacity: 0.5 !important;
+            }
+
+
+            .modal-backdrop.fade {
+                opacity: 0.5 !important;
+            }
+            a.forgotpwd {
+                float: right;
+                margin-right: 10px;
+            }
+
+            button#reset-password {
+                float: right;
+                margin-right: 70px;
+            }
+            div.container-fluid div.row {
+                padding-bottom: 10px;
+            }
         </style>
 
     </head>

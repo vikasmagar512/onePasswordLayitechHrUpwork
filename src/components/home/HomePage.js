@@ -11,7 +11,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        {<h2>Layitech Assignment</h2>}
+        {<h2>One Password</h2>}
       </div>
     );
   }
