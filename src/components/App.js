@@ -20,21 +20,16 @@ class AppComponent extends Component {
                     <nav className="navbar navbar-default navbar-fixed-side">
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul className="nav navbar-nav">
-                                <li className="nav-item "><a href="/scan/host">Host Info</a></li>
-                                <li className="nav-item" ><a href="/scan/webserver">Check HTTP Server</a></li>
-                                {/*<!--<li className="nav-item"><a href="/scan/broken_links">Check Broken Links</a></li> -->*/}
-                                {/*<!--<li className="nav-item "><a href="/scan/valid_html">Validate HTML</a></li>-->*/}
-                                <li className="nav-item "><a href="/scan/port_scan">Port Scan</a></li>
-                                <li className="nav-item "><a href="/scan/nmap_scan">Ping Sweep</a></li>
-                                <li className="nav-item "><a href="/scan/cross-site-scripting">Cross-Site Scripting</a></li>
-                                <li className="nav-item "><a href="/scan/cross_site_req_forgery">Cross-Site Request Forgery</a></li>
-                                <li className="nav-item "><a href="/scan/access_control">Missing Function Level Access Control</a></li>
-                                {/*<!--<li className="nav-item "><a href="/scan/vuln_scan">Blind SQL Injection</a></li>-->*/}
-                                <li className="nav-item "><a href="/scan/api_handler">API Handler</a></li>
-                                <li className="nav-item "><a href="/scan/sqlmap">Run SQLMap</a></li>
-                                <li className="nav-item "><a href="/scan/kali_scan">Run Other Kali Vulnerability Tools</a></li>
-                                <li className="nav-item "><a href="/scan/myjobs">My Jobs</a></li>
-                                <li className="nav-item"><a href="/scan/help">Help</a></li>
+                                <li className="nav-item"><a href="/apps-anchor">Apps</a></li>
+                                <li className="nav-item"><a href="/last-login-anchor">Last Logins</a></li>
+                                <li className="nav-item"><a href="/restrict-ip-anchor">Restrict IP</a></li>
+                                <li className="nav-item"><a href="/profile-anchor" data-toggle="modal" data-target="#profile-modal">Profile</a></li>
+                                <li className="nav-item"><a href="change-pwd-anchor">Change Password</a></li>
+                                <li className="nav-item"><a href="/help-anchor">Help</a></li>
+                                
+                                <li className="nav-item "><a href="/cross-site-scripting">Cross-Site Scripting</a></li>
+                                <li className="nav-item "><a href="/cross_site_req_forgery">Cross-Site Request Forgery</a></li>
+                                <li className="nav-item "><a href="/access_control">Missing Function Level Access Control</a></li>
                             </ul>
                         </div>
                     </nav>
