@@ -1,5 +1,7 @@
-const BASE_URL ='http://35.167.23.92'
-import {LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST
+const BASE_URL ='http://52.38.226.152'
+import {
+    LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST, UPDATE_APPS_STORE_SUCCESS,
+    UPDATE_APPS_STORE_FAILURE, UPDATE_APP_SAVE_STATUS
 } from "./actionTypes";
 
 /*export function logOutUser() {
@@ -47,7 +49,6 @@ function requestLogin(creds) {
         creds
     }
 }
-
 function receiveLogin(user) {
     return {
         type: LOGIN_SUCCESS,
@@ -69,6 +70,26 @@ function loginError(message) {
 // Since we are using JWTs, we just need to remove the token
 // from localStorage. These actions are more useful if we
 // were calling the API to log the user out
+
+function saveAppsModalSuccess(item) {
+    return {
+        type: UPDATE_APPS_STORE_SUCCESS,
+        item
+    }
+}
+function saveAppsModalFailure(error) {
+    return {
+        type: UPDATE_APPS_STORE_FAILURE,
+        error
+    }
+}
+
+function savingAppsModal(status=false) {
+    return {
+        type: UPDATE_APP_SAVE_STATUS,
+        status
+    }
+}
 
 function requestLogout() {
     return {
@@ -106,7 +127,8 @@ export function loginUser(creds) {
         return fetch(BASE_URL+'/scan/login',{'mode': 'no-cors'}, config)
             .then(response => {
                 // document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=.webapiskan.com; expires=Mon, 24-Dec-2018 09:51:40 GMT'
-                document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=localhost; expires=Mon, 24-Dec-2018 09:51:40 GMT'
+                // document.cookie = 'user=c79ce24b4ff58df856ead712af938797; path=/; domain=localhost; expires=Mon, 24-Dec-2018 09:51:40 GMT'
+                document.cookie ='session=5cd958324944a496da79b4bbbca9c400f99545ccee47a87b175c0348f49cf5cc; user=c4b3735e61030787c0bc9303958b7ec975a28715d454b85e589058d15825e33b'
                 let user = {
                     id_token: 'vikas'
                 };
@@ -149,3 +171,40 @@ export function logoutUser() {
     }
 }
 
+export function saveAppsModal(data) {
+    data ={
+        app_name:'sdf',
+        app_url:'',
+        username:'',
+        password:'',
+        op:'add_app'
+    }
+    let form_data = new FormData();
+    for ( let key in data ) {
+        form_data.append(key, data[key]);
+    }
+    // let form_data = data
+
+    let config = {
+        method: 'POST',
+        headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+        body: form_data
+        // credentials: 'same-origin'
+    }
+
+    return dispatch => {
+        dispatch(saveAppsModal(data))
+        dispatch(savingAppsModal(true))
+        return fetch(BASE_URL+'/onepassword/app',{'mode': 'no-cors'}, config)
+        .then((response) => {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            dispatch(savingAppsModal(false))
+            return response;
+        })
+        .then((response) => response.json())
+        .then((response) => dispatch(saveAppsModalSuccess(response.item)))
+        .catch((error) => dispatch(saveAppsModalFailure()))
+   }
+}

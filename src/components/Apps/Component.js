@@ -1,74 +1,25 @@
 import React,{Component} from 'react'
-import {is_valid_url} from "../../helperFunc";
-import {login_required, login_type, modalOpen, steps, success_url, userrole} from "../helpers";
-import {CROSS_SITE_RQ_FORGERY} from "../../actions/actionTypes";
-import ProcessModal from "../ProcessModal/Container";
+import {AppsModalComponent} from "../AppsModal/Component";
+import { Modal} from 'react-bootstrap';
+import {
+    UserRoleComponent, LoginDetailsComponent, LoginTypeComponent, SuccessURLComponent, Button, login_type, path,
+    userrole, success_url, EditLoginComponent
+} from '../helpers'
+export const emptyApp ={"app_name":"","logo_url":null,"username":"","url":"","app_id":"","password":""}
 
 export class AppsComponent extends Component{
+
     constructor(props){
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.save= this.save.bind(this)
-    }
-    componentWillMount(){
-        this.props.setCrossSiteRequestForgery()
-    }
-    handleChange(e){
-        this.props.inputChange({
-            [e.target.name]: e.target.name===login_required ? !this.props.modal[e.target.name] : e.target.value
-        })
-    }
-    getObjectArraySerialized(arrayOfSimpleObjects){
-        let str = '';
-        arrayOfSimpleObjects.map((item)=>{
-            str+=this.getObjectSerialized(item)
-        });
-        return str
-    }
-    getObjectSerialized(structure){
-        let str='';
-        Object.keys(structure).map((item,index)=>{
-            if(structure.hasOwnProperty(item)) {
-                str+= `${item}=${structure[item]}&`
-            }}
-        );
-        return str
-    }
-    serialize(structure){
-        let l ='';
-        let activeRole = structure.crosssite.activeRole;
-        Object.keys(structure).map((item,index)=>{
-            if(structure.hasOwnProperty(item)) {
-                if (typeof structure[item] !== "object") {
-                    if([modalOpen,login_required].indexOf(item)===-1){
-                        l+=`${item}=${structure[item]}&`
-                    }
-                }else{
-                    if(item===steps){
-                        structure[item].map((j,i)=> {
-                            if(i===0){
-                                l += `${userrole}=${activeRole}&`
-                            }else if(i===1) {
-                                l += `${login_type}=${j[login_type][activeRole]}&`
-                            }else if(i===2) {
-                                l += `${success_url}=${j[success_url][activeRole]}&`
-                            }else if(i===3) {
-                                Object.keys(structure[item][3][activeRole]).map((CookieCredSel, indo) => {
-                                    if (structure[item][3][activeRole].hasOwnProperty(CookieCredSel)) {
-                                        if (Array.isArray(structure[item][3][activeRole][CookieCredSel])) {
-                                            l += this.getObjectArraySerialized(structure[item][3][activeRole][CookieCredSel])
-                                        }
-                                    }
-                                })
-                            }
-                        })
-                    }
-                }
+        this.state={
+            modalOpen:false,
+            modalData:{
+                data:null,
+                typeAdd:true
             }
-        });
-        return l
+        }
     }
-    save(){
+   /* save(){
         const state = this.props.modal;
         const activeRole = state.crosssite.activeRole
         this.props.saveUser({activeRole})
@@ -96,65 +47,69 @@ export class AppsComponent extends Component{
             }
         });
         xhr.send(hash);
+    }*/
+    closeModal(){
+        this.setState({modalOpen:false})
     }
-    /*handleSubmit :function (event) {
-        event.preventDefault();
-    },*/
-    /*$('#mainModal').on('hidden.bs.modal', function(){
-        // widget      = $(".step");
-        // widget.not(':eq(0)').hide();
-        // let steps={...this.state.steps}
-        let steps=this.state.steps.map(item=>{
-            item.visible = index===0
-        })
-        //current = 1; Not Needed, otherwise back button wont work
-    })*/
-    show(){
-        if (!(is_valid_url(this.props.modal.url))) {
-            alert('Enter a valid URL to scan');
-            return false;
-        }
-        this.props.openModal()
+    openAppsModal(appItem=emptyApp,typeAdd=true){
+        debugger
+        this.setState({modalOpen:true,modalData:{data:appItem,typeAdd}})
     }
     render(){
-        const userRoleValues={admin:'Admin',non_admin:'Non Admin',custom_role_1:'Custom Role 1',custom_role_2:'Custom Role 2',no_login:'No Login'}
-        const {url,url_id,login_required,service,modalOpen,steps,crosssite}=this.props.modal;
-        let activeRole = crosssite.activeRole;
-        let loginType = activeRole ? steps[1][login_type][activeRole] : '';
-        let successUrl = activeRole ? steps[2][success_url][activeRole] : '';
-        let cookieSelCred = activeRole ? steps[3][activeRole] : {};
-        /*let logincount;
-        if ( crosssite.edit_login ) {
-            logincount = crosssite.edit_login;
-        }else {
-            logincount = jQuery("ul#addedLoginList li").length;
-            logincount++;
-            (<li>
-                <button type = "button" class = "btn btn-primary edit_login" id=`edit-login${logincount}`>`Edit ${activeRole} Login Credentials`</button>
-                <div id=`login${logincount}`></div>
-            </li>)
+        const {modalOpen}=this.state
+        let style={
+            displayNone:{display:'none'},
+            marginBottom:{marginBottom: '10px'}
         }
-        jQuery("#add-another-login").show();
-*/
-        return(
-            <div className="col-sm-9">
-                <div className="form-group">
-                    <form action="" method="post" className="form-inline">
-                        <label htmlFor="urlid" className="control-label">URL</label>
-                        <input type="text" size="50" name="url" value={url} placeholder="https://www.google.com" className="form-control" onChange={this.handleChange }/>
-                        <input type="hidden" name="url_id" value={url_id} onChange={this.handleChange}/>
-                        <input type="hidden" name="userrole" value={activeRole} onChange={this.handleChange}/>
-                        <input type="hidden" name="service" value={service} onChange={this.handleChange}/>
-                        <label>
-                            <input type="checkbox" label={login_required} name="login_required" checked={login_required} onChange={ this.handleChange }/><span>Login Required ?</span>
-                        </label>
-                        {login_required && (
-                            <button type="button" className="btn btn-primary" onClick={()=>this.show()}>Add Login Credentials</button>
-                        )}
-                        <input type="submit" className="btn btn-primary" value="Scan"/>
-                    </form>
-                    <ProcessModal {...this.props} componentType={CROSS_SITE_RQ_FORGERY} save={this.save}/>
+        let apps=[
+            {"app_name":"Facebook","logo_url":null,"username":"patta35@gmail.com","url":"https://wwww.facebook.com","app_id":"6","password":"x"},
+            {"app_name":"facebook1","logo_url":"/logos/logo_gmail_64px.png","username":"patta@gmail.com","url":"null","app_id":"7","password":"test123"},
+            {"app_name":"facebook2","logo_url":null,"username":"patta@gmail.com","url":null,"app_id":"8","password":"test123"},
+            {"app_name":"facebook3","logo_url":"/logos/FB-fLogo-Blue-broadcast-2.png","username":"patta@gmail.com","url":"https://wwww.facebook.com","app_id":"9","password":"test123"},{"app_name":"fb1","logo_url":"/logos/logo_gmail_64px.png","username":"patta6@gmail.com","url":null,"app_id":"11","password":"test123"},
+            {"app_name":"fb2","logo_url":"/logos/logo_gmail_64px.png","username":"patta3@gmail.com","url":"www.facebook.com","app_id":"13","password":"test123"},
+            {"app_name":"fb6","logo_url":null,"username":"patta6@gmail.com","url":"facebookk.com","app_id":"14","password":"test123"},
+            {"app_name":"fb7","logo_url":null,"username":"patta6@gmail.com","url":null,"app_id":"15","password":"test123"},
+            {"app_name":"fb8","logo_url":null,"username":"patta6@gmail.com","url":"www.facebookk.com","app_id":"16","password":"test123"},
+            {"app_name":"fb89","logo_url":null,"username":"patta6@gmail.com","url":"www.facebookk.com","app_id":"17","password":"test123"},
+            {"app_name":"facebook12","logo_url":null,"username":"patta@gmail.com","url":"https://www.facebook.com","app_id":"19","password":"test123"},
+            {"app_name":"asdfasfasdfasdf","logo_url":null,"username":"patta@gmail.com","url":"","app_id":"22","password":"test123"}
+        ]
+
+        const createAppBoxes = (apps=[])=>{
+            return apps.map((item,i)=>(
+                <div key={i} className="card" id={`app-${item.app_id}`}>
+                    <h5 className="appname">
+                        <span id={`app-name-${item.app_id}`}>Facebook</span>
+                        <div className="edit_app" id={`card_${6}`}>
+                            <a id={`edit_app_${item.app_id}`} onClick={()=>this.openAppsModal(item,false)} >Edit <span className="glyphicon glyphicon-pencil"/>
+                            </a>
+                        </div>
+                    </h5>
+                    <div className="carddetail">
+                        <div className="whitebuttonusername">Show Username</div>
+                        <span className="username" style={style.displayNone} id={`username-${item.app_id}`}>{item.username}</span>
+                    </div>
+                    <div className="carddetail">
+                        <div className="whitebuttonpassword">Show Password</div>
+                        <span className="password" style={style.displayNone} id={`password-${item.app_id}`}>{item.password}</span>
+                    </div>
+                    <h4 className="app-url">
+                        <a id={`app-url-${item.app_id}`} href="https://wwww.facebook.com" target="_blank">{item.url}</a>
+                    </h4>
                 </div>
+            ))
+        }
+        return(
+            <div className="col-sm-9" id="content-div">
+                <div>
+                    <button id="create_app" className="btn btn-primary" style={style.marginBottom} onClick={()=>this.openAppsModal()} >Add App</button>
+                    <div>
+                        {
+                            createAppBoxes(apps)
+                        }
+                    </div>
+                </div>
+                {modalOpen && <AppsModalComponent {...this.props} modalOpen={modalOpen} modalData={this.state.modalData} closeModal = {this.closeModal}/>}
             </div>
         )
     }

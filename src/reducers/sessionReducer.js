@@ -125,6 +125,9 @@ export function modal(state = modalState, action) {
             return {...state,modalOpen:true}
         case CLOSE_MODAL:
             return {...state,modalOpen:false,crosssite:{...state.crosssite,currentstep:action.data.currentstep}}
+/*
+        case CLOSE_APP_MODAL:
+            return {...state,modalOpen:false}*/
         case CROSS_SITE_RQ_FORGERY:
             return {
                 ...state,

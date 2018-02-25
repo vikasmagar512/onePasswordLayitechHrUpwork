@@ -1,7 +1,7 @@
 import {
     CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, CLOSE_REGISTER_MODAL, API_HANDLER, SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN,
     OPEN_MODAL, CLOSE_MODAL, MODAL_INPUT_CHANGE, INPUT_CHANGE, BACK_BUTTON, ADD_MORE_PARAMS, EDIT_LOGIN_CREDENTIALS,
-    NEXT_BUTTON, OPEN_REGISTER_MODAL,SAVE_USER
+    NEXT_BUTTON, OPEN_REGISTER_MODAL, SAVE_USER, SAVE_APPS_MODAL
 } from "./actionTypes";
 
 export const openRegisterModal=() =>({
@@ -15,6 +15,10 @@ export const openModal=()=>({
 })
 export const closeModal=(data)=> ({
     type: CLOSE_MODAL,
+    data
+})
+export const saveAppsModal=(data)=> ({
+    type: SAVE_APPS_MODAL,
     data
 })
 
