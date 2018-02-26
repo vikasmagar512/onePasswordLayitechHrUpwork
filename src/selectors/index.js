@@ -21,6 +21,8 @@ export const getModalPropsSelector = createSelector(
 export const getApps= createSelector(
     getAppsProps,
     (apps) => {
+        debugger
+        console.log('getApps apps ',apps)
         return apps
     }
 );

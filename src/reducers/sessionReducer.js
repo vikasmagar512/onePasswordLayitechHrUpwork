@@ -189,34 +189,36 @@ export function modal(state = modalState, action) {
             return state
     }
 }
-export const updateAppStore =(state,item,isAdd=false)=>{
-    return isAdd
-        ? [...state.apps,item]
-        : state.apps.map(app=>{
-            app.app_id===item.app_id ? item : app
-        })
+export const updateAppStore =(state,item)=>{
+    let flag=false
+    state.apps.map((app,i)=>{
+        if(app.app_id===item.app_id) {
+            state.apps[i]=item
+            flag = true
+        }
+    })
+    return flag
+        ? state.apps
+        : [...state.apps,item]
 }
 export function apps(state = appsStore, action) {
     debugger
 
   switch(action.type) {
     case UPDATE_APPS_STORE_RESULT:{
-        return action.result.isError
-         ?
-        Object.assign({}, state, {
-            success:false
-        })
-        :
-        Object.assign({}, state, {
-            apps: [...state.apps,action.result.item],
-            apps: [...state.apps.map(item),action.result.item],
-            success:true
-        });
+        if(action.result.isError) {
+            return {...state,success: false}
+        }else{
+            let k = updateAppStore(state,action.result.item)
+            debugger
+            return Object.assign({}, state, {
+                apps: k,
+                success:true
+            })
+        }
     }
     case APP_SAVE_FETCH_STATUS:{
-        return Object.assign({}, state, {
-            isFetching : action.status
-        });
+        return {...state,isFetching : action.status};
     }
     default:{
       return state;
