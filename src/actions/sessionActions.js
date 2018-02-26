@@ -191,9 +191,9 @@ export function saveAppsModal(data) {
         body: form_data
         // credentials: 'same-origin'
     }
-
+    debugger
     return dispatch => {
-        dispatch(saveAppsModal(data))
+        // dispatch(saveAppsModal(data))
         dispatch(savingAppsModal(true))
         return fetch(BASE_URL+'/onepassword/app',{'mode': 'no-cors'}, config)
         .then((response) => {

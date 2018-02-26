@@ -18,6 +18,8 @@ export class AppsComponent extends Component{
                 typeAdd:true
             }
         }
+        this.closeModal=this.closeModal.bind(this)
+        this.closeModal=this.closeModal.bind(this)
     }
    /* save(){
         const state = this.props.modal;
@@ -109,7 +111,7 @@ export class AppsComponent extends Component{
                         }
                     </div>
                 </div>
-                {modalOpen && <AppsModalComponent {...this.props} modalOpen={modalOpen} modalData={this.state.modalData} closeModal = {this.closeModal}/>}
+                {modalOpen && <AppsModalComponent {...this.props} modalOpen={modalOpen} modalData={this.state.modalData} saveAppsModal={this.props.saveAppsModal} closeModal = {this.closeModal}/>}
             </div>
         )
     }

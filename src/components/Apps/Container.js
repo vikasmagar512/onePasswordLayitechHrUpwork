@@ -1,15 +1,12 @@
 import React,{PropTypes,Component} from 'react'
 import {connect} from 'react-redux'
-import {openModal, inputChange, saveUser,setCrossSiteRequestForgery} from "../../actions/processActions";
+import {openModal} from "../../actions/processActions";
 import {getModalPropsSelector} from '../../selectors/index'
 import {AppsComponent} from './Component'
+import {saveAppsModal} from "../../actions/sessionActions";
 
 AppsComponent.propTypes = {
-    modal:PropTypes.object.isRequired,
-    inputChange:PropTypes.func.isRequired,
-    openModal:PropTypes.func.isRequired,
-    setCrossSiteRequestForgery:PropTypes.func.isRequired,
-    saveUser:PropTypes.func.isRequired
+    modal:PropTypes.object.isRequired
 };
 const mapStateToProps = state => {
     return {
@@ -18,9 +15,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = {
     openModal,
-    inputChange,
-    setCrossSiteRequestForgery,
-    saveUser
+    saveAppsModal
 };
 export const Apps = connect(mapStateToProps, mapDispatchToProps)(AppsComponent);
 export default Apps

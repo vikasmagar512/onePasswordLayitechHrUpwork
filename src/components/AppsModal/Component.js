@@ -19,14 +19,12 @@ export class AppsModalComponent extends Component{
         this.props.closeModal()
     }
     handleChange(e){
-        this.setState(...this.state.data,{
-            [e.target.name]: e.target.value
-        })
+        debugger
+        this.setState({data:{...this.state.data,[e.target.name]: e.target.value}})
     }
     render(){
-        const {modalOpen} = this.state;
-        const typeAdd = this.state.typeAdd
-        const data = this.state.data
+        const {modalOpen,typeAdd,data} = this.state;
+        debugger
         return(
             <Modal className="modal-container" show={modalOpen} onHide={()=>this.closeModal()} animation>
                 <Modal.Header>
@@ -47,7 +45,7 @@ export class AppsModalComponent extends Component{
                             App URL:
                         </div>
                         <div className="col-sm-4" id="modal-app-url">
-                            <input type="text" size="30" name="app_url" value={data.app_url} onChange={ this.handleChange }/>
+                            <input type="text" size="30" name="url" value={data.url} onChange={ this.handleChange }/>
                         </div>
                     </div>
                     <div className="row">
@@ -69,8 +67,7 @@ export class AppsModalComponent extends Component{
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className="btn btn-primary" name={typeAdd ? "Add" : "Save"} handleClick={()=>this.save()}/>
-                    <button className="btn btn-primary" name={typeAdd ? "Add" : "Save"} value={'save'} onClick={()=>this.save()}/>
-                    <Button type="button" className="btn btn-secondary" onClick={()=>this.closeModal()}>Close</Button>
+                    <Button className="btn btn-secondary" name={'Cancel'} handleClick={()=>this.closeModal()}/>
                 </Modal.Footer>
             </Modal>
         )
