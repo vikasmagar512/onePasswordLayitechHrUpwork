@@ -19,7 +19,6 @@ export class AppsModalComponent extends Component{
         this.props.closeModal()
     }
     handleChange(e){
-        debugger
         this.setState({data:{...this.state.data,[e.target.name]: e.target.value}})
     }
     render(){

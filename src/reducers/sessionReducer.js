@@ -4,7 +4,7 @@ import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, OPEN_MODAL,
     CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
     CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER,
-    SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER
+    SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS
 } from '../actions/actionTypes'
 import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
 import {Credentials, crosssite} from "../components/helpers";
@@ -44,6 +44,23 @@ export function auth(state = {
 }
 const globalState={
     registerModalOpen :false
+}
+const appsStore ={
+    apps:[
+        {"app_name":"Facebook","logo_url":null,"username":"patta35@gmail.com","url":"https://wwww.facebook.com","app_id":"6","password":"x"},
+        {"app_name":"facebook1","logo_url":"/logos/logo_gmail_64px.png","username":"patta@gmail.com","url":"null","app_id":"7","password":"test123"},
+        {"app_name":"facebook2","logo_url":null,"username":"patta@gmail.com","url":null,"app_id":"8","password":"test123"},
+        {"app_name":"facebook3","logo_url":"/logos/FB-fLogo-Blue-broadcast-2.png","username":"patta@gmail.com","url":"https://wwww.facebook.com","app_id":"9","password":"test123"},{"app_name":"fb1","logo_url":"/logos/logo_gmail_64px.png","username":"patta6@gmail.com","url":null,"app_id":"11","password":"test123"},
+        {"app_name":"fb2","logo_url":"/logos/logo_gmail_64px.png","username":"patta3@gmail.com","url":"www.facebook.com","app_id":"13","password":"test123"},
+        {"app_name":"fb6","logo_url":null,"username":"patta6@gmail.com","url":"facebookk.com","app_id":"14","password":"test123"},
+        {"app_name":"fb7","logo_url":null,"username":"patta6@gmail.com","url":null,"app_id":"15","password":"test123"},
+        {"app_name":"fb8","logo_url":null,"username":"patta6@gmail.com","url":"www.facebookk.com","app_id":"16","password":"test123"},
+        {"app_name":"fb89","logo_url":null,"username":"patta6@gmail.com","url":"www.facebookk.com","app_id":"17","password":"test123"},
+        {"app_name":"facebook12","logo_url":null,"username":"patta@gmail.com","url":"https://www.facebook.com","app_id":"19","password":"test123"},
+        {"app_name":"asdfasfasdfasdf","logo_url":null,"username":"patta@gmail.com","url":"","app_id":"22","password":"test123"}
+    ],
+    isFetching:false,
+    success:true
 }
 export const INITIAL_CROSSSITE = { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0,savedUsers:new Set() }
 const modalState= {
@@ -172,9 +189,41 @@ export function modal(state = modalState, action) {
             return state
     }
 }
+export const updateAppStore =(state,item,isAdd=false)=>{
+    return isAdd
+        ? [...state.apps,item]
+        : state.apps.map(app=>{
+            app.app_id===item.app_id ? item : app
+        })
+}
+export function apps(state = appsStore, action) {
+    debugger
 
-/*
-export default function sessionReducer(state = initialState, action) {
+  switch(action.type) {
+    case UPDATE_APPS_STORE_RESULT:{
+        return action.result.isError
+         ?
+        Object.assign({}, state, {
+            success:false
+        })
+        :
+        Object.assign({}, state, {
+            apps: [...state.apps,action.result.item],
+            apps: [...state.apps.map(item),action.result.item],
+            success:true
+        });
+    }
+    case APP_SAVE_FETCH_STATUS:{
+        return Object.assign({}, state, {
+            isFetching : action.status
+        });
+    }
+    default:{
+      return state;
+    }
+  }
+}
+/*export default function sessionReducer(state = initialState, action) {
 
   switch(action.type) {
     case LOG_IN_SUCCESS:{
@@ -202,6 +251,5 @@ export default function sessionReducer(state = initialState, action) {
       return state;
     }
   }
-}
-*/
+}*/
 

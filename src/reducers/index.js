@@ -1,10 +1,11 @@
 import {combineReducers} from 'redux';
-import {auth,modal,globalApp} from './sessionReducer';
+import {auth, modal, globalApp, apps} from './sessionReducer';
 
 const rootReducer = combineReducers({
   auth,
     modal,
-    globalApp
+    globalApp,
+    apps
 });
 
 export default rootReducer;

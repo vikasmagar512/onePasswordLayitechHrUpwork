@@ -19,37 +19,7 @@ export class AppsComponent extends Component{
             }
         }
         this.closeModal=this.closeModal.bind(this)
-        this.closeModal=this.closeModal.bind(this)
     }
-   /* save(){
-        const state = this.props.modal;
-        const activeRole = state.crosssite.activeRole
-        this.props.saveUser({activeRole})
-
-        let hash = this.serialize(state);
-
-        hash = hash.slice(0,hash.length-1);
-        // crosssite.edit_login = 0;
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('post', 'http://35.167.23.92/scan/save_loginnew');
-        // xhr.open('post', '/scan/save_loginnew');
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.withCredentials = true;
-        xhr.responseType = 'json';
-        xhr.addEventListener('load', () => {
-            if (xhr.status === 200) {
-                // this.props.saveUser(state.crosssite.activeRole)
-                // success
-                alert('The Login Credentials are saved');
-            } else {
-                // failure
-                // const errors = xhr.response.errors ? xhr.response.errors : {};
-                // errors.summary = xhr.response.message;
-            }
-        });
-        xhr.send(hash);
-    }*/
     closeModal(){
         this.setState({modalOpen:false})
     }
@@ -59,24 +29,11 @@ export class AppsComponent extends Component{
     }
     render(){
         const {modalOpen}=this.state
+        const {apps}=this.props
         let style={
             displayNone:{display:'none'},
             marginBottom:{marginBottom: '10px'}
         }
-        let apps=[
-            {"app_name":"Facebook","logo_url":null,"username":"patta35@gmail.com","url":"https://wwww.facebook.com","app_id":"6","password":"x"},
-            {"app_name":"facebook1","logo_url":"/logos/logo_gmail_64px.png","username":"patta@gmail.com","url":"null","app_id":"7","password":"test123"},
-            {"app_name":"facebook2","logo_url":null,"username":"patta@gmail.com","url":null,"app_id":"8","password":"test123"},
-            {"app_name":"facebook3","logo_url":"/logos/FB-fLogo-Blue-broadcast-2.png","username":"patta@gmail.com","url":"https://wwww.facebook.com","app_id":"9","password":"test123"},{"app_name":"fb1","logo_url":"/logos/logo_gmail_64px.png","username":"patta6@gmail.com","url":null,"app_id":"11","password":"test123"},
-            {"app_name":"fb2","logo_url":"/logos/logo_gmail_64px.png","username":"patta3@gmail.com","url":"www.facebook.com","app_id":"13","password":"test123"},
-            {"app_name":"fb6","logo_url":null,"username":"patta6@gmail.com","url":"facebookk.com","app_id":"14","password":"test123"},
-            {"app_name":"fb7","logo_url":null,"username":"patta6@gmail.com","url":null,"app_id":"15","password":"test123"},
-            {"app_name":"fb8","logo_url":null,"username":"patta6@gmail.com","url":"www.facebookk.com","app_id":"16","password":"test123"},
-            {"app_name":"fb89","logo_url":null,"username":"patta6@gmail.com","url":"www.facebookk.com","app_id":"17","password":"test123"},
-            {"app_name":"facebook12","logo_url":null,"username":"patta@gmail.com","url":"https://www.facebook.com","app_id":"19","password":"test123"},
-            {"app_name":"asdfasfasdfasdf","logo_url":null,"username":"patta@gmail.com","url":"","app_id":"22","password":"test123"}
-        ]
-
         const createAppBoxes = (apps=[])=>{
             return apps.map((item,i)=>(
                 <div key={i} className="card" id={`app-${item.app_id}`}>

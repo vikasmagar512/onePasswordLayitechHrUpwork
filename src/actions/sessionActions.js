@@ -1,7 +1,7 @@
 const BASE_URL ='http://52.38.226.152'
 import {
-    LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST, UPDATE_APPS_STORE_SUCCESS,
-    UPDATE_APPS_STORE_FAILURE, UPDATE_APP_SAVE_STATUS
+    LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
+     UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS
 } from "./actionTypes";
 
 /*export function logOutUser() {
@@ -71,26 +71,19 @@ function loginError(message) {
 // from localStorage. These actions are more useful if we
 // were calling the API to log the user out
 
-function saveAppsModalSuccess(item) {
-    return {
-        type: UPDATE_APPS_STORE_SUCCESS,
-        item
-    }
-}
-function saveAppsModalFailure(error) {
-    return {
-        type: UPDATE_APPS_STORE_FAILURE,
-        error
-    }
-}
 
-function savingAppsModal(status=false) {
+function saveAppsModalStatus(item,isError) {
     return {
-        type: UPDATE_APP_SAVE_STATUS,
+        type: UPDATE_APPS_STORE_RESULT,
+        result:{item,isError}
+    }
+}
+function fetchingAppsModal(status=false) {
+    return {
+        type: APP_SAVE_FETCH_STATUS,
         status
     }
 }
-
 function requestLogout() {
     return {
         type: LOGOUT_REQUEST,
@@ -122,7 +115,6 @@ export function loginUser(creds) {
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(creds))
         // http://35.167.23.92/scan/login
-        // return fetch(BASE_URL+'/scan/login', config)
         // return fetch(BASE_URL+'/scan/login', config)
         return fetch(BASE_URL+'/scan/login',{'mode': 'no-cors'}, config)
             .then(response => {
@@ -172,13 +164,13 @@ export function logoutUser() {
 }
 
 export function saveAppsModal(data) {
-    data ={
+    /*data ={
         app_name:'sdf',
         app_url:'',
         username:'',
         password:'',
         op:'add_app'
-    }
+    }*/
     let form_data = new FormData();
     for ( let key in data ) {
         form_data.append(key, data[key]);
@@ -193,18 +185,18 @@ export function saveAppsModal(data) {
     }
     debugger
     return dispatch => {
-        // dispatch(saveAppsModal(data))
-        dispatch(savingAppsModal(true))
+        dispatch(fetchingAppsModal(true))
         return fetch(BASE_URL+'/onepassword/app',{'mode': 'no-cors'}, config)
         .then((response) => {
             if (!response.ok) {
+                dispatch(fetchingAppsModal(false))
                 throw Error(response.statusText);
             }
-            dispatch(savingAppsModal(false))
             return response;
         })
         .then((response) => response.json())
-        .then((response) => dispatch(saveAppsModalSuccess(response.item)))
-        .catch((error) => dispatch(saveAppsModalFailure()))
+        .then((response) => dispatch(saveAppsModalStatus(response.item,false)))
+        // .catch((error) => dispatch(saveAppsModalStatus(null,true)))
+        .catch((error) => dispatch(saveAppsModalStatus(data,false)))
    }
 }

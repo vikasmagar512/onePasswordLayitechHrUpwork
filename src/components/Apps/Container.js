@@ -1,7 +1,7 @@
 import React,{PropTypes,Component} from 'react'
 import {connect} from 'react-redux'
 import {openModal} from "../../actions/processActions";
-import {getModalPropsSelector} from '../../selectors/index'
+import {getModalPropsSelector,getApps} from '../../selectors/index'
 import {AppsComponent} from './Component'
 import {saveAppsModal} from "../../actions/sessionActions";
 
@@ -10,7 +10,8 @@ AppsComponent.propTypes = {
 };
 const mapStateToProps = state => {
     return {
-        modal:getModalPropsSelector(state)
+        modal:getModalPropsSelector(state),
+        apps:getApps(state)
     }
 };
 const mapDispatchToProps = {
