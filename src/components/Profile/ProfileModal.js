@@ -1,39 +1,84 @@
 import React,{Component,PropTypes} from 'react'
 import { Modal} from 'react-bootstrap';
+import {closeProfileModal, openProfileModal} from "../../actions/processActions";
+import {connect} from "react-redux";
+import {getProfileModalDataSelector} from "../../selectors/index";
+import {Button} from "../helpers";
 
-export default class ProfileModal extends Component{
+export class ProfileModal extends Component{
     constructor(props){
         super(props);
-        this.state={
-            first_name:'',
-            last_name:'',
-            middle_name:'',
-            phone:'',
-            seqQ:[],
-            error:'',
-            waiting:false
-        };
+        this.state={...this.props.profileData}
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(e){
-        let name =e.target.name;
+        debugger
+        let name = e.target.name;
         let value = e.target.value;
-        console.log('e.target.name ',name);
-        console.log('e.target.value ',value);
-        this.setState({...this.state,[name]:value})
+        if(name.indexOf('question-')!==-1 || name.indexOf('answer-')!==-1){
+            let qIndex = name.split('-')[1]
+            debugger
+            let userQuestions = this.state.userQuestions
+            if(name.indexOf('question-')!==-1){
+                let question = null
+                this.state.questions.map((item,index)=>{
+                    if(item.question_id===value){
+                        question =item.question
+                    }
+                })
+                userQuestions[qIndex]['question_id']=value
+                userQuestions[qIndex]['question']=question
+            }else{
+                debugger
+                userQuestions[qIndex]['answer']=value
+            }
+            debugger
+            this.setState({...this.state,userQuestions:userQuestions})
+        }else{
+            this.setState({...this.state,[name]:value})
+        }
     }
     handleClick() {
-        let payload ={};
         let urlEncoded ='';
+
+        // let formData = new FormData()
         Object.keys(this.state).map((key,index)=>{
-            if(['error','waiting'].indexOf(key)===-1){
-                payload[key]=this.state[key].trim()
+            debugger
+            if(['first_name','last_name','middle_name','phone'].indexOf(key)!==-1){
+                // formData.append(key, this.state[key].trim());
                 urlEncoded+= `${key}=${this.state[key].trim()}&`
+
+            }else if(key==='userQuestions'){
+                this.state.userQuestions.map((item,index)=>{
+                    if(item.question_id!==''){
+                        // formData.append(`question-${index+1}`, item.question_id.trim());
+                        urlEncoded+= `question-${index+1}=${item.question_id.trim()}&`
+                    }
+                    urlEncoded+= `question-${index+1}-ans=${item.answer.trim()}&`
+                })
             }
         });
+
+        urlEncoded+= `op=update_user&`
+
+        // formData.append(`op`,'update_user');
         let urlEncodeded = urlEncoded.slice(0,urlEncoded.length-1)
+        debugger
         this.registerUser(urlEncodeded)
+
+        /*first_name:
+        last_name:
+        middle_name:
+        phone:5555555555
+        question-1:7
+        question-1-ans:lkll
+        question-2:12
+        question-2-ans:klllklkl
+        question-3-ans:
+        op:update_user*/
+        // this.registerUser(formData)
     }
+    // formData.append(`question-${index+1}-ans`, item.answer.trim());
     registerUser(data){
         let config = {
             method: 'POST',
@@ -64,42 +109,10 @@ export default class ProfileModal extends Component{
 
     render(){
         const {profileModalOpen,closeProfileModal} = this.props
-        // let {first_name,last_name,middle_name,phone,seqQ} = this.state
-        let {first_name,last_name,middle_name,phone} = this.state
-        let questions=[{"question":"What was your childhood nickname?","question_id":"1"},
-            {"question":"In what city did you meet your spouse/significant other?","question_id":"2"},
-            {"question":"What is the name of your favorite childhood friend?","question_id":"3"},
-            {"question":"What street did you live on in third grade?","question_id":"4"},
-            {"question":"What is your oldest siblings birthday month and year? (e.g., January 1900)","question_id":"5"},
-            {"question":"What is the middle name of your oldest child?","question_id":"6"},
-            {"question":"What is your oldest sibling's middle name?","question_id":"7"},
-            {"question":"What school did you attend for sixth grade?","question_id":"8"},
-            {"question":"What was your childhood phone number including area code? (e.g., 000-000-0000)","question_id":"9"},
-            {"question":"What is your oldest cousin's first and last name?","question_id":"10"},
-            {"question":"What was the name of your first stuffed animal?","question_id":"11"},
-            {"question":"In what city or town did your mother and father meet?","question_id":"12"},
-            {"question":"Where were you when you had your first kiss?","question_id":"13"},
-            {"question":"What is the first name of the boy or girl that you first kissed?","question_id":"14"},
-            {"question":"What was the last name of your third grade teacher?","question_id":"15"},
-            {"question":"In what city does your nearest sibling live?","question_id":"16"},
-            {"question":"What is your oldest brothers birthday month and year? (e.g., January 1900)","question_id":"17"},
-            {"question":"What is your maternal grandmother's maiden name?","question_id":"18"},
-            {"question":"In what city or town was your first job?","question_id":"19"},
-            {"question":"What is the name of the place your wedding reception was held?","question_id":"20"},
-            {"question":"What is the name of a college you applied to but didn't attend?","question_id":"21"}]
+        debugger
+        let {first_name,last_name,middle_name,phone,questions,userQuestions} = this.state
+        let noOfQuestions=  [0,1,2]
 
-        let user = {
-            "phone":null,
-            "last_name":"Muthu1",
-            "first_name":null,
-            "middle_name":null,
-            "user_id":"1"
-        }
-        let userQuestions = [
-            {"answer":"pattu","question":"What was your childhood nickname?","question_id":"1"},
-            {"answer":"senthil","question":"What is the name of your favorite childhood friend?","question_id":"3"},
-            {"answer":"rc school","question":"What school did you attend for sixth grade?","question_id":"8"}
-        ]
         return(
             <Modal className="modal-container" role="document" show={profileModalOpen}>
                 <Modal.Header>
@@ -133,7 +146,7 @@ export default class ProfileModal extends Component{
                                     Middle Name:
                                 </div>
                                 <div className="col-sm-4">
-                                    <input ref="middle_name" type="text" size="30" name="first_name" value={middle_name} onChange={this.handleChange}/>
+                                    <input ref="middle_name" type="text" size="30" name="middle_name" value={middle_name} onChange={this.handleChange}/>
                                 </div>
                             </div>
                             <div className="row">
@@ -145,31 +158,29 @@ export default class ProfileModal extends Component{
                                 </div>
                             </div>
                             {
-                                ([1,2,3].map((j)=>
-                                    (<div key={i} className="row">
+                                (noOfQuestions.map((item,j)=>
+                                    (<div key={j} className="row">
                                         <div className="col-sm-4">
-                                            Security question {{j}}
+                                            Security question
                                         </div>
                                         <div className="col-sm-4">
-                                            <select name="question-1" value={userQuestions[j].question_id} onChange={this.handleChange}>
+                                            <select name={`question-${j}`} value={userQuestions[j].question_id} onChange={this.handleChange}>
                                                 <option value="-1" selected="" disabled="">Please select</option>
                                                 {
-                                                    (questions).map((q, i) => (
+                                                    questions.map((q, i) => (
                                                         <option key={i} value={q.question_id}>{q.question}</option>
                                                     ))
                                                 }
                                             </select>
-                                            <input type="text" ref={`ans-${j}`} name={`ans-${j}`}/>
+                                            <input type="text" name={`answer-${j}`} value={userQuestions[j].answer} onChange={this.handleChange}/>
                                         </div>
                                     </div>)
                                 ))
                             }
                         </div>
                         <div className="modal-footer">
-                            <Button className="action back btn-primary" name={"Back"} handleClick={()=>this.closeProfileModal()}/>}
-                            <Button className="action next btn-primary" name={"Next"} handleClick={()=>this.nextButtonHandle()}/>}
-                            <input type="button" className="btn btn-primary" value="Register" onClick={() => this.handleClick()} />
-                            <button type="button" className="btn btn-default" onClick={()=>this.closeModal()}>Close</button>
+                            <input type="button" className="btn btn-secondary" value="Cancel" onClick={() => this.closeProfileModal()} />
+                            <input type="button" className="btn btn-primary" value="Update" onClick={() => this.handleClick()} />
                         </div>
                     </form>
                 </Modal.Body>
@@ -184,3 +195,16 @@ ProfileModal.PropTypes={
     loginUser:PropTypes.func.isRequired,
     profileModalOpen:PropTypes.bool.isRequired
 }
+
+function mapStateToProps(state) {
+    return {
+        profileData:getProfileModalDataSelector(state)
+    }
+}
+const mapDispatchToProps = {
+    openProfileModal,
+    closeProfileModal
+}
+const ProfileModalContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileModal);
+
+export default ProfileModalContainer

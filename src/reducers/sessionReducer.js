@@ -5,7 +5,7 @@ import {
     CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
     CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER,
     SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS,
-    OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL
+    OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL, SAVE_PROFILE_DATA
 } from '../actions/actionTypes'
 import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
 import {Credentials, crosssite} from "../components/helpers";
@@ -45,7 +45,42 @@ export function auth(state = {
 }
 const globalState={
     registerModalOpen :false,
-    profileModalOpen :false
+    profileModalOpen :false,
+    profileData:{
+        first_name:'',
+        last_name:'',
+        middle_name:'',
+        phone:'',
+        questions:[{"question":"What was your childhood nickname?","question_id":"1"},
+            {"question":"In what city did you meet your spouse/significant other?","question_id":"2"},
+            {"question":"What is the name of your favorite childhood friend?","question_id":"3"},
+            {"question":"What street did you live on in third grade?","question_id":"4"},
+            {"question":"What is your oldest siblings birthday month and year? (e.g., January 1900)","question_id":"5"},
+            {"question":"What is the middle name of your oldest child?","question_id":"6"},
+            {"question":"What is your oldest sibling's middle name?","question_id":"7"},
+            {"question":"What school did you attend for sixth grade?","question_id":"8"},
+            {"question":"What was your childhood phone number including area code? (e.g., 000-000-0000)","question_id":"9"},
+            {"question":"What is your oldest cousin's first and last name?","question_id":"10"},
+            {"question":"What was the name of your first stuffed animal?","question_id":"11"},
+            {"question":"In what city or town did your mother and father meet?","question_id":"12"},
+            {"question":"Where were you when you had your first kiss?","question_id":"13"},
+            {"question":"What is the first name of the boy or girl that you first kissed?","question_id":"14"},
+            {"question":"What was the last name of your third grade teacher?","question_id":"15"},
+            {"question":"In what city does your nearest sibling live?","question_id":"16"},
+            {"question":"What is your oldest brothers birthday month and year? (e.g., January 1900)","question_id":"17"},
+            {"question":"What is your maternal grandmother's maiden name?","question_id":"18"},
+            {"question":"In what city or town was your first job?","question_id":"19"},
+            {"question":"What is the name of the place your wedding reception was held?","question_id":"20"},
+            {"question":"What is the name of a college you applied to but didn't attend?","question_id":"21"}],
+        userQuestions : [
+            {"answer":"pattu","question":"What was your childhood nickname?","question_id":"1"},
+            {"answer":"senthil","question":"What is the name of your favorite childhood friend?","question_id":"3"},
+            {"answer":"rc school","question":"What school did you attend for sixth grade?","question_id":"8"}
+        ],
+        user_id:'',
+        error:'',
+        waiting:false
+    }
 }
 const appsStore ={
     apps:[
@@ -99,6 +134,8 @@ export function globalApp(state=globalState,action) {
     switch (action.type){
         case OPEN_REGISTER_MODAL:
             return {...state,registerModalOpen:true}
+        case SAVE_PROFILE_DATA:
+            return {...state,profileData:action.data}
         case CLOSE_REGISTER_MODAL:
             return {...state,registerModalOpen:false}
         case OPEN_PROFILE_MODAL:
@@ -208,7 +245,6 @@ export const updateAppStore =(state,item)=>{
         : [...state.apps,item]
 }
 export function apps(state = appsStore, action) {
-    debugger
 
   switch(action.type) {
     case UPDATE_APPS_STORE_RESULT:{
