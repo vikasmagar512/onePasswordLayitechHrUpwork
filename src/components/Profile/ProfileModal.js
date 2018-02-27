@@ -148,14 +148,16 @@ export default class ProfileModal extends Component{
                                 ([1,2,3].map((j)=>
                                     (<div key={i} className="row">
                                         <div className="col-sm-4">
-                                            Security question {{i}}
+                                            Security question {{j}}
                                         </div>
                                         <div className="col-sm-4">
-                                            <select name="question-1">
-                                                <option value="" selected="" disabled="">Please select</option>
-                                                (questions).map((q,i)=>(
-                                                    <option value={q.id}>{q}</option>
-                                                ))
+                                            <select name="question-1" value={userQuestions[j].question_id} onChange={this.handleChange}>
+                                                <option value="-1" selected="" disabled="">Please select</option>
+                                                {
+                                                    (questions).map((q, i) => (
+                                                        <option key={i} value={q.question_id}>{q.question}</option>
+                                                    ))
+                                                }
                                             </select>
                                             <input type="text" ref={`ans-${j}`} name={`ans-${j}`}/>
                                         </div>
@@ -164,8 +166,10 @@ export default class ProfileModal extends Component{
                             }
                         </div>
                         <div className="modal-footer">
+                            <Button className="action back btn-primary" name={"Back"} handleClick={()=>this.closeProfileModal()}/>}
+                            <Button className="action next btn-primary" name={"Next"} handleClick={()=>this.nextButtonHandle()}/>}
                             <input type="button" className="btn btn-primary" value="Register" onClick={() => this.handleClick()} />
-                            <button type="button" className="btn btn-secondary" onClick={closeProfileModal}>Close</button>
+                            <button type="button" className="btn btn-default" onClick={()=>this.closeModal()}>Close</button>
                         </div>
                     </form>
                 </Modal.Body>
