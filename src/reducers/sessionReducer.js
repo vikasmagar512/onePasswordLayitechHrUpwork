@@ -4,7 +4,8 @@ import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, OPEN_MODAL,
     CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
     CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER,
-    SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS
+    SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS,
+    OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL
 } from '../actions/actionTypes'
 import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
 import {Credentials, crosssite} from "../components/helpers";
@@ -43,7 +44,8 @@ export function auth(state = {
     }
 }
 const globalState={
-    registerModalOpen :false
+    registerModalOpen :false,
+    profileModalOpen :false
 }
 const appsStore ={
     apps:[
@@ -99,6 +101,10 @@ export function globalApp(state=globalState,action) {
             return {...state,registerModalOpen:true}
         case CLOSE_REGISTER_MODAL:
             return {...state,registerModalOpen:false}
+        case OPEN_PROFILE_MODAL:
+            return {...state,profileModalOpen:true}
+        case CLOSE_PROFILE_MODAL:
+            return {...state,profileModalOpen:false}
         default:
             return state
     }

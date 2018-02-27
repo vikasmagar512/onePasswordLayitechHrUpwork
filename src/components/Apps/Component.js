@@ -63,28 +63,7 @@ export class AppsComponent extends Component{
                 <div>
                     <button id="create_app" className="btn btn-primary" style={style.marginBottom} onClick={()=>this.openAppsModal()} >Add App</button>
                     <div>
-                        {
-                            <div className="card" >
-                                <h5 className="appname">
-                                    <span>Facebook</span>
-                                    <div className="edit_app">
-                                        <a id="edit_app_6">Edit <span className="glyphicon glyphicon-pencil"/>
-                                        </a>
-                                    </div>
-                                </h5>
-                                <div className="carddetail">
-                                    <div className="whitebuttonusername">Hide/Copy Username</div>
-                                    <span className="username">patta35@gmail.com</span>
-                                </div>
-                                <div className="carddetail">
-                                    <div className="whitebuttonpassword">Show Password</div>
-                                    <span className="password" style={{display:'none'}}>x</span>
-                                </div>
-                                <h4 className="app-url">
-                                    <a id="app-url-6" href="https://wwww.faceboosdfsfdsfk.com" target="_blank">https://wwww.facebook.com</a>
-                                </h4>
-                            </div>
-                        }
+                        { createAppBoxes(apps) }
                     </div>
                 </div>
                 {modalOpen && <AppsModalComponent {...this.props} modalOpen={modalOpen} modalData={this.state.modalData} saveAppsModal={this.props.saveAppsModal} closeModal = {this.closeModal}/>}

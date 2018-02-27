@@ -4,14 +4,15 @@ import {connect} from 'react-redux';
 
 import PropTypes from 'prop-types'
 import Header from './common/Header';
-import {getRegisterModalStatusSelector} from "../selectors/index";
+import {getRegisterModalStatusSelector,getProfileModalStatusSelector} from "../selectors/index";
 import RegisterModal from './Register/RegisterModal'
+import ProfileModal from './Profile/ProfileModal'
 import {loginUser} from "../actions/actions";
-import {closeRegisterModal, openRegisterModal} from "../actions/processActions";
+import {closeRegisterModal, openRegisterModal,closeProfileModal, openProfileModal} from "../actions/processActions";
 
 class AppComponent extends Component {
   render() {
-      const {registerModalOpen,children} = this.props
+      const {registerModalOpen,profileModalOpen,children} = this.props
     return (
         <div className="container-fluid">
             <Header/>
@@ -37,6 +38,8 @@ class AppComponent extends Component {
                 <div id="root">
                     {
                         registerModalOpen && <RegisterModal {...this.props}/>
+                        ||
+                        profileModalOpen && <ProfileModal {...this.props}/>
                     }
                     {children}
                 </div>
@@ -77,16 +80,20 @@ class AppComponent extends Component {
 const mapStateToProps=(state,ownProps)=>{
     console.log('mapStateToProps app state is',state)
     return {
-        registerModalOpen:getRegisterModalStatusSelector(state)
+        registerModalOpen:getRegisterModalStatusSelector(state),
+        profileModalOpen:getProfileModalStatusSelector(state)
     }
 }
 const mapDispatchToProps={
         loginUser,
         openRegisterModal,
-        closeRegisterModal
+        closeRegisterModal,
+        openProfileModal,
+        closeProfileModal
 }
 AppComponent.propTypes = {
     registerModalOpen:PropTypes.bool.isRequired,
+    profileModalOpen:PropTypes.bool.isRequired,
     children: PropTypes.object.isRequired
 };
 export const App = connect(mapStateToProps,mapDispatchToProps)(AppComponent)
