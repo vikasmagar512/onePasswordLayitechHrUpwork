@@ -4,6 +4,7 @@ import {closeProfileModal, openProfileModal} from "../../actions/processActions"
 import {connect} from "react-redux";
 import {getProfileModalDataSelector} from "../../selectors/index";
 import {Button} from "../helpers";
+import {saveProfileModal} from "../../actions/sessionActions";
 
 export class ProfileModal extends Component{
     constructor(props){
@@ -40,52 +41,33 @@ export class ProfileModal extends Component{
     }
     handleClick() {
         let urlEncoded ='';
-
-        // let formData = new FormData()
+        let payload = this.state
         Object.keys(this.state).map((key,index)=>{
             debugger
             if(['first_name','last_name','middle_name','phone'].indexOf(key)!==-1){
-                // formData.append(key, this.state[key].trim());
                 urlEncoded+= `${key}=${this.state[key].trim()}&`
-
             }else if(key==='userQuestions'){
                 this.state.userQuestions.map((item,index)=>{
                     if(item.question_id!==''){
-                        // formData.append(`question-${index+1}`, item.question_id.trim());
                         urlEncoded+= `question-${index+1}=${item.question_id.trim()}&`
                     }
                     urlEncoded+= `question-${index+1}-ans=${item.answer.trim()}&`
                 })
             }
         });
-
         urlEncoded+= `op=update_user&`
-
-        // formData.append(`op`,'update_user');
         let urlEncodeded = urlEncoded.slice(0,urlEncoded.length-1)
         debugger
-        this.registerUser(urlEncodeded)
-
-        /*first_name:
-        last_name:
-        middle_name:
-        phone:5555555555
-        question-1:7
-        question-1-ans:lkll
-        question-2:12
-        question-2-ans:klllklkl
-        question-3-ans:
-        op:update_user*/
-        // this.registerUser(formData)
+        this.registerUser({payload,urlEncodeded})
+        this.props.saveProfileModal({payload,urlEncodeded})
     }
-    // formData.append(`question-${index+1}-ans`, item.answer.trim());
-    registerUser(data){
+    registerUser({payload,urlEncodeded}){
         let config = {
             method: 'POST',
             headers: { 'Content-Type':'application/x-www-form-urlencoded' },
-            body: data
+            body: urlEncodeded
         }
-        fetch('http://35.167.23.92/scan/register', config)
+        fetch('http://52.38.226.152/onepassword/user', config)
         .then(response =>{
             console.log('response is ',response )
                 return response.json()
@@ -112,7 +94,6 @@ export class ProfileModal extends Component{
         debugger
         let {first_name,last_name,middle_name,phone,questions,userQuestions} = this.state
         let noOfQuestions=  [0,1,2]
-
         return(
             <Modal className="modal-container" role="document" show={profileModalOpen}>
                 <Modal.Header>
@@ -164,7 +145,7 @@ export class ProfileModal extends Component{
                                             Security question
                                         </div>
                                         <div className="col-sm-4">
-                                            <select name={`question-${j}`} value={userQuestions[j].question_id} onChange={this.handleChange}>
+                                            <select  style={{width:'230px'}} name={`question-${j}`} value={userQuestions[j].question_id} onChange={this.handleChange}>
                                                 <option value="-1" selected="" disabled="">Please select</option>
                                                 {
                                                     questions.map((q, i) => (
@@ -179,7 +160,7 @@ export class ProfileModal extends Component{
                             }
                         </div>
                         <div className="modal-footer">
-                            <input type="button" className="btn btn-secondary" value="Cancel" onClick={() => this.closeProfileModal()} />
+                            <input type="button" className="btn btn-secondary" value="Cancel" onClick={() => closeProfileModal()} />
                             <input type="button" className="btn btn-primary" value="Update" onClick={() => this.handleClick()} />
                         </div>
                     </form>
@@ -203,7 +184,8 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
     openProfileModal,
-    closeProfileModal
+    closeProfileModal,
+    saveProfileModal
 }
 const ProfileModalContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileModal);
 

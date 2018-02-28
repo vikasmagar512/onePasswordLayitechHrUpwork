@@ -12,7 +12,7 @@ import {closeRegisterModal, openRegisterModal,closeProfileModal, openProfileModa
 
 class AppComponent extends Component {
   render() {
-      const {registerModalOpen,profileModalOpen,children} = this.props
+      const {registerModalOpen,profileModalOpen,openProfileModal,children} = this.props
     return (
         <div className="container-fluid">
             <Header/>
@@ -24,14 +24,10 @@ class AppComponent extends Component {
                                 <li className="nav-item"><a href="/apps-anchor">Apps</a></li>
                                 <li className="nav-item"><a href="/last-login-anchor">Last Logins</a></li>
                                 <li className="nav-item"><a href="/restrict-ip-anchor">Restrict IP</a></li>
-                                <li className="nav-item"><a href="/profile-anchor" data-toggle="modal" data-target="#profile-modal">Profile</a></li>
+                                <li className="nav-item"><a onClick={()=>openProfileModal()}>Profile</a></li>
                                 <li className="nav-item"><a href="change-pwd-anchor">Change Password</a></li>
                                 <li className="nav-item"><a href="/help-anchor">Help</a></li>
-                                
-                                <li className="nav-item "><a href="/cross-site-scripting">Cross-Site Scripting</a></li>
-                                <li className="nav-item "><a href="/cross_site_req_forgery">Cross-Site Request Forgery</a></li>
-                                <li className="nav-item "><a href="/access_control">Missing Function Level Access Control</a></li>
-                            </ul>
+                                </ul>
                         </div>
                     </nav>
                 </div>
@@ -94,6 +90,7 @@ const mapDispatchToProps={
 AppComponent.propTypes = {
     registerModalOpen:PropTypes.bool.isRequired,
     profileModalOpen:PropTypes.bool.isRequired,
+    openProfileModal:PropTypes.func.isRequired,
     children: PropTypes.object.isRequired
 };
 export const App = connect(mapStateToProps,mapDispatchToProps)(AppComponent)

@@ -1,7 +1,7 @@
 const BASE_URL ='http://52.38.226.152'
 import {
     LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
-     UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS
+    UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS, PROFILE_SAVE_FETCH_STATUS, UPDATE_PROFILE_STORE_RESULT
 } from "./actionTypes";
 
 /*export function logOutUser() {
@@ -81,6 +81,18 @@ function saveAppsModalStatus(item,isError) {
 function fetchingAppsModal(status=false) {
     return {
         type: APP_SAVE_FETCH_STATUS,
+        status
+    }
+}
+function saveProfileModalStatus(profileData,isError) {
+    return {
+        type: UPDATE_PROFILE_STORE_RESULT,
+        result:{profileData,isError}
+    }
+}
+function fetchingProfileModal(status=false) {
+    return {
+        type: PROFILE_SAVE_FETCH_STATUS,
         status
     }
 }
@@ -199,4 +211,29 @@ export function saveAppsModal(data) {
         // .catch((error) => dispatch(saveAppsModalStatus(null,true)))
         .catch((error) => dispatch(saveAppsModalStatus(data,false)))
    }
+}
+export function saveProfileModal({payload,urlEncodeded}) {
+    let config = {
+        method: 'POST',
+        headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+        body: urlEncodeded
+        // credentials: 'same-origin'
+    }
+    debugger
+    return dispatch => {
+        dispatch(fetchingProfileModal(true))
+        return fetch(BASE_URL+'/onepassword/user',{'mode': 'no-cors'}, config)
+            .then((response) => {
+                if (!response.ok) {
+                    dispatch(fetchingProfileModal(false))
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
+            .then((response) => response.json())
+            .then((response) => dispatch(saveProfileModalStatus(payload,false)))
+            // .then((response) => dispatch(saveProfileModalStatus(response.item,false)))
+            // .catch((error) => dispatch(saveProfileModalStatus(null,true)))
+            .catch((error) => dispatch(saveProfileModalStatus(payload,false)))
+    }
 }

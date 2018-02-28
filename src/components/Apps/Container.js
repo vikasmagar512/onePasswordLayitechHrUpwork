@@ -6,11 +6,9 @@ import {AppsComponent} from './Component'
 import {saveAppsModal} from "../../actions/sessionActions";
 
 AppsComponent.propTypes = {
-    modal:PropTypes.object.isRequired
 };
 const mapStateToProps = state => {
     return {
-        modal:getModalPropsSelector(state),
         apps:getApps(state)
     }
 };

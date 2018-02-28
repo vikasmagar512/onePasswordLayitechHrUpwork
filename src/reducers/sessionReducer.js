@@ -5,7 +5,7 @@ import {
     CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
     CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER,
     SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS,
-    OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL, SAVE_PROFILE_DATA
+    OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL, SAVE_PROFILE_DATA, PROFILE_SAVE_FETCH_STATUS, UPDATE_PROFILE_STORE_RESULT
 } from '../actions/actionTypes'
 import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
 import {Credentials, crosssite} from "../components/helpers";
@@ -79,7 +79,9 @@ const globalState={
         ],
         user_id:'',
         error:'',
-        waiting:false
+        waiting:false,
+        isFetching:false,
+        success:true
     }
 }
 const appsStore ={
@@ -99,139 +101,33 @@ const appsStore ={
     isFetching:false,
     success:true
 }
-export const INITIAL_CROSSSITE = { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0,savedUsers:new Set() }
-const modalState= {
-    login_required:false,
-    url:'',
-    url_id:'',
-    service:crosssite,
-    steps:[
-        {
-            userrole:new Set(
-                /*'admin'*/
-            )
-        },{
-            login_type:{
-                // 'admin':'Cookie'
-            }
-        },{
-            success_url:{
-                // 'admin':'www.google.com'
-            }
-        },{
-            /*'admin':{
-                Cookie:[this.getValues(Cookie,1)],
-                Credentials:[this.getValues(Credentials,1)],
-                Selenium:[this.getValues(Selenium,1)],
-            }*/
-        }
-    ],
-    modalOpen:false,
-    // crosssite : { activeRole:'',currentstep: 1,currentWarning: false, limit: 5, edit_login: 0 }
-    crosssite : INITIAL_CROSSSITE
-}
+
 export function globalApp(state=globalState,action) {
     switch (action.type){
         case OPEN_REGISTER_MODAL:
             return {...state,registerModalOpen:true}
         case SAVE_PROFILE_DATA:
             return {...state,profileData:action.data}
-        case CLOSE_REGISTER_MODAL:
-            return {...state,registerModalOpen:false}
-        case OPEN_PROFILE_MODAL:
-            return {...state,profileModalOpen:true}
         case CLOSE_PROFILE_MODAL:
             return {...state,profileModalOpen:false}
+        case OPEN_PROFILE_MODAL:
+            return {...state,profileModalOpen:true}
+        case UPDATE_PROFILE_STORE_RESULT:{
+            if(action.result.isError) {
+                return {...state,profileData:{...state.profileData,success: false}}
+            }else{
+                debugger
+                return {...state,profileData:{...state.profileData,...action.result.profileData}}
+            }
+        }
+        case PROFILE_SAVE_FETCH_STATUS:{
+            return {...state,profileData:{...state.profileData,isFetching : action.status}}
+        }
         default:
             return state
     }
-}
-export const getModifiedSteps=(steps)=>{
-    let k = steps.map((step,index)=>{
-        switch (index){
-            case 0:
-                return {...step,userrole:new Set().add('no_role')}
-            case 1:
-                return {...step,login_type:{...step.login_type,no_role:''}}
-            case 2:
-                return {...step,success_url:{...step.success_url,no_role:''}}
-            case 3:{
-                let no_role = formAndAddStep3Object()
-                return {...step,no_role}
-            }
-            default:
-                return {...step}
-        }
-    })
-    return k
 }
 
-export const getAPIModifiedSteps=(steps)=>{
-    let stepsModified = getModifiedSteps(steps)
-    return stepsModified.map((step, index) => {
-        if (index === 1) {
-            return {...step, login_type: {...step.login_type, no_role: Credentials}}
-        } else if (index === 3) {
-            let k = formAndAddStep3ObjectForAPI()
-            return {...step, no_role: k}
-        } else {
-            return {...step}
-        }
-    })
-}
-export function modal(state = modalState, action) {
-    switch (action.type) {
-        case OPEN_MODAL:
-            return {...state,modalOpen:true}
-        case CLOSE_MODAL:
-            return {...state,modalOpen:false,crosssite:{...state.crosssite,currentstep:action.data.currentstep}}
-/*
-        case CLOSE_APP_MODAL:
-            return {...state,modalOpen:false}*/
-        case CROSS_SITE_RQ_FORGERY:
-            return {
-                ...state,
-                crosssite:{...state.crosssite,currentstep:2,activeRole:"no_role"},
-                steps:[...getModifiedSteps(state.steps)]
-            }
-        case ACCESS_CONTROL:
-            return modalState
-        case API_HANDLER:
-            return {
-                ...state,
-                request_type:'GET',
-                crosssite:{...state.crosssite,currentstep:4,activeRole:"no_role"},
-                steps:[...getAPIModifiedSteps(state.steps)]
-            }
-        case MODAL_INPUT_CHANGE: {
-            let crosssite = action.data.crosssite
-            return {...state,crosssite:{...state.crosssite,...crosssite},steps:action.data.steps}
-        }
-        case EDIT_LOGIN_CREDENTIALS:{
-            let crosssite = action.data
-            let k = {...state,crosssite:{...state.crosssite,...crosssite}}
-            return k
-        }
-        case INPUT_CHANGE:
-            return {...state,...action.data}
-        case BACK_BUTTON:
-            return {...state,crosssite:action.data}
-        case NEXT_BUTTON:
-            return {...state,crosssite:action.data}
-        case SET_CURRENT_STEP_ERROR:
-            return {...state,crosssite:action.data}
-        case ADD_MORE_PARAMS:
-            return {...state,steps:action.data.steps}
-        case ADD_ANOTHER_LOGIN:
-            return {...state,crosssite:action.data}
-        case SAVE_USER:{
-            let savedUsers = state.crosssite.savedUsers.add(action.data.activeRole)
-            return {...state,crosssite:{...state.crosssite,savedUsers:savedUsers}}
-        }
-        default:
-            return state
-    }
-}
 export const updateAppStore =(state,item)=>{
     let flag=false
     state.apps.map((app,i)=>{
@@ -245,7 +141,6 @@ export const updateAppStore =(state,item)=>{
         : [...state.apps,item]
 }
 export function apps(state = appsStore, action) {
-
   switch(action.type) {
     case UPDATE_APPS_STORE_RESULT:{
         if(action.result.isError) {
