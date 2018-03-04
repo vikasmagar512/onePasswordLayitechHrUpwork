@@ -9,8 +9,6 @@ import Register from "./components/Register/Register";
 import Apps from "./components/Apps/Container";
 import LastLogin from "./components/LastLogin/Container";
 import Logout from "./components/Logout";
-import {ProfileModal} from "./components/Profile/ProfileModal";
-import ProfileModalContainer from "./components/Profile/ProfileModal";
 
 export const getRoutes=(store,dispatch)=>{
     return (

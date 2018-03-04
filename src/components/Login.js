@@ -10,9 +10,9 @@ export default class Login extends Component {
     const { errorMessage,openRegisterModal} = this.props;
     const  username ="patta@gmail.com"
     const  password ="test123"
-    /*return (
+    return (
         <form className="form-inline">
-            <ul className="nav navbar-nav navbar-right">
+            <ul className="nav navbar-nav navbar-right" id="login-ul">
                 <li className="nav-item"><span>Username</span></li>
                 <li className="nav-item">
                     <input type='text' ref='username' className="form-control" style={{ marginRight: '5px' }} placeholder='Username' defaultValue={username}/>
@@ -30,22 +30,22 @@ export default class Login extends Component {
                 }
             </ul>
         </form>
-    )*/
-      return(
+    )
+      /*return(
           <div>
-              <form action="#" method="post" className="form-inline" id="login-form">
+              <form action="#" className="form-inline">
                   <ul className="nav navbar-nav navbar-right" id="login-ul">
                       <li className="nav-item"><span>Username</span></li>
                       <li className="nav-item"><input type="text" name="username" value="abc@example.com" onfocus="if(this.value == 'abc@example.com') { this.value = ''; }"/></li>
                       <li className="nav-item"><span>Password</span></li>
                       <li className="nav-item"><input type="password" name="password" value="password" onfocus="if(this.value == 'password') { this.value = ''; }"/></li>
                       <li className="nav-item"><input type="submit" id="login-button" className="btn btn-primary" value="Login"/></li>
-                      <li className="nav-item"><button type="button" className="btn btn-primary" data-toggle="modal" data-target="#newUser">Register</button></li>
+                      <li className="nav-item"><button type="button" className="btn btn-primary" >Register</button></li>
                   </ul>
               </form>
               <a id="forgot-pwd" className="forgotpwd" href="#">Forgot Password?</a>
           </div>
-      )
+      )*/
   }
 }
 

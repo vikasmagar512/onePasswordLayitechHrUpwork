@@ -9,7 +9,6 @@ export class AppsComponent extends Component{
     constructor(props){
         super(props);
         this.state={
-            // modalOpen:false,
             modalOpen:this.props.modalOpen,
             modalData:{
                 data:null,
@@ -20,18 +19,14 @@ export class AppsComponent extends Component{
         this.closeModal=this.closeModal.bind(this)
     }
     closeModal(){
-        // this.setState({modalOpen:false})
         this.props.closeAppsModal()
     }
     openAppsModal(appItem=emptyApp,typeAdd=true){
         debugger
-        // this.setState({modalOpen:true,modalData:{data:appItem,typeAdd}})
         var that = this
-        // that.props.openAppsModal()
         this.setState({modalData:{data:appItem,typeAdd}},()=>that.props.openAppsModal())
     }
     render(){
-        // const {modalOpen}=this.state
         const {apps,modalOpen}=this.props
         debugger
         let style={

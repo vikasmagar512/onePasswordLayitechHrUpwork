@@ -4,7 +4,7 @@ import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
     CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS,
     OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL, SAVE_PROFILE_DATA, PROFILE_SAVE_FETCH_STATUS, UPDATE_PROFILE_STORE_RESULT,
-    CLOSE_APPS_MODAL, OPEN_APPS_MODAL, SHOW_TOAST
+    CLOSE_APPS_MODAL, OPEN_APPS_MODAL, SHOW_TOAST, SET_TOAST
 } from '../actions/actionTypes'
 export function auth(state = {
     isFetching: false,
@@ -113,7 +113,7 @@ export function globalApp(state=globalState,action) {
             return {...state,profileModalOpen:false}
         case OPEN_PROFILE_MODAL:
             return {...state,profileModalOpen:true}
-        case SHOW_TOAST:
+        case SET_TOAST:
             return {...state,toastMessage:action.data}
         case UPDATE_PROFILE_STORE_RESULT:{
             if(action.result.isError) {

@@ -1,7 +1,7 @@
 import {
     CLOSE_REGISTER_MODAL, OPEN_MODAL, CLOSE_MODAL, MODAL_INPUT_CHANGE, INPUT_CHANGE, OPEN_REGISTER_MODAL, SAVE_USER,
     SAVE_APPS_MODAL, OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL,
-    OPEN_APPS_MODAL, CLOSE_APPS_MODAL, SHOW_TOAST
+    OPEN_APPS_MODAL, CLOSE_APPS_MODAL, SHOW_TOAST, SET_TOAST
 } from "./actionTypes";
 
 export const openRegisterModal=() =>({
@@ -22,8 +22,8 @@ export const openAppsModal=() =>({
 export const closeAppsModal=() =>({
     type: CLOSE_APPS_MODAL
 })
-export const showToast=(message) =>({
-    type: SHOW_TOAST,
+export const setToast=(message) =>({
+    type: SET_TOAST,
     data:message
 })
 

@@ -1,4 +1,4 @@
-import {closeAppsModal, showToast} from "./processActions";
+import {closeAppsModal, setToast} from "./processActions";
 
 const BASE_URL ='http://52.38.226.152'
 import {
@@ -216,7 +216,7 @@ export function saveAppsModal(data) {
         // .catch((error) => dispatch(saveAppsModalStatus(null,true)))
         .catch((error) => {
             dispatch(saveAppsModalStatus(data,false))
-            dispatch(showToast(`couldn't connect to server. Please try again later`))
+            dispatch(setToast(`couldn't connect to server. Please try again later`))
         })
    }
 }
