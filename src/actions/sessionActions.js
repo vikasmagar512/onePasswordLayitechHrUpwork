@@ -1,3 +1,5 @@
+import {closeAppsModal, showToast} from "./processActions";
+
 const BASE_URL ='http://52.38.226.152'
 import {
     LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
@@ -207,9 +209,15 @@ export function saveAppsModal(data) {
             return response;
         })
         .then((response) => response.json())
-        .then((response) => dispatch(saveAppsModalStatus(response.item,false)))
+        .then((response) => {
+            dispatch(saveAppsModalStatus(response.item,false))
+            dispatch(closeAppsModal())
+        })
         // .catch((error) => dispatch(saveAppsModalStatus(null,true)))
-        .catch((error) => dispatch(saveAppsModalStatus(data,false)))
+        .catch((error) => {
+            dispatch(saveAppsModalStatus(data,false))
+            dispatch(showToast(`couldn't connect to server. Please try again later`))
+        })
    }
 }
 export function saveProfileModal({payload,urlEncodeded}) {
@@ -231,7 +239,11 @@ export function saveProfileModal({payload,urlEncodeded}) {
                 return response;
             })
             .then((response) => response.json())
-            .then((response) => dispatch(saveProfileModalStatus(payload,false)))
+            .then((response) => {
+                    dispatch(saveProfileModalStatus(payload,false))
+                    dispatch(closeAppsModal())
+                }
+            )
             // .then((response) => dispatch(saveProfileModalStatus(response.item,false)))
             // .catch((error) => dispatch(saveProfileModalStatus(null,true)))
             .catch((error) => dispatch(saveProfileModalStatus(payload,false)))

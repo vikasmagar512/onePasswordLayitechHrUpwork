@@ -1,10 +1,7 @@
 import React,{Component} from 'react'
 import {AppsModalComponent} from "../AppsModal/Component";
 import { Modal} from 'react-bootstrap';
-import {
-    UserRoleComponent, LoginDetailsComponent, LoginTypeComponent, SuccessURLComponent, Button, login_type, path,
-    userrole, success_url, EditLoginComponent
-} from '../helpers'
+import {Button} from '../helpers'
 export const emptyApp ={"app_name":"","logo_url":null,"username":"","url":"","app_id":"","password":""}
 
 export class AppsComponent extends Component{
@@ -12,24 +9,31 @@ export class AppsComponent extends Component{
     constructor(props){
         super(props);
         this.state={
-            modalOpen:false,
+            // modalOpen:false,
+            modalOpen:this.props.modalOpen,
             modalData:{
                 data:null,
                 typeAdd:true
             }
         }
+
         this.closeModal=this.closeModal.bind(this)
     }
     closeModal(){
-        this.setState({modalOpen:false})
+        // this.setState({modalOpen:false})
+        this.props.closeAppsModal()
     }
     openAppsModal(appItem=emptyApp,typeAdd=true){
         debugger
-        this.setState({modalOpen:true,modalData:{data:appItem,typeAdd}})
+        // this.setState({modalOpen:true,modalData:{data:appItem,typeAdd}})
+        var that = this
+        // that.props.openAppsModal()
+        this.setState({modalData:{data:appItem,typeAdd}},()=>that.props.openAppsModal())
     }
     render(){
-        const {modalOpen}=this.state
-        const {apps}=this.props
+        // const {modalOpen}=this.state
+        const {apps,modalOpen}=this.props
+        debugger
         let style={
             displayNone:{display:'none'},
             marginBottom:{marginBottom: '10px'}

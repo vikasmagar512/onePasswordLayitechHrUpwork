@@ -1,7 +1,7 @@
 import {
-    CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, CLOSE_REGISTER_MODAL, API_HANDLER, SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN,
-    OPEN_MODAL, CLOSE_MODAL, MODAL_INPUT_CHANGE, INPUT_CHANGE, BACK_BUTTON, ADD_MORE_PARAMS, EDIT_LOGIN_CREDENTIALS,
-    NEXT_BUTTON, OPEN_REGISTER_MODAL, SAVE_USER, SAVE_APPS_MODAL, OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL
+    CLOSE_REGISTER_MODAL, OPEN_MODAL, CLOSE_MODAL, MODAL_INPUT_CHANGE, INPUT_CHANGE, OPEN_REGISTER_MODAL, SAVE_USER,
+    SAVE_APPS_MODAL, OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL,
+    OPEN_APPS_MODAL, CLOSE_APPS_MODAL, SHOW_TOAST
 } from "./actionTypes";
 
 export const openRegisterModal=() =>({
@@ -10,13 +10,23 @@ export const openRegisterModal=() =>({
 export const closeRegisterModal=() =>({
     type: CLOSE_REGISTER_MODAL
 })
-
 export const openProfileModal=() =>({
     type: OPEN_PROFILE_MODAL
 })
 export const closeProfileModal=() =>({
     type: CLOSE_PROFILE_MODAL
 })
+export const openAppsModal=() =>({
+    type: OPEN_APPS_MODAL
+})
+export const closeAppsModal=() =>({
+    type: CLOSE_APPS_MODAL
+})
+export const showToast=(message) =>({
+    type: SHOW_TOAST,
+    data:message
+})
+
 export const openModal=()=>({
     type: OPEN_MODAL
 })
@@ -34,10 +44,6 @@ export const modalInputChange=(data)=>({
     data
 })
 
-export const editLoginCredentials=(data)=> ({
-    type: EDIT_LOGIN_CREDENTIALS,
-    data
-})
 export const inputChange=(data)=> ({
     type: INPUT_CHANGE,
     data

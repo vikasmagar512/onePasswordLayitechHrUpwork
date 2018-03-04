@@ -4,17 +4,45 @@ import {connect} from 'react-redux';
 
 import PropTypes from 'prop-types'
 import Header from './common/Header';
-import {getRegisterModalStatusSelector,getProfileModalStatusSelector} from "../selectors/index";
+import {
+    getRegisterModalStatusSelector, getProfileModalStatusSelector,
+    getToastMessageselector
+} from "../selectors/index";
 import RegisterModal from './Register/RegisterModal'
 import ProfileModal from './Profile/ProfileModal'
 import {loginUser} from "../actions/actions";
 import {closeRegisterModal, openRegisterModal,closeProfileModal, openProfileModal} from "../actions/processActions";
 
 class AppComponent extends Component {
-  render() {
-      const {registerModalOpen,profileModalOpen,openProfileModal,children} = this.props
+    constructor(props){
+        super(props)
+        this.snackbar = null
+    }
+    componentDidMount(){
+        const {toastMessage} = this.props
+        if(toastMessage){
+            this.snackbar = document.getElementById("snackbar")
+            debugger
+            this.snackbar.className = "show";
+            setTimeout(function(){ this.snackbar.className = this.snackbar.className.replace("show", ""); }, 3000);
+        }
+    }
+    componentWillReceiveProps(){
+
+    }
+    render() {
+      const {registerModalOpen,profileModalOpen,openProfileModal,toastMessage,children} = this.props
+        console.log(this.snackbar)
+        debugger
+      if(toastMessage && this.snackbar){
+          debugger
+              debugger
+              this.snackbar.className = "show";
+              setTimeout(function(){ this.snackbar.className = this.snackbar.className.replace("show", ""); }, 3000);
+      }
     return (
         <div className="container-fluid">
+            <div id="snackbar">Some text some message..</div>
             <Header/>
             <div className="row">
                 <div className="col-sm-3 col-lg-2">
@@ -77,7 +105,8 @@ const mapStateToProps=(state,ownProps)=>{
     console.log('mapStateToProps app state is',state)
     return {
         registerModalOpen:getRegisterModalStatusSelector(state),
-        profileModalOpen:getProfileModalStatusSelector(state)
+        profileModalOpen:getProfileModalStatusSelector(state),
+        toastMessage:getToastMessageselector(state)
     }
 }
 const mapDispatchToProps={
@@ -91,6 +120,7 @@ AppComponent.propTypes = {
     registerModalOpen:PropTypes.bool.isRequired,
     profileModalOpen:PropTypes.bool.isRequired,
     openProfileModal:PropTypes.func.isRequired,
+    toastMessage:PropTypes.string.isRequired,
     children: PropTypes.object.isRequired
 };
 export const App = connect(mapStateToProps,mapDispatchToProps)(AppComponent)

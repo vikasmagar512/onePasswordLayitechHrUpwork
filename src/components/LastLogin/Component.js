@@ -8,7 +8,6 @@ export class LastLoginComponent extends Component{
         this.getLogs()
     }
     getLogs(){
-        alert('getlogs')
         const xhr = new XMLHttpRequest();
         xhr.open('post', 'http://52.38.226.152/onepassword/log');
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

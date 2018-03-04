@@ -1,14 +1,11 @@
 import initialState from './initialState';
 import {browserHistory} from 'react-router';
 import {
-    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, OPEN_MODAL,
-    CLOSE_MODAL, INPUT_CHANGE, MODAL_INPUT_CHANGE, EDIT_LOGIN_CREDENTIALS, BACK_BUTTON, NEXT_BUTTON, ADD_MORE_PARAMS,
-    CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, CROSS_SITE_RQ_FORGERY, ACCESS_CONTROL, API_HANDLER,
-    SET_CURRENT_STEP_ERROR, ADD_ANOTHER_LOGIN, SAVE_USER, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS,
-    OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL, SAVE_PROFILE_DATA, PROFILE_SAVE_FETCH_STATUS, UPDATE_PROFILE_STORE_RESULT
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
+    CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS,
+    OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL, SAVE_PROFILE_DATA, PROFILE_SAVE_FETCH_STATUS, UPDATE_PROFILE_STORE_RESULT,
+    CLOSE_APPS_MODAL, OPEN_APPS_MODAL, SHOW_TOAST
 } from '../actions/actionTypes'
-import {formAndAddStep3Object, formAndAddStep3ObjectForAPI} from '../helperFunc'
-import {Credentials, crosssite} from "../components/helpers";
 export function auth(state = {
     isFetching: false,
     isAuthenticated: (document.cookie !== "" && document.cookie.split("=")[1] !== ''),
@@ -82,7 +79,8 @@ const globalState={
         waiting:false,
         isFetching:false,
         success:true
-    }
+    },
+    toastMessage:null
 }
 const appsStore ={
     apps:[
@@ -98,6 +96,7 @@ const appsStore ={
         {"app_name":"facebook12","logo_url":null,"username":"patta@gmail.com","url":"https://www.facebook.com","app_id":"19","password":"test123"},
         {"app_name":"asdfasfasdfasdf","logo_url":null,"username":"patta@gmail.com","url":"","app_id":"22","password":"test123"}
     ],
+    modalOpen:false,
     isFetching:false,
     success:true
 }
@@ -106,12 +105,16 @@ export function globalApp(state=globalState,action) {
     switch (action.type){
         case OPEN_REGISTER_MODAL:
             return {...state,registerModalOpen:true}
+        case CLOSE_REGISTER_MODAL:
+            return {...state,registerModalOpen:false}
         case SAVE_PROFILE_DATA:
             return {...state,profileData:action.data}
         case CLOSE_PROFILE_MODAL:
             return {...state,profileModalOpen:false}
         case OPEN_PROFILE_MODAL:
             return {...state,profileModalOpen:true}
+        case SHOW_TOAST:
+            return {...state,toastMessage:action.data}
         case UPDATE_PROFILE_STORE_RESULT:{
             if(action.result.isError) {
                 return {...state,profileData:{...state.profileData,success: false}}
@@ -154,6 +157,10 @@ export function apps(state = appsStore, action) {
             })
         }
     }
+    case CLOSE_APPS_MODAL:
+          return {...state,modalOpen:false}
+    case OPEN_APPS_MODAL:
+          return {...state,modalOpen:true}
     case APP_SAVE_FETCH_STATUS:{
         return {...state,isFetching : action.status};
     }
