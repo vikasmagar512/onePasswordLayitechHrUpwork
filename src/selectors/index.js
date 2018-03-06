@@ -7,6 +7,7 @@ const getProfileModalStatus= state => state.globalApp.profileModalOpen
 const getToastMessage= state => state.globalApp.toastMessage
 const getAppsModalStatus= state => state.apps.modalOpen
 const getProfileModalData= state => state.globalApp.profileData
+const getLastLoginLogs= state => state.globalApp.lastLoginLogs
 
 export const getRegisterModalStatusSelector = createSelector(
     getRegisterModalStatus,
@@ -54,3 +55,12 @@ export const getApps= createSelector(
         return apps
     }
 );
+export const getLastLoginSelector= createSelector(
+    getLastLoginLogs,
+    (apps) => {
+        // debugger
+        console.log('getApps apps ',apps)
+        return apps
+    }
+);
+

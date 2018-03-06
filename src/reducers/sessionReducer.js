@@ -1,10 +1,10 @@
 import initialState from './initialState';
 import {browserHistory} from 'react-router';
 import {
-    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
-    CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL, UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS,
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, CLOSE_REGISTER_MODAL, OPEN_REGISTER_MODAL,
+    UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS,
     OPEN_PROFILE_MODAL, CLOSE_PROFILE_MODAL, SAVE_PROFILE_DATA, PROFILE_SAVE_FETCH_STATUS, UPDATE_PROFILE_STORE_RESULT,
-    CLOSE_APPS_MODAL, OPEN_APPS_MODAL, SHOW_TOAST, SET_TOAST
+    CLOSE_APPS_MODAL, OPEN_APPS_MODAL, SET_TOAST, SAVE_LOGS, UPDATE_LOGS_STORE_RESULT
 } from '../actions/actionTypes'
 export function auth(state = {
     isFetching: false,
@@ -14,28 +14,27 @@ export function auth(state = {
 }, action) {
     switch (action.type) {
         case LOGIN_REQUEST:
-            return Object.assign({}, state, {
-                isFetching: true,
+            return {...state, isFetching: true,
                 isAuthenticated: false,
                 user: action.creds
-            })
+            }
         case LOGIN_SUCCESS:
-            return Object.assign({}, state, {
+            return {...state,
                 isFetching: false,
                 isAuthenticated: true,
                 errorMessage: ''
-            })
+            }
         case LOGIN_FAILURE:
-            return Object.assign({}, state, {
+            return {...state,
                 isFetching: false,
                 isAuthenticated: false,
                 errorMessage: action.message
-            })
+            }
         case LOGOUT_SUCCESS:
-            return Object.assign({}, state, {
+            return {...state,
                 isFetching: true,
                 isAuthenticated: false
-            })
+            }
         default:
             return state
     }
@@ -43,6 +42,11 @@ export function auth(state = {
 const globalState={
     registerModalOpen :false,
     profileModalOpen :false,
+    lastLoginLogs:[
+        {"location": null, "ip_address": "67.162.80.128", "date": "2017-12-23 17:23:06"},
+        {"location": null, "ip_address": "67.162.80.128", "date": "2017-12-24 22:41:12"},
+        {"location": null, "ip_address": "67.162.80.128", "date": "2017-12-25 04:04:04"}
+    ],
     profileData:{
         first_name:'',
         last_name:'',
@@ -126,6 +130,13 @@ export function globalApp(state=globalState,action) {
         case PROFILE_SAVE_FETCH_STATUS:{
             return {...state,profileData:{...state.profileData,isFetching : action.status}}
         }
+        case UPDATE_LOGS_STORE_RESULT:{
+            return {...state,lastLoginLogs:action.result.logs}
+        }
+
+        case SAVE_LOGS:{
+            return {...state,lastLoginLogs:action.logs}
+        }
         default:
             return state
     }
@@ -150,11 +161,7 @@ export function apps(state = appsStore, action) {
             return {...state,success: false}
         }else{
             let k = updateAppStore(state,action.result.item)
-            debugger
-            return Object.assign({}, state, {
-                apps: k,
-                success:true
-            })
+            return {...state,apps: k,success:true}
         }
     }
     case CLOSE_APPS_MODAL:

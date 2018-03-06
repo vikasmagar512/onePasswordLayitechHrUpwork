@@ -3,7 +3,8 @@ import {closeAppsModal, setToast} from "./processActions";
 const BASE_URL ='http://52.38.226.152'
 import {
     LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGOUT_SUCCESS, LOGOUT_REQUEST,
-    UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS, PROFILE_SAVE_FETCH_STATUS, UPDATE_PROFILE_STORE_RESULT
+    UPDATE_APPS_STORE_RESULT, APP_SAVE_FETCH_STATUS, PROFILE_SAVE_FETCH_STATUS, UPDATE_PROFILE_STORE_RESULT,
+    UPDATE_LOGS_STORE_RESULT, LOGS_SAVE_FETCH_STATUS
 } from "./actionTypes";
 
 /*export function logOutUser() {
@@ -76,13 +77,25 @@ function loginError(message) {
 
 function saveAppsModalStatus(item,isError) {
     return {
-        type: UPDATE_APPS_STORE_RESULT,
+        type: UPDATE_APPS_STORE_RESULT ,
         result:{item,isError}
+    }
+}
+function saveLastLoginLogsStatus(logs,isError) {
+    return {
+        type: UPDATE_LOGS_STORE_RESULT,
+        result:{logs,isError}
     }
 }
 function fetchingAppsModal(status=false) {
     return {
         type: APP_SAVE_FETCH_STATUS,
+        status
+    }
+}
+function fetchingLastLoginLogs(status=false) {
+    return {
+        type: LOGS_SAVE_FETCH_STATUS,
         status
     }
 }
@@ -220,6 +233,41 @@ export function saveAppsModal(data) {
         })
    }
 }
+
+export function getLastLoginLogs() {
+    let config = {
+        method: 'POST',
+        headers: { 'Content-Type':'application/x-www-form-urlencoded' },
+        // body: urlEncodeded
+        // credentials: 'same-origin'
+    }
+    var logs = [
+        {"location": null, "ip_address": "67.162.80.128", "date": "2017-12-23 17:23:06"},
+        {"location": null, "ip_address": "67.162.80.128", "date": "2017-12-24 22:41:12"},
+        {"location": null, "ip_address": "67.162.80.128", "date": "2017-12-25 04:04:04"}
+    ]
+    debugger
+    return dispatch => {
+        dispatch(fetchingLastLoginLogs(true))
+        return fetch(BASE_URL+'/onepassword/log',{'mode': 'no-cors'}, config)
+            .then((response) => {
+                if (!response.ok) {
+                    dispatch(fetchingLastLoginLogs(false))
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
+            .then((response) => response.json())
+            .then((response) => {
+                    dispatch(saveLastLoginLogsStatus(response.logs,false))
+                }
+            )
+            // .then((response) => dispatch(saveProfileModalStatus(response.item,false)))
+            // .catch((error) => dispatch(saveProfileModalStatus(null,true)))
+            .catch((error) => dispatch(saveLastLoginLogsStatus(logs,false)))
+    }
+}
+
 export function saveProfileModal({payload,urlEncodeded}) {
     let config = {
         method: 'POST',
